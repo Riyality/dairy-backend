@@ -27,5 +27,12 @@ public class MessageConstants {
 
 	public static final String ADD_FARMER_SUCCESS_MESSAGE = "Farmer added successfully";
 	public static final String ADD_FARMER_ERROR_MSG = "Failed To add farmer";
+	
+	public static final String ADD_SUPPLIER_SUCCESS_MESSAGE = "Supplier Added successfully";
+	public static final String ADD_SUPPLIER_ERROR_MSG = "Unable to add supplier";
+	public static final String UPDATE_SUPPLIER_SUCCESS_MESSAGE = "Update supplier successfully ";
+	public static final String UPDATE_SUPPLIER_ERROR_MSG = "Unable to update supplier";
+
+
 
 }
