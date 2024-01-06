@@ -47,4 +47,9 @@ public class FeedTypeController {
 		return new ResponseEntity<>(feedTypeService.getAllFeedTypes(), HttpStatus.OK);
 	}
 
+	@GetMapping("getFeedTypeByFeedCompanyId/{id}")
+	public ResponseEntity<List<FeedTypeResponseDto>> getFeedTypeByFeedCompanyId(@PathVariable Long id) {
+		return new ResponseEntity<>(feedTypeService.getFeedTypeByFeedCompanyId(id), HttpStatus.OK);
+	}
+
 }

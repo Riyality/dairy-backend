@@ -68,4 +68,11 @@ public class FeedtypeServiceImpl implements FeedTypeService {
 		return feedTypeMapper.toList(feedType);
 	}
 
+	@Override
+	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(Long id) {
+		List<FeedType> feedType = feedTypeRepository.findAll();
+
+		return feedTypeMapper.toList(feedType);
+	}
+
 }
