@@ -42,7 +42,7 @@ public class FeedTypeController {
 
 	}
 
-	@GetMapping("/getAllFeedTypes")
+	@GetMapping()
 	public ResponseEntity<List<FeedTypeResponseDto>> getAllFeedTypes() {
 		return new ResponseEntity<>(feedTypeService.getAllFeedTypes(), HttpStatus.OK);
 	}
