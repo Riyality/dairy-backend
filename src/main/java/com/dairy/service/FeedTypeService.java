@@ -13,4 +13,6 @@ public interface FeedTypeService {
 
 	public FeedTypeResponseDto findById(Long id);
 
+	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(Long id);
+
 }

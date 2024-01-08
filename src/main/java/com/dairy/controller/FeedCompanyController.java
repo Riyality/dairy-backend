@@ -43,7 +43,7 @@ public class FeedCompanyController {
 		return ResponseEntity.status( HttpStatus.OK ).body(responseDto);
 	}
 	
-	@GetMapping("/findAll")
+	@GetMapping()
 	public ResponseEntity<List<FeedCompanyResponseDto>> findAll() {
 		return new ResponseEntity<>( feedCompanyService.findAll(), HttpStatus.OK );
 	}
