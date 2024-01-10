@@ -42,6 +42,12 @@ public class MessageConstants {
 	public static final String ADD_ADVANCETOFARMER_ERROR_MSG = "Unable to add";
 	public static final String UPDATE_ADVANCETOFARMER_SUCCESS_MESSAGE = "update AdvanceToFarmer successfully";
 	public static final String UPDATE_ADVANCETOFARMER_ERROR_MSG = "Unable to update advance";
+	
+	public static final String ADD_MAIN_BRANCH_SUCCESS_MESSAGE = "Main Branch added successfully";
+	public static final String ADD_MAIN_BRANCH_ERROR_MESSAGE = "Unable to add mainBranch";
+	public static final String UPDATE_MAIN_BRANCH_SUCCESS_MESSAGE = "update mainBranch successfully";
+	public static final String UPDATE_MAIN_BRANCH_ERROR_MESSAGE = "unable to update mainBranch";
+	
 
 
 

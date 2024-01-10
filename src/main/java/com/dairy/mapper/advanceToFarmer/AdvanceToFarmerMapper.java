@@ -41,6 +41,7 @@ public class AdvanceToFarmerMapper {
 		
 		if (advanceToFarmer.getFarmer() != null) {
 			responseDto.setFarmerId(advanceToFarmer.getFarmer().getId());
+			responseDto.setFarmerName(advanceToFarmer.getFarmer().getName());
 		}
 		return responseDto;
 	}

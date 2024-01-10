@@ -23,5 +23,6 @@ public class AdvanceToFarmerResponseDto {
 	private Float deduction;
 	private Float remainingAmount;
 	private Long farmerId;
+	private String farmerName;
 
 }
