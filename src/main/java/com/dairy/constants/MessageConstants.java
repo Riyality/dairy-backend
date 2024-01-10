@@ -38,6 +38,9 @@ public class MessageConstants {
 	public static final String UPDATE_FEEDSTOCK_SUCCESS_MESSAGE = "Update feedStock Successfully";
 	public static final String UPDATE_FEEDSTOCK_ERROR_MSG = "Unable to update";
 
-
+	public static final String ADD_ROUTE_SUCCESS_MESSAGE = "Route added successfully";
+	public static final String ADD_ROUTE_ERROR_MSG = "Unable to add Route";
+	public static final String UPDATE_ROUTE_SUCCESS_MESSAGE = "Route Updated";
+	public static final String UPDATE_ROUTE_ERROR_MSG = "Unable to update";
 
 }
