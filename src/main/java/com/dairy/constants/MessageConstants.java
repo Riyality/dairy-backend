@@ -43,6 +43,9 @@ public class MessageConstants {
 	public static final String UPDATE_ADVANCETOFARMER_SUCCESS_MESSAGE = "update AdvanceToFarmer successfully";
 	public static final String UPDATE_ADVANCETOFARMER_ERROR_MSG = "Unable to update advance";
 
-
+	public static final String ADD_ROUTE_SUCCESS_MESSAGE = "Route added successfully";
+	public static final String ADD_ROUTE_ERROR_MSG = "Unable to add Route";
+	public static final String UPDATE_ROUTE_SUCCESS_MESSAGE = "Route Updated";
+	public static final String UPDATE_ROUTE_ERROR_MSG = "Unable to update";
 
 }
