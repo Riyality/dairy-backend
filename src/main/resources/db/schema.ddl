@@ -4,53 +4,71 @@ use `dairy`;
 
 CREATE TABLE `branch` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(32) NULL,
+  `name` VARCHAR(32) NOT NULL,
   `address` VARCHAR(128) NULL,
-  `owner` VARCHAR(32) NULL,
+  `owner` VARCHAR(32) NOT NULL,
   `start_date` TIMESTAMP NULL,
-  `owner_contact` VARCHAR(16) NULL,
+  `owner_contact`VARCHAR(16) NOT NULL,
+   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));
   
 CREATE TABLE `login` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
   `password` varchar(25) NOT NULL,
   `role`  VARCHAR(32) NOT NULL,
   `name` VARCHAR(32) NOT NULL,
+   `branch` INT,
+   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 );
 
 CREATE TABLE `dairy`.`bank_details` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `bank_name` VARCHAR(45) NULL,
-  `IFSC_code` VARCHAR(45) NULL,
+  `bank_name` VARCHAR(45) NOT NULL,
+  `IFSC_code` VARCHAR(32) NULL,
   `branch_name` VARCHAR(45) NULL,
-  `account_number` VARCHAR(45) NULL,
+  `account_number` VARCHAR(45) NOT NULL,
   `UPI_id` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
+   `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+   FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+  );
 
   
 CREATE TABLE `employee` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(32) NULL,
-  `contact` VARCHAR(16) NULL,
-  `address` VARCHAR(64) NOT NULL,
+  `name` VARCHAR(32) NOT NULL,
+  `contact` VARCHAR(16) NOT NULL,
+  `address` VARCHAR(64)NOT NULL,
   `date_of_joining` TIMESTAMP NULL,
    branch INT NOT NULL,
    bank BIGINT NULL,
+    `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    FOREIGN KEY (bank) REFERENCES bank_details(id),
    FOREIGN KEY (branch) REFERENCES branch(id),
   PRIMARY KEY (`id`));
   
   CREATE TABLE `dairy`.`equipment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(64) NOT NULL,
   `date_of_purchase` TIMESTAMP NULL,
   `quantity` INT NULL,
   `price` FLOAT NULL,
-  `total_amount` FLOAT NULL,
-  PRIMARY KEY (`id`));
+   `total_amount` FLOAT NULL,
+   `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+    FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+  );
 
   CREATE TABLE `dairy`.`vendor` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -59,18 +77,26 @@ CREATE TABLE `employee` (
   `date_of_registration` TIMESTAMP NULL,
   `address` VARCHAR(64) NULL,
    bank BIGINT NULL,
+   `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   FOREIGN KEY (`branch`) REFERENCES `branch`(`id`),
    FOREIGN KEY (bank) REFERENCES bank_details(id),
   PRIMARY KEY (`id`));
   
   CREATE TABLE `dairy`.`feed_company` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(32) NULL,
+    `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));
   
   CREATE TABLE `dairy`.`feed_types` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `type` VARCHAR(32) NULL,
+  `type` VARCHAR(32) NOT NULL,
    feed_company BIGINT NULL,
+   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    FOREIGN KEY (feed_company) REFERENCES feed_company(id),
   PRIMARY KEY (`id`));
   
@@ -84,25 +110,32 @@ CREATE TABLE `employee` (
   vendor BIGINT NULL,
   feed_company BIGINT NULL,
   feed_type BIGINT NULL,
-  FOREIGN KEY (vendor) REFERENCES vendor(id),
-  FOREIGN KEY (feed_company) REFERENCES feed_company(id),
-  FOREIGN KEY (feed_type) REFERENCES feed_types(id),
+  `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   FOREIGN KEY (`vendor`) REFERENCES `vendor`(`id`),
+  FOREIGN KEY (`feed_company`) REFERENCES `feed_company`(`id`),
+  FOREIGN KEY (`feed_type`) REFERENCES `feed_types`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
   PRIMARY KEY (`id`));
 
 
 CREATE TABLE `dairy`.`farmers` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(32) NOT NULL,
   `date_of_registration` TIMESTAMP NULL,
-  `contact` VARCHAR(45) NULL,
-  `route` VARCHAR(45) NULL,
-  `address` VARCHAR(45) NULL,
-  `status` VARCHAR(45) NULL,
+  `contact` VARCHAR(16) NOT NULL,
+  `route` BIGINT(64) NOT NULL,
+  `address` VARCHAR(64) NULL,
+  `status` VARCHAR(32) NULL,
    bank BIGINT NULL,
    branch INT NOT NULL,
-   FOREIGN KEY (bank) REFERENCES bank_details(id),
-   FOREIGN KEY (branch) REFERENCES branch(id),
-  PRIMARY KEY (`id`));
+   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`bank`) REFERENCES `bank_details`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+);
 
   
   CREATE TABLE `dairy`.`farmer_animal_mapping` (
@@ -111,23 +144,32 @@ CREATE TABLE `dairy`.`farmers` (
   `count` INT NULL,
   `status` VARCHAR(45) NULL,
   `farmer` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES farmers(id),
-  PRIMARY KEY (`id`));
-
+    `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+);
   
   CREATE TABLE `dairy`.`milk_collection` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `date_of_collection` TIMESTAMP NULL,
-  `shift` VARCHAR(45) NULL,
-  `type` VARCHAR(45) NULL,
+  `shift` VARCHAR(32) NULL,
+  `type` VARCHAR(32) NOT NULL,
   `quantity` FLOAT NULL,
   `fat` FLOAT NULL,
   `snf` FLOAT NULL,
   `rate` FLOAT NULL,
   `total_amount` FLOAT NULL,
   `farmer` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES farmers(id),
-  PRIMARY KEY (`id`));
+    `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+);
   
   CREATE TABLE `dairy`.`milk_rate` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -136,6 +178,8 @@ CREATE TABLE `dairy`.`farmers` (
   `fat` FLOAT ZEROFILL NULL,
   `snf` FLOAT NULL,
   `rate` FLOAT NULL,
+  created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));
 
   
@@ -146,8 +190,13 @@ CREATE TABLE `dairy`.`farmers` (
   `deduction` FLOAT NULL,
   `remaining_amount` FLOAT NULL,
   `farmer` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES farmers(id),
-  PRIMARY KEY (`id`));
+    `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+);
 
   
   CREATE TABLE `dairy`.`payment_of_farmer` (
@@ -158,8 +207,13 @@ CREATE TABLE `dairy`.`farmers` (
   `amount` FLOAT NULL,
   `latest_payment_date` TIMESTAMP NULL,
   `farmer` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES farmers(id),
-  PRIMARY KEY (`id`));
+   `branch` INT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+);
   
   CREATE TABLE `dairy`.`feed_to_farmer` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -170,12 +224,27 @@ CREATE TABLE `dairy`.`farmers` (
   `payment_status` VARCHAR(45) NULL,
   `remark` VARCHAR(45) NULL,
     `farmer` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES farmers(id),
-     `feed_company` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES feed_company(id),
-     `feed_type` BIGINT,
-   FOREIGN KEY (farmer) REFERENCES feed_types(id),
-  PRIMARY KEY (`id`));
+     `branch` INT,
+  `feed_company` BIGINT,
+  `feed_type` BIGINT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
+  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`),
+  FOREIGN KEY (`feed_company`) REFERENCES `feed_company`(`id`),
+  FOREIGN KEY (`feed_type`) REFERENCES `feed_types`(`id`)
+);
+
+CREATE TABLE `dairy`.`route` (
+    `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `remark` TEXT,
+    `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `branch` INT,
+    FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
+);
 
 
 
