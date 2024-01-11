@@ -2,6 +2,10 @@ package com.dairy.dto.branch;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -13,10 +17,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BranchRequestDto {
 	private int id;
+	
+	@NotBlank(message = "Branch Name cannot be blank")
+    @Size(max = 32, message = "maximum allowed characters are 32")
 	private String name;
+	
+	@Size(max = 128, message = "Address must be at most 128 characters")
 	private String address;
+	
+	@NotBlank(message = "Owner cannot be blank")
+    @Size(max = 32, message = "Owner must be at most 32 characters")
 	private String owner;
+	
+	@NotBlank(message = "Owner Contact cannot be blank")
+    @Size(max = 10, message = "Owner Contact must be at most 10 characters")
 	private String ownerContact;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	
 	private LocalDateTime startDate;
 }
