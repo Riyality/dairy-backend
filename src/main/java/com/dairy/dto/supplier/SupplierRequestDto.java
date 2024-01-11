@@ -18,4 +18,8 @@ public class SupplierRequestDto {
 	private LocalDateTime dateOfRegistration;
 	private String address;
 	private BankRequestDto bankRequestDto;
+	public BankRequestDto getBankRequestDto() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

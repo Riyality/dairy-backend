@@ -23,6 +23,7 @@ public class FeedCompany {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
+	
 	private String name;
 
 }

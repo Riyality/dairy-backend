@@ -24,6 +24,7 @@ public class Supplier {
 	private Long id;
 
 	private String name;
+	
 	private String contact;
 	private LocalDateTime dateOfRegistration;
 	private String address;

@@ -25,9 +25,13 @@ public class FeedStock {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
+	
 	private LocalDateTime dateOfPurchase;
+	
 	private Float feedCostPerUnit;
+	
 	private int quantity;
+	
 	private Float totalAmount;
 
 	@ManyToOne
