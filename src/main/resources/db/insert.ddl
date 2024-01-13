@@ -1,3 +1,5 @@
+INSERT INTO `dairy`.`branch` (`id`, `name`, `address`, `owner`, `start_date`, `owner_contact`, `created_on`, `updated_on`) VALUES ('0', 'dummy', 'dummy', 'dummy', '2024-03-20 00:00:00', '45678', '2024-01-12 10:11:36', '2024-01-12 10:11:36');
 INSERT INTO `dairy`.`branch` (`id`, `name`, `address`, `owner`, `start_date`, `owner_contact`) VALUES ('1', 'Ghadge Wasti', 'Thombarewadi', 'Sanjay Ghadge', '2023-11-09 19:12:00', '8080851891');
 INSERT INTO `dairy`.`login` (`id`, `username`, `password`, `role`, `name`) VALUES ('1', '8080851891', 'Demo_1234', 'Owner', 'Sanjay Ghadge');
 INSERT INTO `dairy`.`employee` (`id`, `name`, `contact`, `address`, `date_of_joining`, `branch`) VALUES ('1', 'Sanjay Ghadge', '8080851891', 'Ghadge wasti', '2023-11-09 01:23:00', '1');
+INSERT INTO `dairy`.`bank_details` (`id`, `bank_name`, `IFSC_code`, `branch_name`, `account_number`, `UPI_id`, `branch`, `created_on`, `updated_on`) VALUES ('0', 'dummy', 'dummy', 'sangola', '34567', 'dummy@ybl', '1', '2024-01-12 10:11:36', '2024-01-12 10:11:36');

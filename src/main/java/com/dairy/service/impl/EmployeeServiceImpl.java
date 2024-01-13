@@ -40,9 +40,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			Employee employee = employeeMapper.toEntity(employeeRequestDto);
 			employee.setBank(bank);
+			
 			Optional<Branch> opt = branchRepository.findById(employeeRequestDto.getBranchId());
 			if (opt.isPresent())
 				employee.setBranch(opt.get());
+			
 			employeeRepository.save(employee);
 			return true;
 
