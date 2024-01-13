@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -17,22 +17,20 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "vendor")
-public class Supplier {
+@Table(name="advance_to_farmer")
+public class AdvanceToFarmer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue( strategy = GenerationType.AUTO )
+	@Column( name = "id" )
 	private Long id;
-
-	private String name;
+	private LocalDateTime dateOfAdvance;
+	private Float amount;
+	private Float deduction;
+	private Float remainingAmount;
 	
-	private String contact;
-	private LocalDateTime dateOfRegistration;
-	private String address;
-
-//    private Long bankid;
-    
-	@OneToOne
-	@JoinColumn(name = "bank")
-	private Bank bank;
+	@ManyToOne
+	@JoinColumn(name="farmer")
+	private Farmer farmer;
+	
 
 }

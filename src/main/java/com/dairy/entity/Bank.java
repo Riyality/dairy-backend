@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,12 +23,14 @@ public class Bank {
 	@Column(name = "id")
 	private Long id;
 
+	@NotBlank(message = "Bank Name cannot be blank")
 	private String bankName;
 	
 	private String ifscCode;
 	
 	private String branchName;
 	
+	@NotBlank(message = "account Number cannot be blank")
 	private String accountNumber;
 	
 	private String upiId;
