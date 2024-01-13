@@ -10,12 +10,16 @@ import com.dairy.dto.farmers.FarmerRequestDto;
 import com.dairy.dto.farmers.FarmerResponseDto;
 import com.dairy.entity.Farmer;
 import com.dairy.mapper.bank.BankMapper;
+import com.dairy.mapper.route.RouteMapper;
 
 @Component
 public class FarmerMapper {
 
 	@Autowired
 	private BankMapper bankMapper;
+	
+	@Autowired
+	private RouteMapper routeMapper;
 
 	public Farmer toEntity( FarmerRequestDto requestDto ) {
 		Farmer farmer = new Farmer();
@@ -23,7 +27,6 @@ public class FarmerMapper {
 		farmer.setName( requestDto.getName() );
 		farmer.setDateOfRegistration( requestDto.getDateOfRegistration() );
 		farmer.setContact( requestDto.getContact() );
-		farmer.setRoute( requestDto.getRoute() );
 		farmer.setAddress( requestDto.getAddress() );
 		return farmer;
 	}
@@ -34,9 +37,12 @@ public class FarmerMapper {
 		responseDto.setName( farmer.getName() );
 		responseDto.setDateOfRegistration( farmer.getDateOfRegistration() );
 		responseDto.setContact( farmer.getContact() );
-		responseDto.setRoute( farmer.getRoute() );
 		responseDto.setAddress( farmer.getAddress() );
 
+		if ( farmer.getRoute() != null ) {
+			responseDto.setRoute( routeMapper.toRouteResponseDto( farmer.getRoute() ) );
+		}
+		
 		if ( farmer.getBank() != null ) {
 			responseDto.setBank( bankMapper.toBankResponseDto( farmer.getBank() ) );
 		}

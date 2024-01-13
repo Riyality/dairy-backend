@@ -18,7 +18,7 @@ public class FarmerRequestDto {
 	@DateTimeFormat( pattern = "yyyy-MM-dd'T'HH:mm" )
 	private LocalDateTime dateOfRegistration;
 	private String contact;
-	private String route;
+	private int route;
 	private String address;
 	private String status;
 	private int branchId;

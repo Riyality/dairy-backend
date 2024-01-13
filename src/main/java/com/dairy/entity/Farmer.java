@@ -31,7 +31,9 @@ public class Farmer {
 
 	private String contact;
 
-	private String route;
+	@ManyToOne
+	@JoinColumn( name = "route" )
+	private Route route;
 
 	private String address;
 
