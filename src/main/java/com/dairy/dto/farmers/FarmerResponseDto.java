@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.dairy.dto.bankdetails.BankResponseDto;
+import com.dairy.dto.route.RouteResponseDto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +24,7 @@ public class FarmerResponseDto {
 	
 	@NotBlank(message = "Farmer contact cannot be blank")
 	private String contact;
-	
-	@NotBlank(message = "route cannot be blank")
-	private String route;
-	
+	private RouteResponseDto route;
 	private String address;
 	private String status;
 	private int branchId;

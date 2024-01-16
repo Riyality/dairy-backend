@@ -27,10 +27,8 @@ public class FarmerRequestDto {
 	
 	@NotBlank(message = "Farmer contact cannot be blank")
 	private String contact;
-	
-	@NotBlank(message = "route cannot be blank")
-	private String route;
-	
+	private int route;
+
 	private String address;
 	
 	private String status;

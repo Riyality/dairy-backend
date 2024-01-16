@@ -36,8 +36,9 @@ public class Farmer {
 	@NotBlank(message = "Farmer contact cannot be blank")
 	private String contact;
 
-	@NotBlank(message = "route cannot be blank")
-	private String route;
+	@ManyToOne
+	@JoinColumn( name = "route" )
+	private Route route;
 
 	private String address;
 

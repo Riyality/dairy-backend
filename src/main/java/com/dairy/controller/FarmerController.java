@@ -44,4 +44,9 @@ public class FarmerController {
 		return new ResponseEntity<>( farmerService.findAllActive( id ), HttpStatus.OK );
 	}
 
+	@GetMapping( "/branch/{branchId}/route/{routeId}" )
+	public ResponseEntity<List<FarmerResponseDto>> farmersListByRoute( @PathVariable int branchId, @PathVariable int routeId) {
+		return new ResponseEntity<>( farmerService.farmersListByRoute( branchId, routeId ), HttpStatus.OK );
+	}
+
 }

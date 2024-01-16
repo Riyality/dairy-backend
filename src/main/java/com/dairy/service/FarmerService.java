@@ -13,4 +13,6 @@ public interface FarmerService {
 
 	List<FarmerResponseDto> findAllActive( int id );
 
+	List<FarmerResponseDto> farmersListByRoute(int branchId, int routeId);
+
 }
