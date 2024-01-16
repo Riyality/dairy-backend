@@ -36,10 +36,10 @@ public class Employee {
 
 	private String address;
 	
-	@NotBlank(message = "date Of Joining cannot be blank")
+	//@NotBlank(message = "date Of Joining cannot be blank")
 	private LocalDateTime dateOfJoining;
 	
-	@NotBlank(message = "branch cannot be blank")
+	//@NotBlank(message = "branch cannot be blank")
 	@ManyToOne
 	@JoinColumn( name = "branch" )
 	private Branch branch;

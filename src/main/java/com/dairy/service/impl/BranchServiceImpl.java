@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.branch.BranchRequestDto;
 import com.dairy.dto.branch.BranchResponseDto;
+import com.dairy.entity.Bank;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Employee;
 import com.dairy.entity.Login;
 import com.dairy.mapper.branch.BranchMapper;
+import com.dairy.repository.BankRepository;
 import com.dairy.repository.BranchRepository;
 import com.dairy.repository.EmployeeRepository;
 import com.dairy.repository.LoginRepository;
@@ -37,6 +39,9 @@ public class BranchServiceImpl implements BranchService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private BankRepository bankRepository;
 
 	@Override
 	public List<BranchResponseDto> getAllBranches() {
@@ -59,6 +64,10 @@ public class BranchServiceImpl implements BranchService {
 			employee.setContact( dto.getOwnerContact() );
 			employee.setDateOfJoining( dto.getStartDate() );
 			employee.setAddress( dto.getAddress() );
+			
+			Optional<Bank> bank = bankRepository.findById(1l);
+			if(bank.isPresent())
+				employee.setBank(bank.get());
 			employeeRepository.save( employee );
 
 			return true;

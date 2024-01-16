@@ -53,5 +53,10 @@ public class MessageConstants {
 	public static final String ADD_ROUTE_ERROR_MSG = "Unable to add Route";
 	public static final String UPDATE_ROUTE_SUCCESS_MESSAGE = "Route Updated";
 	public static final String UPDATE_ROUTE_ERROR_MSG = "Unable to update";
+	
+	public static final String ADD_FEEDTOFARMER_SUCCESS_MESSAGE = "FeedToFarmer added successfully";
+	public static final String ADD_FEEDTOFARMER_ERROR_MSG = "Unable to add FeedToFarmer";
+	public static final String UPDATE_FEEDTOFARMER_SUCCESS_MESSAGE = "FeedToFarmer update successfully";
+	public static final String UPDATE_FEEDTOFARMER_ERROR_MSG = "Unable to update FeedTofarmer";
 
 }
