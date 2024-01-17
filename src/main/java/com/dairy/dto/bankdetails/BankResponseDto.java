@@ -23,5 +23,7 @@ public class BankResponseDto {
 	private String accountNumber;
 
 	private String upiId;
+	
+	private int branchId;
 
 }

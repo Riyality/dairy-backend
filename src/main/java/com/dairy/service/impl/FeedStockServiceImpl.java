@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.feedStock.FeedStockRequestDto;
 import com.dairy.dto.feedStock.FeedStockResponseDto;
-import com.dairy.entity.Employee;
-import com.dairy.entity.Equipment;
+import com.dairy.entity.Branch;
 import com.dairy.entity.FeedCompany;
 import com.dairy.entity.FeedStock;
 import com.dairy.entity.FeedType;
 import com.dairy.entity.Supplier;
 import com.dairy.mapper.feedStock.FeedStockMapper;
+import com.dairy.repository.BranchRepository;
 import com.dairy.repository.FeedStockRepository;
 import com.dairy.repository.FeedTypeRepository;
 import com.dairy.repository.FeedcompanyRepository;
@@ -42,10 +42,17 @@ public class FeedStockServiceImpl implements FeedStockService {
 	@Autowired
 	SupplierRepository supplierRepository;
 
+	@Autowired
+	BranchRepository branchRepository;
+
 	@Override
 	public boolean addFeedStock(FeedStockRequestDto feedStockRequestDto) {
 		try {
 			FeedStock feedStock = feedStockMapper.toEntity(feedStockRequestDto);
+
+			Optional<Branch> branchopt = branchRepository.findById(feedStockRequestDto.getBranchId());
+			if (branchopt.isPresent())
+				feedStock.setBranch(branchopt.get());
 
 			Optional<Supplier> suppopt = supplierRepository.findById(feedStockRequestDto.getSupplierId());
 			if (suppopt.isPresent())
@@ -83,9 +90,13 @@ public class FeedStockServiceImpl implements FeedStockService {
 
 	@Override
 	public boolean updateFeedStock(FeedStockRequestDto feedStockRequestDto) {
-		
+
 		try {
 			FeedStock feedStock = feedStockMapper.toEntity(feedStockRequestDto);
+
+			Optional<Branch> branchopt = branchRepository.findById(feedStockRequestDto.getBranchId());
+			if (branchopt.isPresent())
+				feedStock.setBranch(branchopt.get());
 
 			Optional<Supplier> suppopt = supplierRepository.findById(feedStockRequestDto.getSupplierId());
 			if (suppopt.isPresent())

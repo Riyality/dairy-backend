@@ -38,6 +38,11 @@ public class BankMapper {
 		responseDto.setBranchName(bank.getBranchName());
 		responseDto.setAccountNumber(bank.getAccountNumber());
 		responseDto.setUpiId(bank.getUpiId());
+		
+		if (bank.getBranch() != null) {
+			responseDto.setBranchId(bank.getBranch().getId());
+		}
+
 
 		return responseDto;
 	}

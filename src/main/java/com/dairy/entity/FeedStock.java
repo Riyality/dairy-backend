@@ -33,6 +33,10 @@ public class FeedStock {
 	private int quantity;
 	
 	private Float totalAmount;
+	
+	@ManyToOne
+	@JoinColumn(name="branch")
+	private Branch branch;
 
 	@ManyToOne
 	@JoinColumn(name = "vendor")

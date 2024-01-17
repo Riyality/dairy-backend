@@ -32,5 +32,9 @@ public class AdvanceToFarmer {
 	@JoinColumn(name="farmer")
 	private Farmer farmer;
 	
+	@ManyToOne
+	@JoinColumn(name="branch")
+	private Branch branch;
+	
 
 }

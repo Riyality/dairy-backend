@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Table(name = "vendor")
 public class Supplier {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String name;
@@ -28,9 +29,10 @@ public class Supplier {
 	private String contact;
 	private LocalDateTime dateOfRegistration;
 	private String address;
-
-//    private Long bankid;
-    
+	
+    @ManyToOne
+    @JoinColumn(name="branch")
+    private Branch branch;
 	@OneToOne
 	@JoinColumn(name = "bank")
 	private Bank bank;

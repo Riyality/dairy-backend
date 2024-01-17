@@ -18,4 +18,5 @@ public class FeedTypeRequestDto {
 	@NotBlank(message = "feed type cannot be blank")
 	private String type;
 	private Long feedCompanyId;
+	private int branchId;
 }

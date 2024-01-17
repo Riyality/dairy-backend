@@ -18,6 +18,7 @@ public class SupplierResponseDto {
 	private String contact;
 	private LocalDateTime dateOfRegistration;
 	private String address;
+	private int branchId;
 	
 	private long bankId;
 
