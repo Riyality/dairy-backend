@@ -36,6 +36,11 @@ public class FeedStockMapper {
 		responseDto.setQuantity(feedStock.getQuantity());
 		responseDto.setTotalAmount(feedStock.getTotalAmount());
 		
+		if (feedStock.getBranch() != null) {
+			responseDto.setBranchId(feedStock.getBranch().getId());
+		}
+
+		
 		if (feedStock.getSupplier() != null) {
 			responseDto.setSupplierId(feedStock.getSupplier().getId());
 			responseDto.setSupplierName(feedStock.getSupplier().getName());

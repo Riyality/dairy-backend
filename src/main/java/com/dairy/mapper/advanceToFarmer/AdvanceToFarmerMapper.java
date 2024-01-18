@@ -39,6 +39,10 @@ public class AdvanceToFarmerMapper {
 		responseDto.setDeduction(advanceToFarmer.getAmount());
 		responseDto.setRemainingAmount(advanceToFarmer.getRemainingAmount());
 		
+		if (advanceToFarmer.getBranch() != null) {
+			responseDto.setBranchId(advanceToFarmer.getBranch().getId());
+		}
+
 		if (advanceToFarmer.getFarmer() != null) {
 			responseDto.setFarmerId(advanceToFarmer.getFarmer().getId());
 			responseDto.setFarmerName(advanceToFarmer.getFarmer().getName());

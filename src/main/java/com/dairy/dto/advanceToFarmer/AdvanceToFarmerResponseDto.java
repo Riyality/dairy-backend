@@ -24,5 +24,6 @@ public class AdvanceToFarmerResponseDto {
 	private Float remainingAmount;
 	private Long farmerId;
 	private String farmerName;
+	private int branchId;
 
 }

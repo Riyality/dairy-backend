@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.dairy.dto.supplier.SupplierRequestDto;
 import com.dairy.dto.supplier.SupplierResponseDto;
 import com.dairy.entity.Bank;
+import com.dairy.entity.Branch;
 import com.dairy.entity.Supplier;
 import com.dairy.mapper.supplier.SupplierMapper;
+import com.dairy.repository.BranchRepository;
 import com.dairy.repository.SupplierRepository;
 import com.dairy.service.SupplierService;
 
@@ -28,6 +30,9 @@ public class SupplierServiceImpl implements SupplierService {
 	@Autowired
 	SupplierMapper supplierMapper;
 
+	@Autowired
+	BranchRepository branchRepository;
+
 	@Override
 	public boolean addSupplier(SupplierRequestDto supplierRequestDto, Bank bank) {
 
@@ -35,7 +40,9 @@ public class SupplierServiceImpl implements SupplierService {
 
 			Supplier supplier = supplierMapper.toEntity(supplierRequestDto);
 			supplier.setBank(bank);
-
+			Optional<Branch> branchOpt = branchRepository.findById(supplierRequestDto.getBranchId());
+			if (branchOpt.isPresent())
+				supplier.setBranch(branchOpt.get());
 			supplierRepository.save(supplier);
 			return true;
 
@@ -67,6 +74,10 @@ public class SupplierServiceImpl implements SupplierService {
 		try {
 			Supplier supplier = supplierMapper.toEntity(supplierRequestDto);
 			supplier.setBank(bank);
+			
+			Optional<Branch> branchOpt = branchRepository.findById(supplierRequestDto.getBranchId());
+			if (branchOpt.isPresent())
+				supplier.setBranch(branchOpt.get());
 
 			supplierRepository.save(supplier);
 			return true;

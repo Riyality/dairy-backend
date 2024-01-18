@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.equipment.EquipmentRequestDto;
 import com.dairy.dto.equipment.EquipmentResponseDto;
+import com.dairy.entity.Branch;
 import com.dairy.entity.Equipment;
 import com.dairy.mapper.equipment.EquipmentMapper;
+import com.dairy.repository.BranchRepository;
 import com.dairy.repository.EquipmentRepository;
 import com.dairy.service.EquipmentService;
 
@@ -26,6 +28,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 	@Autowired
 	EquipmentMapper equipmentMapper;
+	
+	@Autowired
+	BranchRepository branchRepository;
 
 	@Override
 	public List<EquipmentResponseDto> getAllEquipments() {
@@ -39,6 +44,11 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public boolean createEquipment(EquipmentRequestDto equipmentRequestDto) {
 		try {
 			Equipment equipment = equipmentMapper.toEntity(equipmentRequestDto);
+			
+			Optional<Branch> opt = branchRepository.findById(equipmentRequestDto.getBranchId());
+			if (opt.isPresent())
+				equipment.setBranch(opt.get());
+			
 			equipmentRepository.save(equipment);
 			return true;
 
@@ -60,6 +70,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public boolean updateEquipment(EquipmentRequestDto equipmentRequestDto) {
 		try {
 			Equipment equipment = equipmentMapper.toEntity(equipmentRequestDto);
+			Optional<Branch> opt = branchRepository.findById(equipmentRequestDto.getBranchId());
+			if (opt.isPresent())
+				equipment.setBranch(opt.get());
 			equipmentRepository.save(equipment);
 			return true;
 		} catch (Exception e) {

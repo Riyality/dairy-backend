@@ -32,6 +32,9 @@ public class FeedCompanyMapper {
 		feedCompanyResponseDto.setId(feedcompany.getId());
 		feedCompanyResponseDto.setName(feedcompany.getName());
 
+		if (feedcompany.getBranch() != null) {
+			feedCompanyResponseDto.setBranchId(feedcompany.getBranch().getId());
+		}
 		return feedCompanyResponseDto;
 	}
 

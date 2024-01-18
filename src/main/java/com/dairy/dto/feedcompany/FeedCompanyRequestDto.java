@@ -9,4 +9,5 @@ public class FeedCompanyRequestDto {
 
 	private Long id;
 	private String name;
+	private int BranchId;
 }

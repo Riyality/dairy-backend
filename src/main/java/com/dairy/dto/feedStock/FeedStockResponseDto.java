@@ -15,6 +15,7 @@ public class FeedStockResponseDto {
 	private Float feedCostPerUnit;
 	private int quantity;
 	private Float totalAmount;
+	private int branchId;
 	
 	private Long supplierId;
 	private String supplierName;
@@ -22,6 +23,7 @@ public class FeedStockResponseDto {
 	private String feedTypeName;
 	private Long feedCompanyId;
 	private String feedCompanyName;
+	
 	
 
 }

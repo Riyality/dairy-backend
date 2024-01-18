@@ -19,5 +19,5 @@ public class AdvanceToFarmerRequestDto {
 	private Float deduction;
 	private Float remainingAmount;
 	private Long farmerId;
-
+    private int branchId;
 }
