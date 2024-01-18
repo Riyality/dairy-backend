@@ -2,6 +2,7 @@ package com.dairy.service;
 
 import java.util.List;
 
+import com.dairy.dto.feedcompany.FeedCompanyRequestDto;
 import com.dairy.dto.feedtype.FeedTypeRequestDto;
 import com.dairy.dto.feedtype.FeedTypeResponseDto;
 
@@ -14,5 +15,9 @@ public interface FeedTypeService {
 	public FeedTypeResponseDto findById(Long id);
 
 	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(Long id);
+
+	boolean updateFeed(FeedTypeRequestDto dto);
+
+	
 
 }

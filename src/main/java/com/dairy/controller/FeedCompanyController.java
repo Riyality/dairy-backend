@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +38,7 @@ public class FeedCompanyController {
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_FEEDCOMPANY_ERROR_MESSAGE );
 	}
 	
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<FeedCompanyResponseDto> findById(@PathVariable Long id) {
 		FeedCompanyResponseDto responseDto = feedCompanyService.findById(id);
 		return ResponseEntity.status( HttpStatus.OK ).body(responseDto);
@@ -47,8 +48,21 @@ public class FeedCompanyController {
 	public ResponseEntity<List<FeedCompanyResponseDto>> findAll() {
 		return new ResponseEntity<>( feedCompanyService.findAll(), HttpStatus.OK );
 	}
+	
+	@PutMapping
+	public ResponseEntity<String> updateFeedCompany(@RequestBody FeedCompanyRequestDto requestDto){
+		boolean upate=feedCompanyService.updateFeedCompany(requestDto);
+		if ( upate )
+			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.UPDATE_FEEDCOMPANY_SUCCESS_MESSAGE );
 
+		else
+			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.UPDATE_FEEDCOMPANY_ERROR_MESSAGE );
 	}
+		
+	}
+	
+
+	
 	
 	
 	

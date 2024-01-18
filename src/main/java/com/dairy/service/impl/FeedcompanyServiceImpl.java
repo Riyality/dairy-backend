@@ -68,4 +68,22 @@ public class FeedcompanyServiceImpl implements FeedCompanyService {
 		return feedCompanyMapper.toList(feedcompany);
 	}
 
+	@Override
+	public boolean updateFeedCompany(FeedCompanyRequestDto requestDto) {
+		try{
+		FeedCompany feedCompany = feedCompanyMapper.toEntity(requestDto);
+		
+		Optional<Branch> branchopt = branchRepository.findById(requestDto.getBranchId());
+		if (branchopt.isPresent())
+			feedCompany.setBranch(branchopt.get());
+
+		feedComponyRepository.save(feedCompany);
+		return true;
+
+	} catch (Exception e) {
+		log.error(e.getMessage(), e);
+	}
+	return false;
+	}
+
 }

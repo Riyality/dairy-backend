@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class FeedTypeController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_FEEDTYPE_ERROR_MSG);
 	}
 
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<FeedTypeResponseDto> getFeedType(@PathVariable Long id) {
 		FeedTypeResponseDto feedTypeResponseDto = feedTypeService.findById(id);
 
@@ -51,5 +52,16 @@ public class FeedTypeController {
 	public ResponseEntity<List<FeedTypeResponseDto>> getFeedTypeByFeedCompanyId(@PathVariable Long id) {
 		return new ResponseEntity<>(feedTypeService.getFeedTypeByFeedCompanyId(id), HttpStatus.OK);
 	}
+	
+	
+	@PutMapping
+	public ResponseEntity<String> updatefeed(@RequestBody FeedTypeRequestDto dto) {
+		boolean update = feedTypeService.updateFeed(dto);
+		if (update)
+			return ResponseEntity.status(HttpStatus.CREATED).body(MessageConstants.UPDATE_FEEDTYPE_SUCCESS_MESSAGE);
+
+		else
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_FEEDTYPE_ERROR_MSG);
+	}	
 
 }

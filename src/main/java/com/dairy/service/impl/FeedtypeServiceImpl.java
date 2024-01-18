@@ -87,4 +87,27 @@ public class FeedtypeServiceImpl implements FeedTypeService {
 		return feedTypeMapper.toList(feedType);
 	}
 
+	@Override
+	public boolean updateFeed(FeedTypeRequestDto dto) {
+		try {
+
+			FeedType feedType = feedTypeMapper.toEntity(dto);
+			
+			Optional<FeedCompany> companyOpt = feedCompanyRepository.findById(dto.getFeedCompanyId());
+			if (companyOpt.isPresent())
+				feedType.setFeedcompany(companyOpt.get());
+			
+
+			Optional<Branch> branchOpt = branchRepository.findById( dto.getBranchId() );
+			if ( branchOpt.isPresent() )
+				feedType.setBranch( branchOpt.get() );
+			
+			feedTypeRepository.save(feedType);
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+		return false;
+	}
+
 }
