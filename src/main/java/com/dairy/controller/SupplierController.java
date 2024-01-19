@@ -31,6 +31,7 @@ public class SupplierController {
 
 	@PostMapping
 	public ResponseEntity<String> addSupplier(@RequestBody SupplierRequestDto supplierRequestDto) {
+		supplierRequestDto.getBankRequestDto().setBranchId(supplierRequestDto.getBranchId());
 		Bank bank = bankService.addBank(supplierRequestDto.getBankRequestDto());
 
 		boolean addSupp = supplierService.addSupplier(supplierRequestDto, bank);
@@ -55,7 +56,7 @@ public class SupplierController {
 	@PutMapping
 	public ResponseEntity<String> updateSupplier(@RequestBody SupplierRequestDto supplierRequestDto) {
 		Bank bank = bankService.updateBank(supplierRequestDto.getBankRequestDto());
-
+		supplierRequestDto.getBankRequestDto().setBranchId(supplierRequestDto.getBranchId());
 		boolean isUpdate = supplierService.updateSupplier(supplierRequestDto, bank);
 		if (isUpdate)
 			return ResponseEntity.status(HttpStatus.CREATED).body(MessageConstants.UPDATE_SUPPLIER_SUCCESS_MESSAGE);

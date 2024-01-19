@@ -15,4 +15,6 @@ public interface FarmerService {
 
 	List<FarmerResponseDto> farmersListByRoute(int branchId, int routeId);
 
+	boolean update(FarmerRequestDto dto);
+
 }

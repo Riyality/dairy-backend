@@ -64,5 +64,9 @@ public class MessageConstants {
 	
 	public static final String UPDATE_FEEDTYPE_SUCCESS_MESSAGE = "Update FeedType successfully";
 	public static final String UPDATE_FEEDTYPE_ERROR_MSG = "Unable to update feedType";
+	
+	public static final String UPDATE_FARMER_SUCCESS_MESSAGE = "farmer update successfully";
+	public static final String UPDATE_FARMER_ERROR_MSG = "unable to update farmer";
+	
 
 }

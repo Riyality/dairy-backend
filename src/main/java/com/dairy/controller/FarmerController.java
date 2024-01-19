@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class FarmerController {
 
 	@PostMapping
 	public ResponseEntity<String> add( @RequestBody FarmerRequestDto dto ) {
+		dto.getBankRequestDto().setBranchId(dto.getBranchId());
 		boolean isAdded = farmerService.add( dto );
 		if ( isAdded )
 			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.ADD_FARMER_SUCCESS_MESSAGE );
@@ -48,5 +50,18 @@ public class FarmerController {
 	public ResponseEntity<List<FarmerResponseDto>> farmersListByRoute( @PathVariable int branchId, @PathVariable int routeId) {
 		return new ResponseEntity<>( farmerService.farmersListByRoute( branchId, routeId ), HttpStatus.OK );
 	}
+	
+	@PutMapping
+	public ResponseEntity<String> update( @RequestBody FarmerRequestDto dto ) {
+		dto.getBankRequestDto().setBranchId(dto.getBranchId());
+		boolean update = farmerService.update( dto );
+		if ( update )
+			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.UPDATE_FARMER_SUCCESS_MESSAGE );
+
+		else
+			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.UPDATE_FARMER_ERROR_MSG );
+	}
+
+	
 
 }
