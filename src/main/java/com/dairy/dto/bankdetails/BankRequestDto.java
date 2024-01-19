@@ -23,5 +23,7 @@ public class BankRequestDto {
 	private String accountNumber;
 
 	private String upiId;
+	
+	private int branchId;
 
 }

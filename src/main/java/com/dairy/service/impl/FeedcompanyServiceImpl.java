@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dairy.dto.feedcompany.FeedCompanyRequestDto;
 import com.dairy.dto.feedcompany.FeedCompanyResponseDto;
+import com.dairy.entity.Branch;
 import com.dairy.entity.FeedCompany;
 
 import com.dairy.mapper.feedcompany.FeedCompanyMapper;
+import com.dairy.repository.BranchRepository;
 import com.dairy.repository.FeedcompanyRepository;
 import com.dairy.service.FeedCompanyService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +29,18 @@ public class FeedcompanyServiceImpl implements FeedCompanyService {
 	@Autowired
 	private FeedCompanyMapper feedCompanyMapper;
 
+	@Autowired
+	private BranchRepository branchRepository;
+	
 	@Override
 	public boolean addFeedCompany(FeedCompanyRequestDto dto) {
 		try {
 			FeedCompany feedCompany = feedCompanyMapper.toEntity(dto);
+			
+			Optional<Branch> branchopt = branchRepository.findById(dto.getBranchId());
+			if (branchopt.isPresent())
+				feedCompany.setBranch(branchopt.get());
+
 			feedComponyRepository.save(feedCompany);
 			return true;
 
@@ -56,6 +66,24 @@ public class FeedcompanyServiceImpl implements FeedCompanyService {
 	public List<FeedCompanyResponseDto> findAll() {
 		List<FeedCompany> feedcompany = feedComponyRepository.findAll();
 		return feedCompanyMapper.toList(feedcompany);
+	}
+
+	@Override
+	public boolean updateFeedCompany(FeedCompanyRequestDto requestDto) {
+		try{
+		FeedCompany feedCompany = feedCompanyMapper.toEntity(requestDto);
+		
+		Optional<Branch> branchopt = branchRepository.findById(requestDto.getBranchId());
+		if (branchopt.isPresent())
+			feedCompany.setBranch(branchopt.get());
+
+		feedComponyRepository.save(feedCompany);
+		return true;
+
+	} catch (Exception e) {
+		log.error(e.getMessage(), e);
+	}
+	return false;
 	}
 
 }

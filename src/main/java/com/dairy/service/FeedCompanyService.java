@@ -13,4 +13,6 @@ public interface FeedCompanyService {
 
 	List<FeedCompanyResponseDto> findAll();
 
+	boolean updateFeedCompany(FeedCompanyRequestDto requestDto);
+
 }

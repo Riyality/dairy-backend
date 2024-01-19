@@ -33,6 +33,10 @@ public class FeedType {
 	@ManyToOne
 	@JoinColumn(name = "feed_company")
 	private FeedCompany feedcompany;
+	
+	@ManyToOne
+	@JoinColumn(name="branch")
+	private Branch branch;
 
 	@ManyToOne
 	@JoinColumn(name = "branch")

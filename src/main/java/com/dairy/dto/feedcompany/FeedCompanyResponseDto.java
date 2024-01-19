@@ -8,5 +8,6 @@ import lombok.Setter;
 public class FeedCompanyResponseDto {
 	private Long id;
 	private String name;
+	private int BranchId;
 
 }

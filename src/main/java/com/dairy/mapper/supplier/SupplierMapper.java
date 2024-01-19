@@ -42,6 +42,10 @@ public class SupplierMapper {
 		responseDto.setContact(supplier.getContact());
 		responseDto.setDateOfRegistration(supplier.getDateOfRegistration());
 		responseDto.setAddress(supplier.getAddress());
+		
+		if (supplier.getBranch() != null) {
+			responseDto.setBranchId(supplier.getBranch().getId());
+		}
 
 		if (supplier.getBank() != null) {
 			responseDto.setBankId(supplier.getBank().getId());

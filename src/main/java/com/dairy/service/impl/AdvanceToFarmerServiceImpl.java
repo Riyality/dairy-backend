@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerRequestDto;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
+import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
 import com.dairy.mapper.advanceToFarmer.AdvanceToFarmerMapper;
 import com.dairy.repository.AdvanceToFarmerRepository;
+import com.dairy.repository.BranchRepository;
 import com.dairy.repository.FarmerRepository;
 import com.dairy.service.AdvanceToFarmerService;
 
@@ -29,10 +31,18 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 	@Autowired
 	FarmerRepository farmerRepository;
 
+	@Autowired
+	BranchRepository branchRepository;
+
 	@Override
 	public boolean addAdvance(AdvanceToFarmerRequestDto advanceRequestDto) {
 		try {
 			AdvanceToFarmer advancetoFarmer = advanceToFarmerMapper.toEntity(advanceRequestDto);
+
+			Optional<Branch> branchOpt = branchRepository.findById(advanceRequestDto.getBranchId());
+			if (branchOpt.isPresent())
+				advancetoFarmer.setBranch(branchOpt.get());
+
 			Optional<Farmer> farmerOpt = farmerRepository.findById(advanceRequestDto.getFarmerId());
 			if (farmerOpt.isPresent())
 				advancetoFarmer.setFarmer(farmerOpt.get());
@@ -46,7 +56,7 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 		return false;
 
 	}
-	
+
 	@Override
 	public List<AdvanceToFarmerResponseDto> getAllAdvanceToFarmer() {
 		List<AdvanceToFarmer> advanceToFarmer = advanceToFarmerRepository.findAll();
@@ -65,6 +75,10 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 	public boolean updateAdvance(AdvanceToFarmerRequestDto advanceRequestDto) {
 		try {
 			AdvanceToFarmer advancetoFarmer = advanceToFarmerMapper.toEntity(advanceRequestDto);
+			Optional<Branch> branchOpt = branchRepository.findById(advanceRequestDto.getBranchId());
+			if (branchOpt.isPresent())
+				advancetoFarmer.setBranch(branchOpt.get());
+
 			Optional<Farmer> farmerOpt = farmerRepository.findById(advanceRequestDto.getFarmerId());
 			if (farmerOpt.isPresent())
 				advancetoFarmer.setFarmer(farmerOpt.get());
@@ -78,5 +92,4 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 		return false;
 	}
 
-	
 }

@@ -39,6 +39,8 @@ public class EquipmentMapper {
 		responseDto.setQuantity( equipment.getQuantity() );
 		responseDto.setPrice( equipment.getPrice() );
 		responseDto.setTotalAmount( equipment.getTotalAmount() );
+		
+		
 
 		return responseDto;
 	}
