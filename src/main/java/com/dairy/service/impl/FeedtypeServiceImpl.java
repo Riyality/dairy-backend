@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.feedtype.FeedTypeRequestDto;
 import com.dairy.dto.feedtype.FeedTypeResponseDto;
+import com.dairy.entity.Branch;
 import com.dairy.entity.FeedCompany;
 import com.dairy.entity.FeedType;
 import com.dairy.mapper.feedtype.FeedTypeMapper;
+import com.dairy.repository.BranchRepository;
 import com.dairy.repository.FeedTypeRepository;
 import com.dairy.repository.FeedcompanyRepository;
 import com.dairy.service.FeedTypeService;
@@ -29,6 +31,9 @@ public class FeedtypeServiceImpl implements FeedTypeService {
 
 	@Autowired
 	FeedTypeMapper feedTypeMapper;
+
+	@Autowired
+	private BranchRepository branchRepository;
 
 	@Autowired
 	private FeedcompanyRepository feedCompanyRepository;
@@ -69,8 +74,12 @@ public class FeedtypeServiceImpl implements FeedTypeService {
 	}
 
 	@Override
-	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(Long id) {
-		List<FeedType> feedType = feedTypeRepository.findAll();
+	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(int id, int branchId) {
+		List<FeedType> feedType = null;
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if (branchOptional.isPresent()) {
+			 feedType = feedTypeRepository.findByIdAndBranch(id, branchId);
+		}
 
 		return feedTypeMapper.toList(feedType);
 	}
