@@ -48,12 +48,20 @@ public class FeedTypeController {
 		return new ResponseEntity<>(feedTypeService.getAllFeedTypes(), HttpStatus.OK);
 	}
 
-	@GetMapping("getFeedTypeByFeedCompanyId/{id}")
-	public ResponseEntity<List<FeedTypeResponseDto>> getFeedTypeByFeedCompanyId(@PathVariable Long id) {
-		return new ResponseEntity<>(feedTypeService.getFeedTypeByFeedCompanyId(id), HttpStatus.OK);
+	@GetMapping("/id/{id}/branchId/{branchId}")
+	public ResponseEntity<List<FeedTypeResponseDto>> getFeedTypeByFeedCompanyId(@PathVariable int id, @PathVariable int branchId) {
+		return new ResponseEntity<>(feedTypeService.getFeedTypeByFeedCompanyId(id, branchId), HttpStatus.OK);
 	}
 	
-	
+
+	/*
+	 * @GetMapping("getFeedTypeByFeedCompanyId/{id}") public
+	 * ResponseEntity<List<FeedTypeResponseDto>>
+	 * getFeedTypeByFeedCompanyId(@PathVariable Long id) { return new
+	 * ResponseEntity<>(feedTypeService.getFeedTypeByFeedCompanyId(id),
+	 * HttpStatus.OK); }
+	 */
+
 	@PutMapping
 	public ResponseEntity<String> updatefeed(@RequestBody FeedTypeRequestDto dto) {
 		boolean update = feedTypeService.updateFeed(dto);
@@ -63,5 +71,6 @@ public class FeedTypeController {
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_FEEDTYPE_ERROR_MSG);
 	}	
+
 
 }
