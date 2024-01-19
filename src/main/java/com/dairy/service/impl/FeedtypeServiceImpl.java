@@ -37,9 +37,6 @@ public class FeedtypeServiceImpl implements FeedTypeService {
 
 	@Autowired
 	private FeedcompanyRepository feedCompanyRepository;
-	
-	@Autowired
-	private BranchRepository  branchRepository;
 
 	@Override
 	public boolean addFeed(FeedTypeRequestDto dto) {

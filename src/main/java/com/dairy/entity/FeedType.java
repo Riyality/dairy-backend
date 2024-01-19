@@ -38,8 +38,5 @@ public class FeedType {
 	@JoinColumn(name="branch")
 	private Branch branch;
 
-	@ManyToOne
-	@JoinColumn(name = "branch")
-	private FeedCompany branch;
 
 }
