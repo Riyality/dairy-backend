@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.dairy.dto.milkRate.MilkRateRequestDto;
 import com.dairy.dto.milkRate.MilkRateResponseDto;
 import com.dairy.entity.MilkRate;
 
@@ -21,11 +22,22 @@ public class MilkRateMapper {
 
 		return responseDto;
 	}
-
+	
 	public List<MilkRateResponseDto> toList( List<MilkRate> milkRateList ) {
 		return milkRateList.stream()
 				.map( this::toResponseDto )
 				.collect( Collectors.toList() );
+	}
+	public MilkRate toEntity(MilkRateRequestDto milkRateDto) {
+		MilkRate milkRate = new MilkRate();
+		milkRate.setId(milkRateDto.getId());
+		milkRate.setDate_of_rate(milkRateDto.getDate_of_rate());
+		milkRate.setType(milkRateDto.getAnimalType());
+		milkRate.setFat(milkRateDto.getMilkFat());
+		milkRate.setSnf(milkRateDto.getMilkSNF());
+		milkRate.setRate(milkRateDto.getMilkRate());
+		milkRate.setRemark(milkRateDto.getRemark());
+		return milkRate;
 	}
 	
 }
