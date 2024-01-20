@@ -27,9 +27,9 @@ public class MilkRate {
 	private Float fat;
 	private Float snf;
 	private Float rate;
-
 	@ManyToOne
 	@JoinColumn(name = "branch")
 	private Branch branch;
+	private String remark;
 
 }

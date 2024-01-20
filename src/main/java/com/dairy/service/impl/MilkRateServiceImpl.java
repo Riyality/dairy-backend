@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dairy.dto.milkRate.MilkRateRequestDto;
 import com.dairy.entity.Branch;
 import com.dairy.entity.MilkRate;
 import com.dairy.mapper.milkRate.MilkRateMapper;
@@ -41,5 +42,25 @@ public class MilkRateServiceImpl implements MilkRateService{
 		}
 		return null;
 	}
+
+
+
+	@Override
+	public boolean saveMilkRate(MilkRateRequestDto milkRateDto) {
+		
+		MilkRate milkRate = milkRateMapper.toEntity(milkRateDto);
+		Optional<Branch> opt = branchRepository.findById(milkRateDto.getBranchId());
+		if (opt.isPresent()) {
+			milkRate.setBranch(opt.get());
+		
+        milkRateRepository.save(milkRate);
+		return true;
+		}
+		return false;
+	}
+
+
+
+
 	
 }
