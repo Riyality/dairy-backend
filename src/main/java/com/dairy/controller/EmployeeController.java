@@ -32,6 +32,7 @@ public class EmployeeController {
 
 	@PostMapping
 	public ResponseEntity<String> addEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
+		employeeRequestDto.getBankRequestDto().setBranchId(employeeRequestDto.getBranchId());
 		Bank bank = bankService.addBank(employeeRequestDto.getBankRequestDto());
 
 		boolean addEmp = employeeService.addEmployee(employeeRequestDto, bank);
@@ -55,6 +56,7 @@ public class EmployeeController {
 
 	@PutMapping
 	public ResponseEntity<String> updateEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
+		employeeRequestDto.getBankRequestDto().setBranchId(employeeRequestDto.getBranchId());
 		Bank bank = bankService.updateBank(employeeRequestDto.getBankRequestDto());
 
 		boolean isUpdated = employeeService.updateEmployee(employeeRequestDto, bank);
