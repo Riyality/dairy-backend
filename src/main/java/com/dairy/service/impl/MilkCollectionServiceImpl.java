@@ -1,7 +1,10 @@
 package com.dairy.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
+import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.Bank;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
@@ -35,7 +39,7 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -52,5 +56,30 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		}
 		return false;
 	}
+
+
+
+	@Override
+	public List<MilkCollectionResponseDto> findByFromDateAndToDateAndAnimalType(Date fromDate, Date toDate,
+			String animalType) {
+		List<MilkCollection> list=milkCollectionRepository.findByDateAndType(
+	            fromDate, toDate, animalType);
+		//System.out.println(list);
+		return milkCollectionMapper.toList(list);
+	}
+
+	@Override
+	public List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(Date fromDate, Date toDate, String animalType) {
+		return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer( fromDate, toDate, animalType);
+	}
+
+	@Override
+	public List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId) {
+		
+		return milkCollectionRepository.findByFarmer(farmerId);
+	}
+
+	
+
 
 }

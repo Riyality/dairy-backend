@@ -1,6 +1,7 @@
 package com.dairy.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class MilkCollection {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private LocalDateTime date_of_collection;
+	private Date date_of_collection;
 	private String shift;
 	private String type;
 	private Float quantity;
@@ -33,7 +34,7 @@ public class MilkCollection {
 	private Float snf;
 	private Float rate;
 	private Float total_amount;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "farmer")
 	private Farmer farmer;
