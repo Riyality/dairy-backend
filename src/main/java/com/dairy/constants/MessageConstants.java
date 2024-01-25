@@ -68,5 +68,13 @@ public class MessageConstants {
 	public static final String UPDATE_FARMER_SUCCESS_MESSAGE = "farmer update successfully";
 	public static final String UPDATE_FARMER_ERROR_MSG = "unable to update farmer";
 	
+	public static final String ADD_DAIRTY_MANGER_SUCCESS_MESSAGE = "Dairy manger Added successfully";
+	public static final String ADD_DAIRTY_MANGER_ERROR_MSG = "Unable to add dairy manger";
+	
+	public static final String ADD_ANIMAL_MAPPING_SUCCESS_MESSAGE = "Animal added successfully";
+	public static final String ADD_ANIMAL_MAPPING_ERROR_MSG = "Unable To add Animal";
+	public static final String UPDATE_ANIMAL_MAPPING_ERROR_SUCCESS_MESSAGE = "animal update successfully";
+	public static final String UPDATE_ANIMAL_MAPPING_ERRORT_ERROR_MSG = "unable to update animal";
+	
 
 }

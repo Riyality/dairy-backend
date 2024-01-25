@@ -2,6 +2,7 @@ package com.dairy.service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -23,9 +24,6 @@ public interface MilkCollectionService {
 
 	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
 
-	
-	
+	List<MilkCollectionResponseDto> findAllByBranchIdAndDateOfCollection(int branchId, LocalDate dateOfCollection);
 
-	
-	
 }

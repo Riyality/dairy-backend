@@ -3,6 +3,9 @@ package com.dairy.mapper.milkCollection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.dairy.dto.farmers.FarmerResponseDto;
@@ -15,14 +18,13 @@ import com.dairy.entity.MilkCollection;
 public class MilkCollectionMapper {
 	
 	public MilkCollection toEntity( MilkCollectionRequestDto milkCollectionRequestDto ) {
+		
 		if ( milkCollectionRequestDto == null ) {
 			return null;
 		}
-		
-		
+
 		MilkCollection milkCollection = new MilkCollection();
-		
-		milkCollection.setDate_of_collection(milkCollectionRequestDto.getDateOfMilkCollection());
+		milkCollection.setDateOfCollection(milkCollectionRequestDto.getDateOfMilkCollection());
 		milkCollection.setShift(milkCollectionRequestDto.getMilkCollectionShift());
 		milkCollection.setType(milkCollectionRequestDto.getAnimalType());
 		milkCollection.setQuantity(milkCollectionRequestDto.getMilkQuantity());
@@ -33,9 +35,7 @@ public class MilkCollectionMapper {
 		
 		return milkCollection;
 	}
-	
-	
-	
+  
 	public MilkCollectionResponseDto toResponseDto( MilkCollection milkCollection ) {
 		MilkCollectionResponseDto responseDto = new MilkCollectionResponseDto();
 		responseDto.setFarmerId(milkCollection.getFarmer().getId());
@@ -60,10 +60,31 @@ public class MilkCollectionMapper {
 	}
 
 
+	public List<MilkCollectionResponseDto> toList(List<MilkCollection> list) {
+		
+        List<MilkCollectionResponseDto> dtoList = new ArrayList<>();
+        for (MilkCollection milkCollection : list) {
+            dtoList.add(toMilkCollectionResponseDto(milkCollection));
+        }
+        return dtoList;
+    }
 
-	
-	
-	
-	
+    public MilkCollectionResponseDto toMilkCollectionResponseDto(MilkCollection milkCollection) {
+    	
+        MilkCollectionResponseDto responseDto = new MilkCollectionResponseDto();
+        
+        responseDto.setFarmerId(milkCollection.getFarmer().getId());
+        responseDto.setFarmerName(milkCollection.getFarmer().getName());
+        responseDto.setAnimalType(milkCollection.getType());
+        responseDto.setMilkQuantity(milkCollection.getQuantity());
+        responseDto.setMilkFat(milkCollection.getFat());
+        responseDto.setMilkSNF(milkCollection.getSnf());
+        responseDto.setMilkRate(milkCollection.getRate());
+        responseDto.setTotalMilkAmount(milkCollection.getTotal_amount());
+        responseDto.setRemark(""); // You can set this based on your logic or leave it empty
+        responseDto.setDateOfMilkCollection(milkCollection.getDateOfCollection());
 
+        return responseDto;
+    }
+	
 }

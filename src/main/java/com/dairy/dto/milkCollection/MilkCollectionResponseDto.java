@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,15 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MilkCollectionResponseDto {
-	private long farmerId;
+
+	private Long farmerId;
 	private String farmerName;
 	private String animalType;
+	private String shift;
 	private Float milkQuantity;
 	private Float milkFat;
 	private Float milkSNF;
 	private Float milkRate;
 	private Float totalMilkAmount;
 	private String remark;
-	@DateTimeFormat( pattern = "yyyy-MM-dd" )
-	private Date dateOfMilkCollection;
+	private LocalDate dateOfMilkCollection;
+
 }

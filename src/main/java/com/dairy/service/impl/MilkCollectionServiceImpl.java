@@ -2,6 +2,7 @@ package com.dairy.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -17,6 +18,8 @@ import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.Bank;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
+import com.dairy.entity.FeedCompany;
+import com.dairy.entity.FeedType;
 import com.dairy.entity.MilkCollection;
 import com.dairy.mapper.branch.BranchMapper;
 import com.dairy.mapper.milkCollection.MilkCollectionMapper;
@@ -36,6 +39,9 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	
 	@Autowired
 	private MilkCollectionRepository milkCollectionRepository;
+	
+	@Autowired
+	private BranchRepository branchRepository;
 
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
@@ -57,8 +63,6 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		return false;
 	}
 
-
-
 	@Override
 	public List<MilkCollectionResponseDto> findByFromDateAndToDateAndAnimalType(Date fromDate, Date toDate,
 			String animalType) {
@@ -78,8 +82,19 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		
 		return milkCollectionRepository.findByFarmer(farmerId);
 	}
+  
+	@Override
+	public List<MilkCollectionResponseDto> findAllByBranchIdAndDateOfCollection(int branchId,
+			LocalDate dateOfCollection) {
 
-	
+		List<MilkCollection> milkCollection = null;
+	    Optional<Branch> branchOptional = branchRepository.findById(branchId);
+	    
+	    if (branchOptional.isPresent()) {
+	        milkCollection = milkCollectionRepository.findByBranchAndDateOfCollection(branchOptional.get(), dateOfCollection);
+	    }
 
+	    return milkCollectionMapper.toList(milkCollection);
+		}
 
 }

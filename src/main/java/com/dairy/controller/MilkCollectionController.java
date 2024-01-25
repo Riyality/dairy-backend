@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +37,27 @@ public class MilkCollectionController {
 	@Autowired
 	private MilkCollectionService milkCollectionService;
 
+	@GetMapping
+	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionData() {
+		return new ResponseEntity<>( milkCollectionService.getAllMilkCollectionData(), HttpStatus.OK );
+	}
+
+//	@GetMapping("/branchId/{branchId}/dateOfCollection/{dateOfCollection}")
+//	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByDate(@PathVariable int branchId, @PathVariable LocalDate dateOfCollection) {
+//		return new ResponseEntity<>( milkCollectionService.findAllByBranchIdAndDateOfCollection(branchId,dateOfCollection), HttpStatus.OK );
+//	}
+	
+	@GetMapping("/branchId/{branchId}/dateOfCollection/{dateOfCollection}")
+	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByDate(
+	    @PathVariable int branchId,
+	    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfCollection) {
+	    
+	    List<MilkCollectionResponseDto> milkCollectionData = 
+	        milkCollectionService.findAllByBranchIdAndDateOfCollection(branchId, dateOfCollection);
+	    System.out.println(milkCollectionData);
+	    return new ResponseEntity<>(milkCollectionData, HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<String> addMilkCollectionData( @RequestBody MilkCollectionRequestDto milkCollectionRequestDto ) {
 		boolean isAdded = milkCollectionService.addMilkCollectionData( milkCollectionRequestDto );
@@ -44,11 +68,6 @@ public class MilkCollectionController {
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_BRANCH_ERROR_MSG );
 	}
 	
-	
-	@GetMapping
-	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionData() {
-		return new ResponseEntity<>( milkCollectionService.getAllMilkCollectionData(), HttpStatus.OK );
-	}
 	
 	 @GetMapping("/{fromDate}/{toDate}/{animalType}")
 	    public ResponseEntity<List<MilkCollectionResponseDto>> findByFromDateAndToDateAndAnimalType(

@@ -81,11 +81,12 @@ public class FeedtypeServiceImpl implements FeedTypeService {
 	}
 
 	@Override
-	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(int id, int branchId) {
+	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(long id, int branchId) {
 		List<FeedType> feedType = null;
 		Optional<Branch> branchOptional = branchRepository.findById(branchId);
-		if (branchOptional.isPresent()) {
-			 feedType = feedTypeRepository.findByIdAndBranch(id, branchId);
+		Optional<FeedCompany> feedCompanyOptional = feedCompanyRepository.findById(id);
+		if (branchOptional.isPresent() && feedCompanyOptional.isPresent()) {
+			 feedType = feedTypeRepository.findByFeedcompanyAndBranch(feedCompanyOptional.get(), branchOptional.get());
 		}
 
 		return feedTypeMapper.toList(feedType);
