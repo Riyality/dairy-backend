@@ -42,7 +42,7 @@ public class FeedToFarmerController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<FeedToFarmerResponseDto> findById(@PathVariable Long id){
+	public ResponseEntity<FeedToFarmerResponseDto> findById(@PathVariable long id){
 		return  ResponseEntity.status( HttpStatus.OK ).body( feedToFarmerService.findByIdFeedTOFarmer( id ) );
 		
 	}

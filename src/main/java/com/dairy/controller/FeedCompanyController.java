@@ -39,12 +39,12 @@ public class FeedCompanyController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<FeedCompanyResponseDto> findById(@PathVariable Long id) {
+	public ResponseEntity<FeedCompanyResponseDto> findById(@PathVariable long id) {
 		FeedCompanyResponseDto responseDto = feedCompanyService.findById(id);
 		return ResponseEntity.status( HttpStatus.OK ).body(responseDto);
 	}
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<FeedCompanyResponseDto>> findAll() {
 		return new ResponseEntity<>( feedCompanyService.findAll(), HttpStatus.OK );
 	}
