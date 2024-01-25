@@ -49,7 +49,7 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeResponseDto> findById(@PathVariable Long id) {
+	public ResponseEntity<EmployeeResponseDto> findById(@PathVariable long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.findById(id));
 	}
 

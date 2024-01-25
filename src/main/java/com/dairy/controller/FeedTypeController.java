@@ -49,7 +49,7 @@ public class FeedTypeController {
 	}
 
 	@GetMapping("/id/{id}/branchId/{branchId}")
-	public ResponseEntity<List<FeedTypeResponseDto>> getFeedTypeByFeedCompanyId(@PathVariable int id, @PathVariable int branchId) {
+	public ResponseEntity<List<FeedTypeResponseDto>> getFeedTypeByFeedCompanyId(@PathVariable long id, @PathVariable int branchId) {
 		return new ResponseEntity<>(feedTypeService.getFeedTypeByFeedCompanyId(id, branchId), HttpStatus.OK);
 	}
 	

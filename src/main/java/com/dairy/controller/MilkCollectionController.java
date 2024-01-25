@@ -1,11 +1,14 @@
 package com.dairy.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,23 @@ public class MilkCollectionController {
 	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionData() {
 		return new ResponseEntity<>( milkCollectionService.getAllMilkCollectionData(), HttpStatus.OK );
 	}
+
+//	@GetMapping("/branchId/{branchId}/dateOfCollection/{dateOfCollection}")
+//	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByDate(@PathVariable int branchId, @PathVariable LocalDate dateOfCollection) {
+//		return new ResponseEntity<>( milkCollectionService.findAllByBranchIdAndDateOfCollection(branchId,dateOfCollection), HttpStatus.OK );
+//	}
+	
+	@GetMapping("/branchId/{branchId}/dateOfCollection/{dateOfCollection}")
+	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByDate(
+	    @PathVariable int branchId,
+	    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfCollection) {
+	    
+	    List<MilkCollectionResponseDto> milkCollectionData = 
+	        milkCollectionService.findAllByBranchIdAndDateOfCollection(branchId, dateOfCollection);
+	    System.out.println(milkCollectionData);
+	    return new ResponseEntity<>(milkCollectionData, HttpStatus.OK);
+	}
+
 	
 	@PostMapping
 	public ResponseEntity<String> addMilkCollectionData( @RequestBody MilkCollectionRequestDto milkCollectionRequestDto ) {

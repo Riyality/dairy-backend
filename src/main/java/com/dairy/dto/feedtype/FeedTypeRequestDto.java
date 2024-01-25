@@ -14,9 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FeedTypeRequestDto {
-	private Long id;
+	private long id;
 	@NotBlank(message = "feed type cannot be blank")
 	private String type;
-	private Long feedCompanyId;
+	private long feedCompanyId;
 	private int branchId;
 }

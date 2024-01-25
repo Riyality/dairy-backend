@@ -1,8 +1,6 @@
 package com.dairy.dto.milkCollection;
 
-import java.time.LocalDateTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,14 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MilkCollectionResponseDto {
-	private int farmerId;
+	private Long farmerId;
 	private String farmerName;
 	private String animalType;
+	private String shift;
 	private Float milkQuantity;
 	private Float milkFat;
 	private Float milkSNF;
 	private Float milkRate;
 	private Float totalMilkAmount;
 	private String remark;
-	private LocalDateTime dateOfMilkCollection;
+	private LocalDate dateOfMilkCollection;
 }
