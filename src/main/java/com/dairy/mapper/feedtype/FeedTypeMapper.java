@@ -18,6 +18,7 @@ public class FeedTypeMapper {
 		}
 		FeedType feedType = new FeedType();
 		feedType.setType(dto.getType());
+		feedType.setId(dto.getId());
 		return feedType;
 	}
 

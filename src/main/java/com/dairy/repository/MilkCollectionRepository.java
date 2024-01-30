@@ -18,16 +18,17 @@ import com.dairy.entity.MilkCollection;
 public interface MilkCollectionRepository extends JpaRepository<MilkCollection, Long> {
 
 
-	@Query("SELECT m FROM MilkCollection m WHERE m.date_of_collection BETWEEN :fromDate AND :toDate AND m.type = :animalType")
+	@Query("SELECT m FROM MilkCollection m WHERE m.dateOfCollection BETWEEN :fromDate AND :toDate AND m.type = :animalType")
 	List<MilkCollection> findByDateAndType(@Param("fromDate") Date fromDate, 
 	                                       @Param("toDate") Date toDate, 
 	                                       @Param("animalType") String animalType);
 
 		
+	
 		
 	@Query("SELECT m.farmer, SUM(m.total_amount), SUM(m.quantity) " +
 		       "FROM MilkCollection m " +
-		       "WHERE m.date_of_collection BETWEEN :fromDate AND :toDate " +
+		       "WHERE m.dateOfCollection BETWEEN :fromDate AND :toDate " +
 		       "AND m.type = :animalType " +
 		       "GROUP BY m.farmer")
 		List<Object[]> findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer(

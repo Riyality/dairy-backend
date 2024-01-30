@@ -39,7 +39,7 @@ public class MilkCollectionMapper {
 	public MilkCollectionResponseDto toResponseDto( MilkCollection milkCollection ) {
 		MilkCollectionResponseDto responseDto = new MilkCollectionResponseDto();
 		responseDto.setFarmerId(milkCollection.getFarmer().getId());
-		responseDto.setDateOfMilkCollection(milkCollection.getDate_of_collection());
+		responseDto.setDateOfMilkCollection(milkCollection.getDateOfCollection());
 		responseDto.setFarmerName(milkCollection.getFarmer().getName());
 		responseDto.setAnimalType( milkCollection.getType());
 		responseDto.setMilkFat( milkCollection.getFat() );
@@ -53,7 +53,7 @@ public class MilkCollectionMapper {
 		return responseDto;
 	}
 
-	public List<MilkCollectionResponseDto> toList( List<MilkCollection> list ) {
+	public List<MilkCollectionResponseDto> toList1( List<MilkCollection> list ) {
 		return list.stream()
 				.map( this::toResponseDto )
 				.collect( Collectors.toList() );
