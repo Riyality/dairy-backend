@@ -13,7 +13,9 @@ import com.dairy.dto.employee.EmployeeResponseDto;
 import com.dairy.entity.Bank;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Employee;
+import com.dairy.mapper.bank.BankMapper;
 import com.dairy.mapper.employee.EmployeeMapper;
+import com.dairy.repository.BankRepository;
 import com.dairy.repository.BranchRepository;
 import com.dairy.repository.EmployeeRepository;
 import com.dairy.service.EmployeeService;
@@ -30,6 +32,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeMapper employeeMapper;
+
+	@Autowired
+	private BankMapper bankMapper;
+
+	@Autowired
+	private BankRepository bankRepository;
 
 	@Autowired
 	private BranchRepository branchRepository;
@@ -62,11 +70,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public boolean updateEmployee(EmployeeRequestDto employeeRequestDto, Bank bank) {
+	public boolean updateEmployee(EmployeeRequestDto employeeRequestDto) {
 
 		try {
+			
+
+			Bank bank = bankMapper.toEntity(employeeRequestDto.getBankRequestDto());
+			Bank addedBank = bankRepository.save(bank);
+			
 			Employee employee = employeeMapper.toEntity(employeeRequestDto);
-			employee.setBank(bank);
+			employee.setBank(addedBank);
 			Optional<Branch> opt = branchRepository.findById(employeeRequestDto.getBranchId());
 			if (opt.isPresent())
 				employee.setBranch(opt.get());

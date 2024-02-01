@@ -28,6 +28,7 @@ public class FarmerMapper {
 		farmer.setDateOfRegistration( requestDto.getDateOfRegistration() );
 		farmer.setContact( requestDto.getContact() );
 		farmer.setAddress( requestDto.getAddress() );
+		farmer.setStatus("active");
 		return farmer;
 	}
 
@@ -38,6 +39,7 @@ public class FarmerMapper {
 		responseDto.setDateOfRegistration( farmer.getDateOfRegistration() );
 		responseDto.setContact( farmer.getContact() );
 		responseDto.setAddress( farmer.getAddress() );
+		responseDto.setStatus( farmer.getStatus() );
 
 		if ( farmer.getRoute() != null ) {
 			responseDto.setRoute( routeMapper.toRouteResponseDto( farmer.getRoute() ) );
