@@ -13,7 +13,7 @@ public interface EmployeeService {
 
 	List<EmployeeResponseDto> getAllEmplyoee();
 
-	boolean updateEmployee(EmployeeRequestDto employeeRequestDto, Bank bank);
+	boolean updateEmployee(EmployeeRequestDto employeeRequestDto);
 
 	EmployeeResponseDto findById( Long id );
 

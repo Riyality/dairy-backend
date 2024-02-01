@@ -11,7 +11,9 @@ import com.dairy.entity.Bank;
 
 @Component
 public class BankMapper {
+	
 	public Bank toEntity(BankRequestDto bankRequestDto) {
+		
 		if (bankRequestDto == null) {
 			return null;
 		}
@@ -27,6 +29,7 @@ public class BankMapper {
 	}
 
 	public BankResponseDto toBankResponseDto(Bank bank) {
+		
 		if (bank == null) {
 			return null;
 		}

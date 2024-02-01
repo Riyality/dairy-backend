@@ -13,11 +13,13 @@ import com.dairy.entity.Employee;
 public class EmployeeMapper {
 
 	public Employee toEntity(EmployeeRequestDto employeeRequestDto) {
+		
 		if (employeeRequestDto == null) {
 			return null;
 		}
 
 		Employee employee = new Employee();
+		employee.setId(employeeRequestDto.getId());
 		employee.setName(employeeRequestDto.getName());
 		employee.setContact(employeeRequestDto.getContact());
 		employee.setAddress(employeeRequestDto.getAddress());
