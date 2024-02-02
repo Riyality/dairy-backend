@@ -26,20 +26,24 @@ public interface MilkCollectionRepository extends JpaRepository<MilkCollection, 
 		
 	
 		
-	@Query("SELECT m.farmer, SUM(m.total_amount), SUM(m.quantity) " +
+	@Query("SELECT m.farmer, b, SUM(m.total_amount), SUM(m.quantity) " +
 		       "FROM MilkCollection m " +
+		       "JOIN m.branch b " + 
 		       "WHERE m.dateOfCollection BETWEEN :fromDate AND :toDate " +
 		       "AND m.type = :animalType " +
-		       "GROUP BY m.farmer")
+		       "GROUP BY m.farmer, b")
 		List<Object[]> findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer(
-		    @Param("fromDate") Date fromDate,
-		    @Param("toDate") Date toDate,
-		    @Param("animalType") String animalType);
+		        @Param("fromDate") LocalDate fromDate,
+		        @Param("toDate") LocalDate toDate,
+		        @Param("animalType") String animalType);
 
-
-	List<MilkCollectionResponseDto> findByFarmer(int farmerId);
-	 
 	List<MilkCollection> findByBranchAndDateOfCollection(Branch branch, LocalDate dateOfCollection);
 
+	
+	@Query("SELECT m FROM MilkCollection m WHERE m.farmer.id = :farmerId")
+	List<MilkCollection> findByFarmerId(@Param("farmerId") Long farmerId);
+
+
+	
 }
  

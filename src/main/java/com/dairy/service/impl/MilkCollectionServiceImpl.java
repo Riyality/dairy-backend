@@ -1,11 +1,9 @@
 package com.dairy.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -14,14 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
-import com.dairy.entity.AdvanceToFarmer;
-import com.dairy.entity.Bank;
 import com.dairy.entity.Branch;
-import com.dairy.entity.Farmer;
-import com.dairy.entity.FeedCompany;
-import com.dairy.entity.FeedType;
 import com.dairy.entity.MilkCollection;
-import com.dairy.mapper.branch.BranchMapper;
 import com.dairy.mapper.milkCollection.MilkCollectionMapper;
 import com.dairy.repository.BranchRepository;
 import com.dairy.repository.MilkCollectionRepository;
@@ -66,19 +58,18 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	@Override
 	public List<MilkCollectionResponseDto> findByFromDateAndToDateAndAnimalType(Date fromDate, Date toDate,
 			String animalType) {
-		List<MilkCollection> list = milkCollectionRepository.findByDateAndType(fromDate, toDate, animalType);
-		return milkCollectionMapper.toList(list);
+		List<MilkCollection> list=milkCollectionRepository.findByDateAndType(
+	            fromDate, toDate, animalType);
+		return milkCollectionMapper.toDateAndTypewiseList(list);
 	}
 
 	@Override
-	public List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(Date fromDate, Date toDate, String animalType) {
-		return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer(fromDate, toDate,
-				animalType);
+	public List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType) {
+		return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer( fromDate, toDate, animalType);
 	}
 
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId) {
-
 		return milkCollectionRepository.findByFarmer(farmerId);
 	}
 
@@ -95,6 +86,12 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		}
 
 		return milkCollectionMapper.toList(milkCollection);
+	}
+    
+	@Override
+	public List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId) {
+	    List<MilkCollection> milkCollection = milkCollectionRepository.findByFarmerId(farmerId);
+	     return milkCollectionMapper.toList(milkCollection);
 	}
 
 }
