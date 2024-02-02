@@ -22,7 +22,6 @@ public class MilkCollectionMapper {
 		if ( milkCollectionRequestDto == null ) {
 			return null;
 		}
-
 		MilkCollection milkCollection = new MilkCollection();
 		milkCollection.setDateOfCollection(milkCollectionRequestDto.getDateOfMilkCollection());
 		milkCollection.setShift(milkCollectionRequestDto.getMilkCollectionShift());
@@ -39,17 +38,16 @@ public class MilkCollectionMapper {
 	public MilkCollectionResponseDto toResponseDto( MilkCollection milkCollection ) {
 		MilkCollectionResponseDto responseDto = new MilkCollectionResponseDto();
 		responseDto.setFarmerId(milkCollection.getFarmer().getId());
-		responseDto.setDateOfMilkCollection(milkCollection.getDate_of_collection());
+		responseDto.setDateOfMilkCollection(milkCollection.getDateOfCollection());
 		responseDto.setFarmerName(milkCollection.getFarmer().getName());
 		responseDto.setAnimalType( milkCollection.getType());
 		responseDto.setMilkFat( milkCollection.getFat() );
 		responseDto.setMilkSNF( milkCollection.getSnf() );
-		responseDto.setMilkRate(milkCollection.getRate());
-		//responseDto.setRemark("New");
+		responseDto.setMilkRate(milkCollection.getRate());		
+		responseDto.setShift(milkCollection.getShift());
 		responseDto.setMilkQuantity(milkCollection.getQuantity());
 		responseDto.setTotalMilkAmount(milkCollection.getTotal_amount());
-		
-
+		responseDto.setBranchName(milkCollection.getBranch().getName());
 		return responseDto;
 	}
 
@@ -60,7 +58,7 @@ public class MilkCollectionMapper {
 	}
 
 
-	public List<MilkCollectionResponseDto> toList(List<MilkCollection> list) {
+	public List<MilkCollectionResponseDto> toDateAndTypewiseList(List<MilkCollection> list) {
 		
         List<MilkCollectionResponseDto> dtoList = new ArrayList<>();
         for (MilkCollection milkCollection : list) {
@@ -71,8 +69,7 @@ public class MilkCollectionMapper {
 
     public MilkCollectionResponseDto toMilkCollectionResponseDto(MilkCollection milkCollection) {
     	
-        MilkCollectionResponseDto responseDto = new MilkCollectionResponseDto();
-        
+        MilkCollectionResponseDto responseDto = new MilkCollectionResponseDto();    
         responseDto.setFarmerId(milkCollection.getFarmer().getId());
         responseDto.setFarmerName(milkCollection.getFarmer().getName());
         responseDto.setAnimalType(milkCollection.getType());
@@ -81,10 +78,19 @@ public class MilkCollectionMapper {
         responseDto.setMilkSNF(milkCollection.getSnf());
         responseDto.setMilkRate(milkCollection.getRate());
         responseDto.setTotalMilkAmount(milkCollection.getTotal_amount());
-        responseDto.setRemark(""); // You can set this based on your logic or leave it empty
-        responseDto.setDateOfMilkCollection(milkCollection.getDateOfCollection());
-
+       // responseDto.setRemark("");
+        responseDto.setDateOfMilkCollection(milkCollection.getDateOfCollection()); 
+        responseDto.setBranchName(milkCollection.getBranch().getName());
         return responseDto;
     }
+
+    public List<MilkCollectionResponseDto> toResponseDtoList(List<MilkCollectionResponseDto> list) {
+        return list;  
+    }
+
+
+	
+
+	
 	
 }
