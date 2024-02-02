@@ -51,9 +51,9 @@ public class MilkCollectionController {
 	    return new ResponseEntity<>(milkCollectionData, HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<String> addMilkCollectionData( @RequestBody MilkCollectionRequestDto milkCollectionRequestDto ) {
-		boolean isAdded = milkCollectionService.addMilkCollectionData( milkCollectionRequestDto );
+	@PostMapping("/branchId/{branchId}")
+	public ResponseEntity<String> addMilkCollectionData( @RequestBody MilkCollectionRequestDto milkCollectionRequestDto,@PathVariable int branchId ) {
+		boolean isAdded = milkCollectionService.addMilkCollectionData( milkCollectionRequestDto,branchId );
 		if ( isAdded )
 			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.ADD_BRANCH_SUCCESS_MESSAGE );
 

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
@@ -37,15 +38,19 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
-
 		return null;
 	}
 
 	@Override
-	public boolean addMilkCollectionData(MilkCollectionRequestDto milkCollectionRequestDto) {
+	public boolean addMilkCollectionData(MilkCollectionRequestDto milkCollectionRequestDto, int branchId) {
 		try {
 
 			MilkCollection milkCollection = milkCollectionMapper.toEntity(milkCollectionRequestDto);
+			
+			Optional<Branch> opt = branchRepository.findById(milkCollectionRequestDto.getBranchId());
+			if (opt.isPresent())
+				milkCollection.setBranch(opt.get());
+			
 			MilkCollection addedMilkCollection = milkCollectionRepository.save(milkCollection);
 
 			return true;

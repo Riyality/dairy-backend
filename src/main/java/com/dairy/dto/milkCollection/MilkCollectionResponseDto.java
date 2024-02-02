@@ -21,6 +21,7 @@ public class MilkCollectionResponseDto {
 	private Float milkRate;
 	private Float totalMilkAmount;
 	private String remark;
+	private int branchId;
 	private LocalDate dateOfMilkCollection;
 	private String branchName;
 
