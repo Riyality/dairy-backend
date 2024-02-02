@@ -51,7 +51,7 @@ public class MilkCollectionMapper {
 		return responseDto;
 	}
 
-	public List<MilkCollectionResponseDto> toList1( List<MilkCollection> list ) {
+	public List<MilkCollectionResponseDto> toList( List<MilkCollection> list ) {
 		return list.stream()
 				.map( this::toResponseDto )
 				.collect( Collectors.toList() );

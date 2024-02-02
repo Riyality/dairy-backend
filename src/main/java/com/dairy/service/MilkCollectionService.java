@@ -25,5 +25,7 @@ public interface MilkCollectionService {
 
 	List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId);
 
+	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
+
 
 }
