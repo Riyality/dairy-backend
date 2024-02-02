@@ -1,8 +1,7 @@
 package com.dairy.service;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,11 +19,11 @@ public interface MilkCollectionService {
 
 	List<MilkCollectionResponseDto> findByFromDateAndToDateAndAnimalType(Date fromDate, Date toDate,
 			String animalType);
-
-	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(Date fromDate, Date toDate, String animalType);
-
-	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
-
 	List<MilkCollectionResponseDto> findAllByBranchIdAndDateOfCollection(int branchId, LocalDate dateOfCollection);
+
+	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType);
+
+	List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId);
+
 
 }

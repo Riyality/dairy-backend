@@ -1,12 +1,10 @@
 package com.dairy.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-
-import java.time.LocalDate;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dairy.constants.MessageConstants;
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
+import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
-import com.dairy.repository.MilkCollectionRepository;
 import com.dairy.service.MilkCollectionService;
 
 @RestController
@@ -41,11 +39,6 @@ public class MilkCollectionController {
 	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionData() {
 		return new ResponseEntity<>( milkCollectionService.getAllMilkCollectionData(), HttpStatus.OK );
 	}
-
-//	@GetMapping("/branchId/{branchId}/dateOfCollection/{dateOfCollection}")
-//	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByDate(@PathVariable int branchId, @PathVariable LocalDate dateOfCollection) {
-//		return new ResponseEntity<>( milkCollectionService.findAllByBranchIdAndDateOfCollection(branchId,dateOfCollection), HttpStatus.OK );
-//	}
 	
 	@GetMapping("/branchId/{branchId}/dateOfCollection/{dateOfCollection}")
 	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByDate(
@@ -54,7 +47,7 @@ public class MilkCollectionController {
 	    
 	    List<MilkCollectionResponseDto> milkCollectionData = 
 	        milkCollectionService.findAllByBranchIdAndDateOfCollection(branchId, dateOfCollection);
-	    System.out.println(milkCollectionData);
+	  
 	    return new ResponseEntity<>(milkCollectionData, HttpStatus.OK);
 	}
 
@@ -71,30 +64,28 @@ public class MilkCollectionController {
 	
 	 @GetMapping("/{fromDate}/{toDate}/{animalType}")
 	    public ResponseEntity<List<MilkCollectionResponseDto>> findByFromDateAndToDateAndAnimalType(
-	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
-	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate,
+	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
 	            @PathVariable String animalType) {
 		 List<Object[]> totalAmountResults = milkCollectionService.findByDateAndTypeAndSumTotalAmountByFarmer(fromDate, toDate, animalType);
-
-		 System.out.println("totalAmountResults::" + totalAmountResults);
-
 		 // Create a map to easily access the total amount and total quantity by farmer ID
 		 Map<Long, MilkCollectionResponseDto> totalAmountAndQuantityMap = new HashMap<>();
 		 for (Object[] result1 : totalAmountResults) {
 		     Farmer farmer = (Farmer) result1[0];
-		     Double sumTotalAmount = (Double) result1[1]; // Assuming sumTotalAmount is Double
+		     Branch branch=(Branch)result1[1];
+		     Double sumTotalAmount = (Double) result1[2]; // Assuming sumTotalAmount is Double
 		     Double sumQuantity = (Double) result1[2]; // Assuming sumQuantity is Double
 		     Long farmerId = farmer.getId();
-
+		     String branchName=branch.getName();
 		     // Create or update MilkCollectionResponseDto in the map
 		     MilkCollectionResponseDto dto = totalAmountAndQuantityMap.getOrDefault(farmerId, new MilkCollectionResponseDto());
 		     dto.setFarmerId(farmerId);
 		     dto.setFarmerName(farmer.getName()); // Assuming there's a method to get the farmer name
 		     dto.setTotalMilkAmount( sumTotalAmount.floatValue());
 		     dto.setMilkQuantity( sumQuantity.floatValue());
+		     dto.setBranchName(branchName); // System.out.println(branchName);
 		     totalAmountAndQuantityMap.put(farmerId, dto);
 		 }
-
 		 // Ensure unique farmer IDs in the result list
 		 Set<Long> uniqueFarmerIds = new HashSet<>();
 		 List<MilkCollectionResponseDto> uniqueResult = new ArrayList<>();
@@ -104,22 +95,17 @@ public class MilkCollectionController {
 		         uniqueResult.add(dto);
 		     }
 		 }
-
-		 System.out.println(uniqueResult);
 	    return new ResponseEntity<>(uniqueResult, HttpStatus.OK);
 	}
-		 
-//		 
-//	 @GetMapping("getMilkCollectionDataBy/{farmerId}")
-//	    public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionDataByFarmerId( @PathVariable int farmerId){
-//		
-//		 return ResponseEntity.status(HttpStatus.OK).body(milkCollectionService.getAllMilkCollectionDataByFarmerId(farmerId));
-//	 }	 
-//		
-
-	 
 		
-	 
+	 	 
+	  @GetMapping("getMilkCollectionDataBy/{farmerId}")
+	    public ResponseEntity<List<MilkCollectionResponseDto>> getRecordsByFarmerId(@PathVariable Long farmerId) {
+		
+	        List<MilkCollectionResponseDto> responseDtos = milkCollectionService.getRecordsByFarmerId(farmerId);
+	        return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
+	    }
+
 
 
 	

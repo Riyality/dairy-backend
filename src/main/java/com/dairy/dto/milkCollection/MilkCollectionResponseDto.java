@@ -23,5 +23,6 @@ public class MilkCollectionResponseDto {
 	private String remark;
 	private int branchId;
 	private LocalDate dateOfMilkCollection;
+	private String branchName;
 
 }
