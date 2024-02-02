@@ -14,5 +14,5 @@ public interface FarmerRepository extends JpaRepository<Farmer, Long> {
 
 	List<Farmer> findAllByStatusAndBranch( String status, Branch branch );
 
-	List<Farmer> findAllByRouteAndBranch(Route route, Branch branch);
+	List<Farmer> findAllByStatusAndRouteAndBranch(String status, Route route, Branch branch);
 }

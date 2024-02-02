@@ -25,32 +25,32 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 public class MilkCollectionServiceImpl implements MilkCollectionService {
-	
+
 	@Autowired
 	private MilkCollectionMapper milkCollectionMapper;
-	
+
 	@Autowired
 	private MilkCollectionRepository milkCollectionRepository;
-	
+
 	@Autowired
 	private BranchRepository branchRepository;
 
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
-		
+
 		return null;
 	}
 
 	@Override
 	public boolean addMilkCollectionData(MilkCollectionRequestDto milkCollectionRequestDto) {
 		try {
-			
-			MilkCollection milkCollection = milkCollectionMapper.toEntity( milkCollectionRequestDto);
-			MilkCollection addedMilkCollection = milkCollectionRepository.save( milkCollection );
+
+			MilkCollection milkCollection = milkCollectionMapper.toEntity(milkCollectionRequestDto);
+			MilkCollection addedMilkCollection = milkCollectionRepository.save(milkCollection);
 
 			return true;
-		} catch ( Exception e ) {
-			log.error( e.getMessage(), e );
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
 		}
 		return false;
 	}
@@ -60,8 +60,7 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 			String animalType) {
 		List<MilkCollection> list=milkCollectionRepository.findByDateAndType(
 	            fromDate, toDate, animalType);
-		//System.out.println(list);
-		return milkCollectionMapper.toDateAndTypewiseList(list);//
+		return milkCollectionMapper.toDateAndTypewiseList(list);
 	}
 
 	@Override
@@ -69,29 +68,30 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer( fromDate, toDate, animalType);
 	}
 
-	
-  
+	@Override
+	public List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId) {
+		return milkCollectionRepository.findByFarmer(farmerId);
+	}
+
 	@Override
 	public List<MilkCollectionResponseDto> findAllByBranchIdAndDateOfCollection(int branchId,
 			LocalDate dateOfCollection) {
 
 		List<MilkCollection> milkCollection = null;
-	    Optional<Branch> branchOptional = branchRepository.findById(branchId);
-	    
-	    if (branchOptional.isPresent()) {
-	        milkCollection = milkCollectionRepository.findByBranchAndDateOfCollection(branchOptional.get(), dateOfCollection);
-	    }
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
 
-	    return milkCollectionMapper.toList(milkCollection);
+		if (branchOptional.isPresent()) {
+			milkCollection = milkCollectionRepository.findByBranchAndDateOfCollection(branchOptional.get(),
+					dateOfCollection);
 		}
+
+		return milkCollectionMapper.toList(milkCollection);
+	}
+    
 	@Override
 	public List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId) {
 	    List<MilkCollection> milkCollection = milkCollectionRepository.findByFarmerId(farmerId);
-	    
 	     return milkCollectionMapper.toList(milkCollection);
 	}
-
-	
-	
 
 }

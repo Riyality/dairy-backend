@@ -56,10 +56,8 @@ public class EmployeeController {
 
 	@PutMapping
 	public ResponseEntity<String> updateEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
-		employeeRequestDto.getBankRequestDto().setBranchId(employeeRequestDto.getBranchId());
-		Bank bank = bankService.updateBank(employeeRequestDto.getBankRequestDto());
 
-		boolean isUpdated = employeeService.updateEmployee(employeeRequestDto, bank);
+		boolean isUpdated = employeeService.updateEmployee(employeeRequestDto);
 
 		if (isUpdated)
 			return ResponseEntity.status(HttpStatus.CREATED).body(MessageConstants.UPDATE_EMPLOYEE_SUCCESS_MESSAGE);

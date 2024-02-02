@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmployeeRequestDto {
 	
+	private Long id;
+	@NotBlank(message = "Farmer Name cannot be blank")
+	
 	@NotBlank(message = "Employee Name cannot be blank")
 	@Size(max=32,message = "maximum allowed characters are 32")
 	private String name;
@@ -33,9 +36,5 @@ public class EmployeeRequestDto {
 	
 	private BankRequestDto bankRequestDto;
 	
-	public BankRequestDto getBankRequestDto() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
  

@@ -24,10 +24,11 @@ public interface MilkCollectionRepository extends JpaRepository<MilkCollection, 
 	                                       @Param("animalType") String animalType);
 
 		
+	
 		
 	@Query("SELECT m.farmer, b, SUM(m.total_amount), SUM(m.quantity) " +
 		       "FROM MilkCollection m " +
-		       "JOIN m.branch b " + // Assuming 'branch' is the field in MilkCollection mapping to Branch
+		       "JOIN m.branch b " + 
 		       "WHERE m.dateOfCollection BETWEEN :fromDate AND :toDate " +
 		       "AND m.type = :animalType " +
 		       "GROUP BY m.farmer, b")

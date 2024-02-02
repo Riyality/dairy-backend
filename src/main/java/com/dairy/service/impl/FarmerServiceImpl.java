@@ -64,6 +64,7 @@ public class FarmerServiceImpl implements FarmerService {
 				farmer.setBranch(branchOpt.get());
 				farmer.setRoute(routeOpt.get());
 			}
+			
 			farmerRepository.save(farmer);
 			return true;
 		} catch (Exception e) {
@@ -88,7 +89,7 @@ public class FarmerServiceImpl implements FarmerService {
 	public List<FarmerResponseDto> findAllActive(int id) {
 		Optional<Branch> branchOptional = branchRepository.findById(id);
 		if (branchOptional.isPresent()) {
-			List<Farmer> list = farmerRepository.findAllByStatusAndBranch("Active", branchOptional.get());
+			List<Farmer> list = farmerRepository.findAllByStatusAndBranch("active", branchOptional.get());
 			return farmerMapper.toList(list);
 		}
 		return null;
@@ -99,9 +100,7 @@ public class FarmerServiceImpl implements FarmerService {
 		Optional<Branch> branchOptional = branchRepository.findById(branchId);
 		Optional<Route> routeOptional = routeRepository.findById(routeId);
 		if (branchOptional.isPresent() && routeOptional.isPresent()) {
-			// here route is string route cha column foreign key pahije just
-			// like branch+
-			List<Farmer> list = farmerRepository.findAllByRouteAndBranch(routeOptional.get(), branchOptional.get());
+			List<Farmer> list = farmerRepository.findAllByStatusAndRouteAndBranch("active", routeOptional.get(), branchOptional.get());
 			return farmerMapper.toList(list);
 		}
 		return null;
@@ -119,10 +118,12 @@ public class FarmerServiceImpl implements FarmerService {
 			farmer.setBank(addedBank);
 			Optional<Branch> branchOpt = branchRepository.findById(dto.getBranchId());
 			Optional<Route> routeOpt = routeRepository.findById(routeId);
+			
 			if (branchOpt.isPresent() && routeOpt.isPresent()) {
 				farmer.setBranch(branchOpt.get());
 				farmer.setRoute(routeOpt.get());
 			}
+			
 			farmerRepository.save(farmer);
 			return true;
 		} catch (Exception e) {
