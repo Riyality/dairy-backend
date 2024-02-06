@@ -1,7 +1,5 @@
 package com.dairy.entity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -24,7 +22,7 @@ public class MilkCollection {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private LocalDate dateOfCollection;
+	private Date dateOfCollection;
 	private String shift;
 	private String type;
 	private Float quantity;

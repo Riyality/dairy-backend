@@ -25,6 +25,6 @@ public class MilkCollectionRequestDto {
 	private String remark;
 	private int branchId;
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate dateOfMilkCollection;
+	private Date dateOfMilkCollection;
 
 }
