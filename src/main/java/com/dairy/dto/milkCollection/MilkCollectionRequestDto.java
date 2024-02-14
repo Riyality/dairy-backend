@@ -1,8 +1,6 @@
 package com.dairy.dto.milkCollection;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +22,8 @@ public class MilkCollectionRequestDto {
 	private Float totalMilkAmount;
 	private String remark;
 	private int branchId;
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private Date dateOfMilkCollection;
+	@DateTimeFormat( pattern = "yyyy-MM-dd" )
+	private LocalDate dateOfMilkCollection;
+
 
 }

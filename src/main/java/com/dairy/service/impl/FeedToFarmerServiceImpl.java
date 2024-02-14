@@ -1,5 +1,6 @@
 package com.dairy.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,6 @@ import com.dairy.dto.feedToFarmer.FeedToFarmerResponseDto;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
 import com.dairy.entity.FeedCompany;
-import com.dairy.entity.FeedStock;
 import com.dairy.entity.FeedToFarmer;
 import com.dairy.entity.FeedType;
 import com.dairy.mapper.feedToFarmer.FeedToFarmerMapper;
@@ -66,6 +66,11 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
 			Optional<FeedCompany>  feedCompanyOpt=feedcompanyRepository.findById(feedToFarmerReqDto.getFeedCompanyId());
 			if(feedCompanyOpt.isPresent())
 				feedToFarmer.setFeedCompany(feedCompanyOpt.get());
+			
+			
+			
+			
+			
 			
 			feedToFarmerRepository.save(feedToFarmer);
 			return true;
@@ -122,5 +127,33 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
 		return false;
 	
 	}
+
+
+	@Override
+	public Double findTotalOfRemainingAmountByFarmerIdAndBranchId(long farmerId, int branchId,LocalDate fromDate, LocalDate toDate) {
+	
+		
+		
+		return feedToFarmerRepository.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId,branchId,fromDate,toDate);
+	}
+
+
+	@Override
+	public FeedToFarmer findByFarmerId(Long farmerId) {
+		
+		return feedToFarmerRepository.findByFarmerId(farmerId);
+	}
+	
+
+    public List<FeedToFarmer> getFarmersByFarmerId(Long farmerId) {
+        return feedToFarmerRepository.findAllByFarmerId(farmerId);
+    }
+
+
+//	@Override
+//	public FeedToFarmer findByFarmerId(Long farmerId) {
+//		
+//		return feedToFarmerRepository.findLatestByFarmerId(farmerId);
+//	}
 
 }

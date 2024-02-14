@@ -24,6 +24,8 @@ public class FeedToFarmerMapper {
 	   feedToFarmer.setQuantity(feedToFarmerRequestDto.getQuantity());
 	   feedToFarmer.setFeedRate(feedToFarmerRequestDto.getFeedRate());
 	   feedToFarmer.setTotalAmount(feedToFarmerRequestDto.getTotalAmount());
+	   feedToFarmer.setPaidAmount(feedToFarmerRequestDto.getPaidAmount());
+	   feedToFarmer.setRemainingAmount(feedToFarmerRequestDto.getRemainingAmount());
 	   feedToFarmer.setPaymentStatus(feedToFarmerRequestDto.getPaymentStatus());
 	   feedToFarmer.setRemark(feedToFarmerRequestDto.getRemark());
 		return feedToFarmer;
@@ -34,14 +36,15 @@ public class FeedToFarmerMapper {
 		
 		if(feedToFarmer==null){
 			return null;
-		}
-		
+		}		
 		FeedToFarmerResponseDto feedToFarmerResponseDto=new FeedToFarmerResponseDto();
 		feedToFarmerResponseDto.setId(feedToFarmer.getId());
 		feedToFarmerResponseDto.setDateOfPurchase(feedToFarmer.getDateOfPurchase());
 		feedToFarmerResponseDto.setQuantity(feedToFarmer.getQuantity());
 		feedToFarmerResponseDto.setFeedRate(feedToFarmer.getFeedRate());
 		feedToFarmerResponseDto.setTotalAmount(feedToFarmer.getTotalAmount());
+		feedToFarmerResponseDto.setPaidAmount(feedToFarmer.getPaidAmount());
+		feedToFarmerResponseDto.setRemainingAmount(feedToFarmer.getRemainingAmount());
 		feedToFarmerResponseDto.setPaymentStatus(feedToFarmer.getPaymentStatus());
 		feedToFarmerResponseDto.setRemark(feedToFarmer.getRemark());
 		

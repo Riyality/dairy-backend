@@ -93,10 +93,18 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		return milkCollectionMapper.toList(milkCollection);
 	}
     
+//	@Override
+//	public List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId) {		
+//	    List<MilkCollection> milkCollection = milkCollectionRepository.findByFarmerId(farmerId);
+//	     return milkCollectionMapper.toList(milkCollection);
+//	}
+
 	@Override
-	public List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId) {
-	    List<MilkCollection> milkCollection = milkCollectionRepository.findByFarmerId(farmerId);
-	     return milkCollectionMapper.toList(milkCollection);
+	public List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
+			LocalDate fromDate, LocalDate toDate, String animalType) {		
+		 List<MilkCollection> milkCollection = milkCollectionRepository.findByFarmerDateOfCollectionAndType(farmerId,fromDate,toDate,animalType);
+		
+		return milkCollectionMapper.toList(milkCollection);
 	}
 
 }

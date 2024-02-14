@@ -1,8 +1,10 @@
 package com.dairy.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +48,19 @@ public class AdvanceToFarmerController {
 		return ResponseEntity.status(HttpStatus.OK).body(advanceToFarmerService.findById(id));
 	}
 
+	
+	@GetMapping("/{farmerId}/{branchId}")
+	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(
+	        @PathVariable("farmerId") Long farmerId,
+	        @PathVariable("branchId") int branchId
+	        ) {
+		
+	    Double result = advanceToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId, branchId);
+	   
+	    return ResponseEntity.status(HttpStatus.OK).body(result);
+	}
+	
+	
 	
 	@PutMapping
 	public ResponseEntity<String> update(@RequestBody AdvanceToFarmerRequestDto advanceRequestDto){

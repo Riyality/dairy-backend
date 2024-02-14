@@ -23,7 +23,12 @@ public interface MilkCollectionService {
 
 	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType);
 
-	List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId);
+	//List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId);
+
+	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
+
+	List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
+			LocalDate fromDate, LocalDate toDate, String animalType);
 
 	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
 

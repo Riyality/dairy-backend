@@ -2,13 +2,7 @@ package com.dairy.dto.milkRate;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
-import com.dairy.entity.Branch;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

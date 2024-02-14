@@ -2,7 +2,6 @@ package com.dairy.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +24,8 @@ import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
+import com.dairy.service.AdvanceToFarmerService;
+import com.dairy.service.FeedToFarmerService;
 import com.dairy.service.MilkCollectionService;
 
 @RestController
@@ -35,6 +36,12 @@ public class MilkCollectionController {
 	@Autowired
 	private MilkCollectionService milkCollectionService;
 
+	@Autowired
+	FeedToFarmerService feedToFarmerService;
+	@Autowired
+	AdvanceToFarmerService advanceToFarmerService;
+	
+	
 	@GetMapping
 	public ResponseEntity<List<MilkCollectionResponseDto>> getAllMilkCollectionData() {
 		return new ResponseEntity<>( milkCollectionService.getAllMilkCollectionData(), HttpStatus.OK );
@@ -53,6 +60,7 @@ public class MilkCollectionController {
 
 	@PostMapping("/branchId/{branchId}")
 	public ResponseEntity<String> addMilkCollectionData( @RequestBody MilkCollectionRequestDto milkCollectionRequestDto,@PathVariable int branchId ) {
+	System.out.println("BRANCH ID:"+branchId);
 		boolean isAdded = milkCollectionService.addMilkCollectionData( milkCollectionRequestDto,branchId );
 		if ( isAdded )
 			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.ADD_BRANCH_SUCCESS_MESSAGE );
@@ -61,7 +69,7 @@ public class MilkCollectionController {
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_BRANCH_ERROR_MSG );
 	}
 	
-	
+		Double FeedTotalAmount=0.0;
 	 @GetMapping("/{fromDate}/{toDate}/{animalType}")
 	    public ResponseEntity<List<MilkCollectionResponseDto>> findByFromDateAndToDateAndAnimalType(
 	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
@@ -84,10 +92,21 @@ public class MilkCollectionController {
 		     dto.setFarmerName(farmer.getName()); // Assuming there's a method to get the farmer name
 		     dto.setTotalMilkAmount( sumTotalAmount.floatValue());
 		     dto.setMilkQuantity( sumQuantity.floatValue());
-		     dto.setBranchName(branchName); // System.out.println(branchName);
+
+		     dto.setBranchName(branchName);
 		     dto.setBranchId(branchId);
 		     totalAmountAndQuantityMap.put(farmerId, dto);
+		     
+		     Double FeedTotalAmount = feedToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmer.getId(), branch.getId(),fromDate, toDate);
+		      System.out.println(farmer.getName()+"FEED:"+FeedTotalAmount+branch.getId());
+		      dto.setTotalFeedRemainingAmount(FeedTotalAmount == null ? 0.0 : FeedTotalAmount);		     
+		      Double AdvanceTotalAmount = advanceToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmer.getId(), branch.getId());
+		      dto.setTotalAdvanceAmount(AdvanceTotalAmount == null ? 0.0 : AdvanceTotalAmount);
+		     
+
 		 }
+		 
+		 
 		 // Ensure unique farmer IDs in the result list
 		 Set<Long> uniqueFarmerIds = new HashSet<>();
 		 List<MilkCollectionResponseDto> uniqueResult = new ArrayList<>();
@@ -95,22 +114,33 @@ public class MilkCollectionController {
 		     Long farmerId = dto.getFarmerId();
 		     if (uniqueFarmerIds.add(farmerId)) {
 		         uniqueResult.add(dto);
+		         
+		         
 		     }
 		 }
 	    return new ResponseEntity<>(uniqueResult, HttpStatus.OK);
 	}
 		
 	 	 
-	  @GetMapping("getMilkCollectionDataBy/{farmerId}")
-	    public ResponseEntity<List<MilkCollectionResponseDto>> getRecordsByFarmerId(@PathVariable Long farmerId) {
+//	  @GetMapping("getMilkCollectionDataBy/{farmerId}")
+//	    public ResponseEntity<List<MilkCollectionResponseDto>> getRecordsByFarmerId(@PathVariable Long farmerId) {
+//		
+//	        List<MilkCollectionResponseDto> responseDtos = milkCollectionService.getRecordsByFarmerId(farmerId);
+//	        return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
+//	    }
+	  
+	  
+	  @GetMapping("getMilkCollectionDataBy/{farmerId}/{fromDate}/{toDate}/{animalType}")
+	    public ResponseEntity<List<MilkCollectionResponseDto>> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(@PathVariable Long farmerId, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
+	            @PathVariable String animalType) {
 		
-	        List<MilkCollectionResponseDto> responseDtos = milkCollectionService.getRecordsByFarmerId(farmerId);
+	        List<MilkCollectionResponseDto> responseDtos = milkCollectionService.getRecordsByFarmerIdFromDateAndToDateAndAnimalType(farmerId,fromDate,toDate,animalType);
 	        return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
 	    }
 
 	  
 	 
-
 
 	
 }

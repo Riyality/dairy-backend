@@ -182,59 +182,71 @@ CREATE TABLE `dairy`.`farmers` (
   `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));
 
-  
-  CREATE TABLE `dairy`.`advance_to_farmer` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `date_of_advance` TIMESTAMP NULL,
-  `amount` FLOAT NULL,
-  `deduction` FLOAT NULL,
-  `remaining_amount` FLOAT NULL,
-  `farmer` BIGINT,
-    `branch` INT,
-  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
-  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
-);
+   CREATE TABLE `advance_to_farmer` (
+	  `id` bigint NOT NULL AUTO_INCREMENT,
+	  `date_of_advance` timestamp NULL DEFAULT NULL,
+	  `amount` float DEFAULT NULL,
+	  `remaining_amount` float DEFAULT NULL,
+	  `farmer` bigint DEFAULT NULL,
+	  `branch` int DEFAULT NULL,
+	  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	  PRIMARY KEY (`id`),
+	  KEY `farmer` (`farmer`),
+	  KEY `branch` (`branch`),
+	  CONSTRAINT `advance_to_farmer_ibfk_1` FOREIGN KEY (`farmer`) REFERENCES `farmers` (`id`),
+	  CONSTRAINT `advance_to_farmer_ibfk_2` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`)
+	)
 
   
-  CREATE TABLE `dairy`.`payment_of_farmer` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `invoice_date` TIMESTAMP NULL,
-  `from_date` TIMESTAMP NULL,
-  `to_date` TIMESTAMP NULL,
-  `amount` FLOAT NULL,
-  `latest_payment_date` TIMESTAMP NULL,
-  `farmer` BIGINT,
-   `branch` INT,
-  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ CREATE TABLE `feed_to_farmer` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `date_of_purchase` timestamp NULL DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `feed_rate` float DEFAULT NULL,
+  `total_amount` float NOT NULL,
+  `paid_amount` float DEFAULT NULL,
+  `remaining_amount` float DEFAULT NULL,
+  `remark` varchar(45) DEFAULT NULL,
+  `farmer` bigint DEFAULT NULL,
+  `branch` int DEFAULT NULL,
+  `feed_company` bigint DEFAULT NULL,
+  `feed_type` bigint DEFAULT NULL,
+  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
-  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
-);
-  
-  CREATE TABLE `dairy`.`feed_to_farmer` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `date_of_purchase` TIMESTAMP NULL,
-  `quantity` INT NULL,
-  `feed_rate` FLOAT NULL,
-  `total_amount` FLOAT NULL,
-  `payment_status` VARCHAR(45) NULL,
-  `remark` VARCHAR(45) NULL,
-    `farmer` BIGINT,
-     `branch` INT,
-  `feed_company` BIGINT,
-  `feed_type` BIGINT,
-  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY `farmer` (`farmer`),
+  KEY `branch` (`branch`),
+  KEY `feed_company` (`feed_company`),
+  KEY `feed_type` (`feed_type`),
+  CONSTRAINT `feed_to_farmer_ibfk_1` FOREIGN KEY (`farmer`) REFERENCES `farmers` (`id`),
+  CONSTRAINT `feed_to_farmer_ibfk_2` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`),
+  CONSTRAINT `feed_to_farmer_ibfk_3` FOREIGN KEY (`feed_company`) REFERENCES `feed_company` (`id`),
+  CONSTRAINT `feed_to_farmer_ibfk_4` FOREIGN KEY (`feed_type`) REFERENCES `feed_types` (`id`)
+)
+
+CREATE TABLE `payment_to_farmer` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `invoice_date` timestamp NULL DEFAULT NULL,
+  `from_date` timestamp NULL DEFAULT NULL,
+  `to_date` timestamp NULL DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `farmer` bigint DEFAULT NULL,
+  `branch` int DEFAULT NULL,
+  `total_collected_milk` double DEFAULT NULL,
+  `milktype` varchar(45) DEFAULT NULL,
+  `feed_deduction` double DEFAULT NULL,
+  `advance_deduction` double DEFAULT NULL,
+  `payment_method` varchar(45) DEFAULT NULL,
+  `payment_note` varchar(45) DEFAULT NULL,
+  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`farmer`) REFERENCES `farmers`(`id`),
-  FOREIGN KEY (`branch`) REFERENCES `branch`(`id`),
-  FOREIGN KEY (`feed_company`) REFERENCES `feed_company`(`id`),
-  FOREIGN KEY (`feed_type`) REFERENCES `feed_types`(`id`)
-);
+  KEY `farmer` (`farmer`),
+  KEY `branch` (`branch`),
+  CONSTRAINT `payment_to_farmer_ibfk_1` FOREIGN KEY (`farmer`) REFERENCES `farmers` (`id`),
+  CONSTRAINT `payment_to_farmer_ibfk_2` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`)
+)
 
 CREATE TABLE `dairy`.`route` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,

@@ -76,8 +76,11 @@ public class MessageConstants {
 	public static final String UPDATE_ANIMAL_MAPPING_ERROR_SUCCESS_MESSAGE = "animal update successfully";
 	public static final String UPDATE_ANIMAL_MAPPING_ERRORT_ERROR_MSG = "unable to update animal";
 	
+
+	public static final String ADD_PAYMENT_SUCCESS_MESSAGE = "Payment added successfully";
+	public static final String ADD_PAYMENT_ERROR_MSG = "Failed To Payment";
+
 	public static final String ADD_BONUS_SUCCESS_MESSAGE = "Bonus Added Successfully";
 	public static final String ADD_BONUS_ERROR_MSG = "Unable to add Bonus Record";
-	
 
 }

@@ -1,5 +1,6 @@
 package com.dairy.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -23,9 +24,9 @@ public class AdvanceToFarmer {
 	@GeneratedValue( strategy = GenerationType.AUTO )
 	@Column( name = "id" )
 	private Long id;
-	private LocalDateTime dateOfAdvance;
+	private LocalDate dateOfAdvance;
 	private Float amount;
-	private Float deduction;
+	
 	private Float remainingAmount;
 	
 	@ManyToOne
