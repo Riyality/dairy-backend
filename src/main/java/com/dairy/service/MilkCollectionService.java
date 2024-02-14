@@ -30,5 +30,7 @@ public interface MilkCollectionService {
 	List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
 			LocalDate fromDate, LocalDate toDate, String animalType);
 
+	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
+
 
 }

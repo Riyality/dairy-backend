@@ -131,4 +131,14 @@ public class FarmerServiceImpl implements FarmerService {
 		}
 		return false;
 	}
+
+	@Override
+	public List<FarmerResponseDto> findAllInActiveFarmers(int id) {
+		Optional<Branch> branchOptional = branchRepository.findById(id);
+		if (branchOptional.isPresent()) {
+			List<Farmer> list = farmerRepository.findAllByStatusAndBranch("inActive", branchOptional.get());
+			return farmerMapper.toList(list);
+		}
+		return null;
+	}
 }

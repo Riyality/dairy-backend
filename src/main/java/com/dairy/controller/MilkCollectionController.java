@@ -84,6 +84,7 @@ public class MilkCollectionController {
 		     Double sumTotalAmount = (Double) result1[2]; // Assuming sumTotalAmount is Double
 		     Double sumQuantity = (Double) result1[3]; // Assuming sumQuantity is Double
 		     Long farmerId = farmer.getId();
+		     int branchId=branch.getId();
 		     String branchName=branch.getName();
 		     // Create or update MilkCollectionResponseDto in the map
 		     MilkCollectionResponseDto dto = totalAmountAndQuantityMap.getOrDefault(farmerId, new MilkCollectionResponseDto());
@@ -91,7 +92,9 @@ public class MilkCollectionController {
 		     dto.setFarmerName(farmer.getName()); // Assuming there's a method to get the farmer name
 		     dto.setTotalMilkAmount( sumTotalAmount.floatValue());
 		     dto.setMilkQuantity( sumQuantity.floatValue());
-		     dto.setBranchName(branchName); 
+
+		     dto.setBranchName(branchName);
+		     dto.setBranchId(branchId);
 		     totalAmountAndQuantityMap.put(farmerId, dto);
 		     
 		     Double FeedTotalAmount = feedToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmer.getId(), branch.getId(),fromDate, toDate);
@@ -136,6 +139,8 @@ public class MilkCollectionController {
 	        return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
 	    }
 
+	  
+	 
 
 	
 }

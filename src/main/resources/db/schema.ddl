@@ -258,6 +258,22 @@ CREATE TABLE `dairy`.`route` (
     FOREIGN KEY (`branch`) REFERENCES `branch`(`id`)
 );
 
+CREATE TABLE `bonus_of_farmer` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `from_date` date NULL  NULL,
+  `to_date` date NULL  NULL,
+ `total_quntity` float Null,
+ `bonus_amount_per_liter` float  NULL,
+ `total_bonus_amount` float  NULL,
+  `milk_Type` varchar(45) DEFAULT NULL,
+  `farmer` bigint  NULL,
+  `branch` int  NULL,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+ FOREIGN KEY (`farmer`) REFERENCES `farmers` (`id`),
+ FOREIGN KEY (`branch`) REFERENCES `branch` (`id`)
+) 
 
 
   

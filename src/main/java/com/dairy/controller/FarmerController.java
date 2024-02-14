@@ -63,5 +63,11 @@ public class FarmerController {
 	}
 
 	
+	@GetMapping( "/in-ActiveFarmers/branch/{id}" )
+	public ResponseEntity<List<FarmerResponseDto>> allInActiveFarmers( @PathVariable int id ) {
+		return new ResponseEntity<>( farmerService.findAllInActiveFarmers( id ), HttpStatus.OK );
+	}
+
+	
 
 }
