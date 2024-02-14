@@ -36,26 +36,38 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 
 	@Override
 	public boolean addAdvance(AdvanceToFarmerRequestDto advanceRequestDto) {
-		try {
-			AdvanceToFarmer advancetoFarmer = advanceToFarmerMapper.toEntity(advanceRequestDto);
+	    try {
+	        // Check if an advance record already exists for the given farmer
+	        Optional<AdvanceToFarmer> existingAdvanceOpt = advanceToFarmerRepository.findByFarmerId(advanceRequestDto.getFarmerId());
 
-			Optional<Branch> branchOpt = branchRepository.findById(advanceRequestDto.getBranchId());
-			if (branchOpt.isPresent())
-				advancetoFarmer.setBranch(branchOpt.get());
+	        if (existingAdvanceOpt.isPresent()) {
+	            // Update existing advance record
+	            AdvanceToFarmer existingAdvance = existingAdvanceOpt.get();
+	            float newAmount = existingAdvance.getRemainingAmount() + advanceRequestDto.getAmount();
+	            existingAdvance.setRemainingAmount(newAmount);
+	            existingAdvance.setAmount(newAmount);
+	            advanceToFarmerRepository.save(existingAdvance);
+	        } else {
+	            // Create a new advance record
+	            AdvanceToFarmer newAdvance = advanceToFarmerMapper.toEntity(advanceRequestDto);
+	            newAdvance.setRemainingAmount(advanceRequestDto.getAmount());
 
-			Optional<Farmer> farmerOpt = farmerRepository.findById(advanceRequestDto.getFarmerId());
-			if (farmerOpt.isPresent())
-				advancetoFarmer.setFarmer(farmerOpt.get());
+	            Optional<Branch> branchOpt = branchRepository.findById(advanceRequestDto.getBranchId());
+	            branchOpt.ifPresent(newAdvance::setBranch);
 
-			advanceToFarmerRepository.save(advancetoFarmer);
-			return true;
+	            Optional<Farmer> farmerOpt = farmerRepository.findById(advanceRequestDto.getFarmerId());
+	            farmerOpt.ifPresent(newAdvance::setFarmer);
 
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-		return false;
+	            advanceToFarmerRepository.save(newAdvance);
+	        }
 
+	        return true;
+	    } catch (Exception e) {
+	        log.error(e.getMessage(), e);
+	        return false;
+	    }
 	}
+
 
 	@Override
 	public List<AdvanceToFarmerResponseDto> getAllAdvanceToFarmer() {
@@ -90,6 +102,12 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 			log.error(e.getMessage(), e);
 		}
 		return false;
+	}
+
+	@Override
+	public Double findTotalOfRemainingAmountByFarmerIdAndBranchId(Long farmerId, int branchId) {
+		
+		return advanceToFarmerRepository.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId,branchId);
 	}
 
 }

@@ -12,6 +12,7 @@ public interface MilkRateRepository extends JpaRepository<MilkRate, Integer> {
 
 	MilkRate findByTypeAndFatAndSnfAndBranch(String type, float fat, float snf, Branch branch);
 
+
 	void save(MilkRateRequestDto milkRate);
 
 }

@@ -24,5 +24,7 @@ public class MilkCollectionResponseDto {
 	private int branchId;
 	private LocalDate dateOfMilkCollection;
 	private String branchName;
+	private Double TotalFeedRemainingAmount;
+	private Double TotalAdvanceAmount;
 
 }

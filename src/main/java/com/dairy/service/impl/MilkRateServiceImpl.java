@@ -37,7 +37,9 @@ public class MilkRateServiceImpl implements MilkRateService{
 	public Float getMilkRateByTypeAndFatAndSNFAndBranch(String type, float fat, float snf, int branchId) {
 		Optional<Branch> branchOptional = branchRepository.findById(branchId);
 		if (branchOptional.isPresent()) {
+			
 			MilkRate milkRate = milkRateRepository.findByTypeAndFatAndSnfAndBranch(type,fat,snf, branchOptional.get());
+			
 			return milkRate.getRate();
 		}
 		return null;

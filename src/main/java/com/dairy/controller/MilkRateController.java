@@ -24,6 +24,7 @@ public class MilkRateController {
 	
 	@GetMapping( "/type/{type}/fat/{fat}/snf/{snf}/branchId/{branchId}" )
 	public ResponseEntity<Float> getMilkRateByFatAndSNF( @PathVariable String type, @PathVariable float fat, @PathVariable float snf, @PathVariable int branchId) {
+		
 		return new ResponseEntity<>( milkRateService.getMilkRateByTypeAndFatAndSNFAndBranch(type,fat,snf,branchId), HttpStatus.OK );
 	}
 

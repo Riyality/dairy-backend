@@ -1,8 +1,10 @@
 package com.dairy.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dairy.constants.MessageConstants;
 import com.dairy.dto.feedToFarmer.FeedToFarmerRequestDto;
 import com.dairy.dto.feedToFarmer.FeedToFarmerResponseDto;
+import com.dairy.entity.FeedToFarmer;
 import com.dairy.service.FeedToFarmerService;
 
 @RestController
@@ -46,6 +49,41 @@ public class FeedToFarmerController {
 		return  ResponseEntity.status( HttpStatus.OK ).body( feedToFarmerService.findByIdFeedTOFarmer( id ) );
 		
 	}
+	
+	
+
+	@GetMapping("/{farmerId}/{branchId}/{fromDate}/{toDate}")
+	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(
+	        @PathVariable("farmerId") Long farmerId, @PathVariable("branchId") int branchId,
+	        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate) {
+		
+	    Double result = feedToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId, branchId,fromDate,toDate);
+
+	    return ResponseEntity.status(HttpStatus.OK).body(result);
+	}
+
+
+	
+	
+	@GetMapping("/farmerId/{farmerId}")
+	public ResponseEntity<FeedToFarmer> findByFarmerId(
+	        @PathVariable("farmerId") Long farmerId) {
+		
+	    FeedToFarmer result = feedToFarmerService.findByFarmerId(farmerId);
+	    return ResponseEntity.status(HttpStatus.OK).body(result);
+	}
+	
+
+	@GetMapping("/farmerIds/{farmerId}")
+	public ResponseEntity<List<FeedToFarmer>> getFarmersByFarmerId(
+	        @PathVariable("farmerId") Long farmerId) {
+		
+	    List<FeedToFarmer> result = feedToFarmerService.getFarmersByFarmerId(farmerId);
+	    return ResponseEntity.status(HttpStatus.OK).body(result);
+	}
+	
+	
 	
 	@PutMapping
 	public ResponseEntity<String> update(@RequestBody FeedToFarmerRequestDto feedToFarmerRequestDto){

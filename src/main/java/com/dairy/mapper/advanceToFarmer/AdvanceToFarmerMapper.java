@@ -11,6 +11,7 @@ import com.dairy.entity.AdvanceToFarmer;
 
 @Component
 public class AdvanceToFarmerMapper {
+	
 	public AdvanceToFarmer toEntity(AdvanceToFarmerRequestDto requestdto) {
 
 		if (requestdto == null) {
@@ -21,8 +22,8 @@ public class AdvanceToFarmerMapper {
 		advanceToFarmer.setId(requestdto.getId());
 		advanceToFarmer.setDateOfAdvance(requestdto.getDateOfAdvance());
 		advanceToFarmer.setAmount(requestdto.getAmount());
-		advanceToFarmer.setDeduction(requestdto.getDeduction());
-		advanceToFarmer.setRemainingAmount(requestdto.getRemainingAmount());
+		//advanceToFarmer.setDeduction(requestdto.getDeduction());
+		//advanceToFarmer.setRemainingAmount(requestdto.getRemainingAmount());
 		return advanceToFarmer;
 
 	}
@@ -36,7 +37,7 @@ public class AdvanceToFarmerMapper {
 		responseDto.setId(advanceToFarmer.getId());
 		responseDto.setDateOfAdvance(advanceToFarmer.getDateOfAdvance());
 		responseDto.setAmount(advanceToFarmer.getAmount());
-		responseDto.setDeduction(advanceToFarmer.getAmount());
+		//responseDto.setDeduction(advanceToFarmer.getAmount());
 		responseDto.setRemainingAmount(advanceToFarmer.getRemainingAmount());
 		
 		if (advanceToFarmer.getBranch() != null) {
