@@ -17,4 +17,6 @@ public interface FarmerService {
 
 	boolean update(FarmerRequestDto dto);
 
+	List<FarmerResponseDto> findAllInActiveFarmers(int id);
+
 }
