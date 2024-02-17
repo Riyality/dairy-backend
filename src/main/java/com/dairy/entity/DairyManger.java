@@ -28,7 +28,6 @@ public class DairyManger {
 	private String transactionType;
 	private String contact;
 	private Long amount;
-	private Long balance;
 	private String remark;
 	
 
