@@ -51,6 +51,7 @@ public class FarmerServiceImpl implements FarmerService {
 	@Override
 	public boolean add(FarmerRequestDto dto) {
 		try {
+			
 			Bank bank = bankMapper.toEntity(dto.getBankRequestDto());
 			Bank addedBank = bankRepository.save(bank);
 
@@ -61,10 +62,12 @@ public class FarmerServiceImpl implements FarmerService {
 			Optional<Branch> branchOpt = branchRepository.findById(dto.getBranchId());
 			Optional<Route> routeOpt = routeRepository.findById(routeId);
 			if (branchOpt.isPresent() && routeOpt.isPresent()) {
+				bank.setBranch(branchOpt.get());
 				farmer.setBranch(branchOpt.get());
 				farmer.setRoute(routeOpt.get());
 			}
 			
+
 			farmerRepository.save(farmer);
 			return true;
 		} catch (Exception e) {
@@ -111,7 +114,7 @@ public class FarmerServiceImpl implements FarmerService {
 		try {
 			Bank bank = bankMapper.toEntity(dto.getBankRequestDto());
 			Bank addedBank = bankRepository.save(bank);
-
+   
 			int routeId = dto.getRoute();
 
 			Farmer farmer = farmerMapper.toEntity(dto);
@@ -120,11 +123,11 @@ public class FarmerServiceImpl implements FarmerService {
 			Optional<Route> routeOpt = routeRepository.findById(routeId);
 			
 			if (branchOpt.isPresent() && routeOpt.isPresent()) {
+				bank.setBranch(branchOpt.get());
 				farmer.setBranch(branchOpt.get());
 				farmer.setRoute(routeOpt.get());
 			}
-			
-			farmerRepository.save(farmer);
+				farmerRepository.save(farmer);
 			return true;
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

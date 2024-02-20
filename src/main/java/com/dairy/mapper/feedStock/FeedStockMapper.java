@@ -19,6 +19,7 @@ public class FeedStockMapper {
 		feedStock.setFeedCostPerUnit(requestDto.getFeedCostPerUnit());
 		feedStock.setQuantity(requestDto.getQuantity());
 		feedStock.setTotalAmount(requestDto.getTotalAmount());
+		feedStock.setRemark(requestDto.getRemark());
 
 		return feedStock;
 
@@ -35,6 +36,7 @@ public class FeedStockMapper {
 		responseDto.setFeedCostPerUnit(feedStock.getFeedCostPerUnit());
 		responseDto.setQuantity(feedStock.getQuantity());
 		responseDto.setTotalAmount(feedStock.getTotalAmount());
+		responseDto.setRemark(feedStock.getRemark());
 		
 		if (feedStock.getBranch() != null) {
 			responseDto.setBranchId(feedStock.getBranch().getId());

@@ -24,6 +24,8 @@ public class EmployeeMapper {
 		employee.setContact(employeeRequestDto.getContact());
 		employee.setAddress(employeeRequestDto.getAddress());
 		employee.setDateOfJoining(employeeRequestDto.getDateOfJoining());
+		employee.setRemark(employeeRequestDto.getRemark());
+		employee.setRole(employeeRequestDto.getRole());
 
 		return employee;
 	}
@@ -39,6 +41,8 @@ public class EmployeeMapper {
 		responseDto.setContact(employee.getContact());
 		responseDto.setAddress(employee.getAddress());
 		responseDto.setDateOfJoining(employee.getDateOfJoining());
+		responseDto.setRemark(employee.getRemark());
+		responseDto.setRole(employee.getRole());
 
 		if (employee.getBranch() != null) {
 			responseDto.setBranchId(employee.getBranch().getId());

@@ -25,6 +25,8 @@ public class EmployeeResponseDto {
 	private String address;
 	
 	private LocalDateTime dateOfJoining;
+	private String remark;
+	private String role;
 	
 	private int branchId;
 	

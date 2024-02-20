@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dairy.constants.MessageConstants;
+import com.dairy.dto.bankdetails.BankRequestDto;
 import com.dairy.dto.employee.EmployeeRequestDto;
 import com.dairy.dto.employee.EmployeeResponseDto;
 import com.dairy.entity.Bank;
@@ -56,7 +57,7 @@ public class EmployeeController {
 
 	@PutMapping
 	public ResponseEntity<String> updateEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
-
+		employeeRequestDto.getBankRequestDto().setBranchId(employeeRequestDto.getBranchId());
 		boolean isUpdated = employeeService.updateEmployee(employeeRequestDto);
 
 		if (isUpdated)

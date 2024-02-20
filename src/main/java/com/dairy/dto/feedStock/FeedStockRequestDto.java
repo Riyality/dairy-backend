@@ -20,5 +20,6 @@ public class FeedStockRequestDto {
 	private long feedTypeId;
 	private long feedCompanyId;
 	private int branchId;
+	private String remark;
 
 }
