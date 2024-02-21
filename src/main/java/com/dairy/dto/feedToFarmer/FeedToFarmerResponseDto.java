@@ -1,6 +1,7 @@
 package com.dairy.dto.feedToFarmer;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Getter
 public class FeedToFarmerResponseDto {
 	private Long id;
-	private LocalDate dateOfPurchase;
+	private LocalDateTime dateOfPurchase;
 	private Integer quantity;
 	private Float feedRate;
 	private Float totalAmount;

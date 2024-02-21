@@ -194,8 +194,11 @@ CREATE TABLE `dairy`.`farmers` (
   `fat` FLOAT NULL,
   `snf` FLOAT NULL,
   `rate` FLOAT NULL,
+  `remark` VARCHAR(45) NULL,
   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `branch` INT,
+    FOREIGN KEY (`branch`) REFERENCES `branch`(`id`),
   PRIMARY KEY (`id`));
 
    CREATE TABLE `advance_to_farmer` (

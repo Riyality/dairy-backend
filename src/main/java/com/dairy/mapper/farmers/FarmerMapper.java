@@ -26,9 +26,10 @@ public class FarmerMapper {
 		farmer.setId( requestDto.getId() );
 		farmer.setName( requestDto.getName() );
 		farmer.setDateOfRegistration( requestDto.getDateOfRegistration() );
+	
 		farmer.setContact( requestDto.getContact() );
 		farmer.setAddress( requestDto.getAddress() );
-		farmer.setStatus("active");
+		farmer.setStatus(requestDto.getStatus());
 		return farmer;
 	}
 
