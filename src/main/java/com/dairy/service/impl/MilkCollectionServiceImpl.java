@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
 import com.dairy.entity.Branch;
+import com.dairy.entity.Farmer;
 import com.dairy.entity.MilkCollection;
 import com.dairy.mapper.milkCollection.MilkCollectionMapper;
 import com.dairy.repository.BranchRepository;
+import com.dairy.repository.FarmerRepository;
 import com.dairy.repository.MilkCollectionRepository;
 import com.dairy.service.MilkCollectionService;
 
@@ -35,6 +37,9 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 
 	@Autowired
 	private BranchRepository branchRepository;
+	
+	@Autowired
+	private FarmerRepository farmerRepository;
 
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
@@ -50,6 +55,9 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 			Optional<Branch> opt = branchRepository.findById(milkCollectionRequestDto.getBranchId());
 			if (opt.isPresent())
 				milkCollection.setBranch(opt.get());
+						Optional<Farmer> farmer = farmerRepository.findById( milkCollectionRequestDto.getFarmerId());
+			if (farmer.isPresent())
+				milkCollection.setFarmer(farmer.get());
 			
 			MilkCollection addedMilkCollection = milkCollectionRepository.save(milkCollection);
 

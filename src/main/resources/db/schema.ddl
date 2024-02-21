@@ -203,10 +203,13 @@ CREATE TABLE `dairy`.`farmers` (
   `date_of_rate` TIMESTAMP NULL,
   `fat` FLOAT NULL,
   `snf` FLOAT NULL,
-  `rate` FLOAT NULL,
+  `rate` FLOAT NULL
   `remark` TEXT,
+
   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `branch` INT,
+    FOREIGN KEY (`branch`) REFERENCES `branch`(`id`),
   PRIMARY KEY (`id`));
 
    CREATE TABLE `advance_to_farmer` (

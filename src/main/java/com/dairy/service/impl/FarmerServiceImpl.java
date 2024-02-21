@@ -58,6 +58,7 @@ public class FarmerServiceImpl implements FarmerService {
 			int routeId = dto.getRoute();
 
 			Farmer farmer = farmerMapper.toEntity(dto);
+			farmer.setStatus("active");
 			farmer.setBank(addedBank);
 			Optional<Branch> branchOpt = branchRepository.findById(dto.getBranchId());
 			Optional<Route> routeOpt = routeRepository.findById(routeId);
