@@ -21,6 +21,7 @@ public class FarmerAnimalMappingMapper {
 		farmerAnimalMapping.setCount(requestDto.getCount());
 		farmerAnimalMapping.setStatus(requestDto.getStatus());
 		farmerAnimalMapping.setType(requestDto.getType());
+		farmerAnimalMapping.setRemark(requestDto.getRemark());
 
 		return farmerAnimalMapping;
 
@@ -35,6 +36,7 @@ public class FarmerAnimalMappingMapper {
 		responseDto.setCount(farmerAnimalMapping.getCount());
 		responseDto.setStatus(farmerAnimalMapping.getStatus());
 		responseDto.setType(farmerAnimalMapping.getType());
+		responseDto.setRemark(farmerAnimalMapping.getRemark());
 
 		if (farmerAnimalMapping.getBranch() != null) {
 			responseDto.setBranchId(farmerAnimalMapping.getBranch().getId());

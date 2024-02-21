@@ -32,6 +32,8 @@ public class FeedStock {
 	
 	private int quantity;
 	
+	private String remark;
+	
 	private Float totalAmount;
 	
 	@ManyToOne

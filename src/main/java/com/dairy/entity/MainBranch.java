@@ -30,6 +30,7 @@ public class MainBranch {
 	private Float snf;
 	private Float protein ;
 	private Float rate;
+	private String remark;
 	private Float totalAmount;
 
 }

@@ -1,7 +1,6 @@
 package com.dairy.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +31,7 @@ public class AdvanceToFarmer {
 	@ManyToOne
 	@JoinColumn(name="farmer")
 	private Farmer farmer;
+	private String remark;
 	
 	@ManyToOne
 	@JoinColumn(name="branch")
