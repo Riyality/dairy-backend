@@ -26,7 +26,7 @@ public class SupplierMapper {
 		supplier.setContact(supplierRequestDto.getContact());
 		supplier.setDateOfRegistration(supplierRequestDto.getDateOfRegistration());
 		supplier.setAddress(supplierRequestDto.getAddress());
-
+		supplier.setRemark(supplierRequestDto.getRemark());
 		return supplier;
 
 	}
@@ -42,6 +42,7 @@ public class SupplierMapper {
 		responseDto.setContact(supplier.getContact());
 		responseDto.setDateOfRegistration(supplier.getDateOfRegistration());
 		responseDto.setAddress(supplier.getAddress());
+		responseDto.setRemark(supplier.getRemark());
 		
 		if (supplier.getBranch() != null) {
 			responseDto.setBranchId(supplier.getBranch().getId());

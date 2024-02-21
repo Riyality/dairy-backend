@@ -19,6 +19,7 @@ public class FeedTypeMapper {
 		FeedType feedType = new FeedType();
 		feedType.setType(dto.getType());
 		feedType.setId(dto.getId());
+		feedType.setRemark(dto.getRemark());
 		return feedType;
 	}
 
@@ -28,6 +29,7 @@ public class FeedTypeMapper {
 		feedTypeResponseDto.setType(feedType.getType());
 		feedTypeResponseDto.setFeedcompanyId(feedType.getFeedcompany().getId());
 		feedTypeResponseDto.setFeedCompanyName(feedType.getFeedcompany().getName());
+		feedTypeResponseDto.setRemark(feedType.getRemark());
 		
 		if(feedType.getBranch()!=null){
 			feedTypeResponseDto.setBranchId(feedType.getBranch().getId());

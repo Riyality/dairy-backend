@@ -23,6 +23,7 @@ public class FeedStockResponseDto {
 	private String feedTypeName;
 	private Long feedCompanyId;
 	private String feedCompanyName;
+	private String remark;
 	
 	
 

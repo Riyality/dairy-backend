@@ -32,6 +32,7 @@ public class FarmerRequestDto {
 	private String address;
 	
 	private String status;
+	private String remark;
 	
 	private int branchId;
 	private BankRequestDto bankRequestDto;

@@ -22,7 +22,7 @@ public class AdvanceToFarmerMapper {
 		advanceToFarmer.setId(requestdto.getId());
 		advanceToFarmer.setDateOfAdvance(requestdto.getDateOfAdvance());
 		advanceToFarmer.setAmount(requestdto.getAmount());
-		//advanceToFarmer.setDeduction(requestdto.getDeduction());
+		advanceToFarmer.setRemark(requestdto.getRemark());
 		//advanceToFarmer.setRemainingAmount(requestdto.getRemainingAmount());
 		return advanceToFarmer;
 
@@ -37,7 +37,7 @@ public class AdvanceToFarmerMapper {
 		responseDto.setId(advanceToFarmer.getId());
 		responseDto.setDateOfAdvance(advanceToFarmer.getDateOfAdvance());
 		responseDto.setAmount(advanceToFarmer.getAmount());
-		//responseDto.setDeduction(advanceToFarmer.getAmount());
+		responseDto.setRemark(advanceToFarmer.getRemark());
 		responseDto.setRemainingAmount(advanceToFarmer.getRemainingAmount());
 		
 		if (advanceToFarmer.getBranch() != null) {

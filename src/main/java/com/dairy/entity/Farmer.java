@@ -43,6 +43,8 @@ public class Farmer {
 	private String address;
 
 	private String status;
+	
+	private String remark;
 
 	@ManyToOne
 	@JoinColumn( name = "bank" )

@@ -30,6 +30,8 @@ public class FarmerMapper {
 		farmer.setContact( requestDto.getContact() );
 		farmer.setAddress( requestDto.getAddress() );
 		farmer.setStatus(requestDto.getStatus());
+		farmer.setRemark(requestDto.getRemark());
+
 		return farmer;
 	}
 
@@ -41,7 +43,7 @@ public class FarmerMapper {
 		responseDto.setContact( farmer.getContact() );
 		responseDto.setAddress( farmer.getAddress() );
 		responseDto.setStatus( farmer.getStatus() );
-
+		responseDto.setRemark(farmer.getRemark());
 		if ( farmer.getRoute() != null ) {
 			responseDto.setRoute( routeMapper.toRouteResponseDto( farmer.getRoute() ) );
 		}

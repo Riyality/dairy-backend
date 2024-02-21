@@ -27,6 +27,7 @@ public class FarmerResponseDto {
 	private RouteResponseDto route;
 	private String address;
 	private String status;
+	private String remark;
 	private int branchId;
 	private BankResponseDto bank;
 

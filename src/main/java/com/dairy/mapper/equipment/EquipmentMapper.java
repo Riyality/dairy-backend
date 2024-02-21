@@ -23,6 +23,7 @@ public class EquipmentMapper {
 		 equipment.setQuantity( equipmentRequestDto.getQuantity() );
 		 equipment.setPrice( equipmentRequestDto.getPrice() );
 		 equipment.setTotalAmount( equipmentRequestDto.getTotalAmount() );
+		 equipment.setRemark(equipmentRequestDto.getRemark());
 
 		return equipment;
 	}
@@ -39,7 +40,7 @@ public class EquipmentMapper {
 		responseDto.setQuantity( equipment.getQuantity() );
 		responseDto.setPrice( equipment.getPrice() );
 		responseDto.setTotalAmount( equipment.getTotalAmount() );
-		
+		responseDto.setRemark(equipment.getRemark());
 		
 
 		return responseDto;

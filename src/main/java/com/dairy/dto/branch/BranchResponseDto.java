@@ -31,4 +31,5 @@ public class BranchResponseDto {
 	private String ownerContact;
 	
 	private LocalDateTime startDate;
+	private String remark;
 }

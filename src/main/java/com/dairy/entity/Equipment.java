@@ -32,6 +32,7 @@ public class Equipment {
     private Integer quantity;
     private Float price;
     private Float totalAmount;
+    private String remark;
     
    @ManyToOne
    @JoinColumn(name="branch")

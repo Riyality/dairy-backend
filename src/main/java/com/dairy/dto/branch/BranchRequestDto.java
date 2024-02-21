@@ -3,7 +3,6 @@ package com.dairy.dto.branch;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,4 +35,5 @@ public class BranchRequestDto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	
 	private LocalDateTime startDate;
+	private String remark;
 }
