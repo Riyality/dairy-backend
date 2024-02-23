@@ -34,9 +34,13 @@ public class RouteServiceImpl implements RouteService {
 	private BranchRepository branchRepository;
 
 	@Override
-	public List<RouteResponseDto> getAllRoutes() {
-		List<Route> routes = routeRepository.findAll();
-		return routeMapper.toList(routes);
+	public List<RouteResponseDto> getAllRoutes(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			List<Route> routes = routeRepository.getByBranch(branchOptional.get());
+			return routeMapper.toList(routes);
+		}
+		return null;
 	}
 
 	@Override

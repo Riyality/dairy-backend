@@ -1,6 +1,7 @@
 package com.dairy.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface FarmerRepository extends JpaRepository<Farmer, Long> {
 	List<Farmer> findAllByStatusAndBranch( String status, Branch branch );
 
 	List<Farmer> findAllByStatusAndRouteAndBranch(String status, Route route, Branch branch);
+
+	Optional<Farmer> findByIdAndBranch(Long id, Branch branch);
 }

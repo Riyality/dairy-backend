@@ -36,9 +36,9 @@ public class FarmerController {
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_FARMER_ERROR_MSG );
 	}
 
-	@GetMapping( "/id/{id}" )
-	public ResponseEntity<FarmerResponseDto> findById( @PathVariable Long id ) {
-		return new ResponseEntity<>( farmerService.findById( id ), HttpStatus.OK );
+	@GetMapping( "/id/{id}/{branchId}" )
+	public ResponseEntity<FarmerResponseDto> findById( @PathVariable Long id , @PathVariable int branchId ) {
+		return new ResponseEntity<>( farmerService.findById( id ,branchId ), HttpStatus.OK );
 	}
 
 	@GetMapping( "/branch/{id}" )
