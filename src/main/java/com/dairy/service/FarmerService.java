@@ -9,7 +9,7 @@ public interface FarmerService {
 
 	boolean add( FarmerRequestDto dto );
 
-	FarmerResponseDto findById( Long id );
+	FarmerResponseDto findById( Long id, int branchId );
 
 	List<FarmerResponseDto> findAllActive( int id );
 

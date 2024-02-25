@@ -11,11 +11,11 @@ public interface EmployeeService {
 
 	boolean addEmployee(EmployeeRequestDto employeeRequestDto, Bank bank);
 
-	List<EmployeeResponseDto> getAllEmplyoee();
+	List<EmployeeResponseDto> getAllEmplyoee(int branchId);
 
 	boolean updateEmployee(EmployeeRequestDto employeeRequestDto);
 
-	EmployeeResponseDto findById( Long id );
+	EmployeeResponseDto findById( Long id, int branchId );
 
 	
 

@@ -7,7 +7,7 @@ import com.dairy.dto.route.RouteResponseDto;
 
 public interface RouteService {
 	
-	List<RouteResponseDto> getAllRoutes();
+	List<RouteResponseDto> getAllRoutes(int branchId);
 	
 	boolean addRoute(RouteRequestDto dto);
 	
