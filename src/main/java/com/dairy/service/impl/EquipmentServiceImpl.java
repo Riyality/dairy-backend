@@ -33,11 +33,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 	BranchRepository branchRepository;
 
 	@Override
-	public List<EquipmentResponseDto> getAllEquipments() {
-
-		List<Equipment> equipments = equipmentRepository.findAll();
-		return equipmentMapper.toList(equipments);
-
+	public List<EquipmentResponseDto> getAllEquipments(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		
+		if(branchOptional.isPresent()) {
+			List<Equipment> equipments = equipmentRepository.findByBranch( branchOptional.get() );
+			return equipmentMapper.toList(equipments);
+		}
+		return null ;
 	}
 
 	@Override
@@ -59,8 +62,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public EquipmentResponseDto findById(long id) {
-		Optional<Equipment> opt = equipmentRepository.findById(id);
+	public EquipmentResponseDto findById(long id ,int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		Optional<Equipment> opt = equipmentRepository.findByIdAndBranch(id ,branchOptional.get());
 		if (opt.isPresent())
 			return equipmentMapper.toEquipmentResponseDto(opt.get());
 		return null;
