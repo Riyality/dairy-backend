@@ -52,9 +52,10 @@ public class FeedcompanyServiceImpl implements FeedCompanyService {
 	}
 
 	@Override
-	public FeedCompanyResponseDto findById(Long id) {
+	public FeedCompanyResponseDto findById(Long id , int branchId) {
+		Optional <Branch> branchOptional = branchRepository.findById(branchId);
 
-		Optional<FeedCompany> opt = feedComponyRepository.findById(id);
+		Optional<FeedCompany> opt = feedComponyRepository.findByIdAndBranch(id ,branchOptional.get());
 		if (opt.isPresent()) {
 			FeedCompany feedCompany = opt.get();
 			return feedCompanyMapper.toFeedCompanyResponce(feedCompany);
@@ -63,9 +64,14 @@ public class FeedcompanyServiceImpl implements FeedCompanyService {
 	}
 
 	@Override
-	public List<FeedCompanyResponseDto> findAll() {
-		List<FeedCompany> feedcompany = feedComponyRepository.findAll();
-		return feedCompanyMapper.toList(feedcompany);
+	public List<FeedCompanyResponseDto> findAll(int branchId) {
+		Optional <Branch> branchOptional = branchRepository.findById(branchId);
+		
+		if(branchOptional.isPresent()) {
+			List<FeedCompany> feedcompany = feedComponyRepository.findByBranch( branchOptional.get() );
+			return feedCompanyMapper.toList(feedcompany);
+		}
+		return null;
 	}
 
 	@Override

@@ -9,9 +9,9 @@ public interface FeedCompanyService {
 
 	boolean addFeedCompany(FeedCompanyRequestDto dto);
 
-	public FeedCompanyResponseDto findById(Long id);
+	public FeedCompanyResponseDto findById(Long id, int branchId);
 
-	List<FeedCompanyResponseDto> findAll();
+	List<FeedCompanyResponseDto> findAll(int branchId);
 
 	boolean updateFeedCompany(FeedCompanyRequestDto requestDto);
 

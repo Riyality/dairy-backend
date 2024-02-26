@@ -38,15 +38,15 @@ public class FeedCompanyController {
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_FEEDCOMPANY_ERROR_MESSAGE );
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<FeedCompanyResponseDto> findById(@PathVariable long id) {
-		FeedCompanyResponseDto responseDto = feedCompanyService.findById(id);
+	@GetMapping("/{id}/{branchId}")
+	public ResponseEntity<FeedCompanyResponseDto> findById(@PathVariable long id ,@PathVariable int branchId) {
+		FeedCompanyResponseDto responseDto = feedCompanyService.findById(id ,branchId);
 		return ResponseEntity.status( HttpStatus.OK ).body(responseDto);
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<FeedCompanyResponseDto>> findAll() {
-		return new ResponseEntity<>( feedCompanyService.findAll(), HttpStatus.OK );
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<FeedCompanyResponseDto>> findAll(@PathVariable int branchId) {
+		return new ResponseEntity<>( feedCompanyService.findAll(branchId), HttpStatus.OK );
 	}
 	
 	@PutMapping
