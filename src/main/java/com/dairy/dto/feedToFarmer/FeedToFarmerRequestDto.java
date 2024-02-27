@@ -15,7 +15,7 @@ public class FeedToFarmerRequestDto {
 	private Float totalAmount;
 	private Float paidAmount;
 	private Float remainingAmount;
-	private String paymentStatus;
+	//private String paymentStatus;
 	private String remark;
 	private Long farmerId;
 	private Integer branchId;

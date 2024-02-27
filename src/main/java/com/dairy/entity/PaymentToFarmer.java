@@ -1,6 +1,5 @@
 package com.dairy.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -17,21 +16,19 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "milk_collection")
-public class MilkCollection {
-
+@Table(name = "payment_to_farmer")
+public class PaymentToFarmer {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private LocalDate dateOfCollection;
-	private String shift;
-	private String type;
-	private Float quantity;
-	private Float fat;
-	private Float snf;
-	private Float rate;
-	private Float total_amount;
-	private String  payment_status;	
+	
+	private Date invoice_date;
+	
+	private Date from_date;
+	private Date to_date;
+	private Float amount;
+	
 	@ManyToOne
 	@JoinColumn(name = "farmer")
 	private Farmer farmer;
@@ -39,6 +36,15 @@ public class MilkCollection {
 	@ManyToOne
 	@JoinColumn(name = "branch")
 	private Branch branch;
-
-
+	
+	private Long total_collected_milk;
+	private String milktype;
+	
+	private Float feed_deduction;
+	private Float advance_deduction;
+	private String payment_method;
+	private String payment_note;
+	
+	
+	
 }

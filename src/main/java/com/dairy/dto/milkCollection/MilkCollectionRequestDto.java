@@ -21,6 +21,7 @@ public class MilkCollectionRequestDto {
 	private Float milkRate;
 	private Float totalMilkAmount;
 	private String remark;
+	private String payment_status;
 	private int branchId;
 	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private LocalDate dateOfMilkCollection;

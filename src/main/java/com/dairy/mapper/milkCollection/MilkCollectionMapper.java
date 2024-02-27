@@ -29,6 +29,7 @@ public class MilkCollectionMapper {
 		milkCollection.setQuantity(milkCollectionRequestDto.getMilkQuantity());
 		milkCollection.setFat(milkCollectionRequestDto.getMilkFat());
 		milkCollection.setSnf(milkCollectionRequestDto.getMilkSNF());
+		milkCollection.setPayment_status("Unpaid");
 		milkCollection.setRate(milkCollectionRequestDto.getMilkRate());
 		milkCollection.setTotal_amount(milkCollectionRequestDto.getTotalMilkAmount());
 		

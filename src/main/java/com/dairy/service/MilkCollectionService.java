@@ -21,16 +21,16 @@ public interface MilkCollectionService {
 			String animalType);
 	List<MilkCollectionResponseDto> findAllByBranchIdAndDateOfCollection(int branchId, LocalDate dateOfCollection);
 
-	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType);
-
-	//List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId);
+	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType, String flag);
 
 	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
 
 	List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
 			LocalDate fromDate, LocalDate toDate, String animalType);
 
-	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
+	boolean updatePaymentStatusbyFarmerIdBranchIdAndMilktype(MilkCollectionRequestDto dto);
+
+	
 
 
 }

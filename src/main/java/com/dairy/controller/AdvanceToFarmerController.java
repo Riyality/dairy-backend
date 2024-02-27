@@ -1,10 +1,8 @@
 package com.dairy.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dairy.constants.MessageConstants;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerRequestDto;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
+import com.dairy.entity.AdvanceToFarmer;
+import com.dairy.entity.FeedToFarmer;
 import com.dairy.service.AdvanceToFarmerService;
 
 @RestController
@@ -59,8 +59,18 @@ public class AdvanceToFarmerController {
 	   
 	    return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
-	
-	
+
+	@GetMapping("/farmerId/{farmerId}")
+	public ResponseEntity<AdvanceToFarmer> getFarmersByFarmerId(
+	        @PathVariable("farmerId") Long farmerId) {
+	    AdvanceToFarmer result = advanceToFarmerService.getAdvanceToFarmerByFarmerId(farmerId);
+	    
+	    if (result != null) {
+	        return ResponseEntity.status(HttpStatus.OK).body(result);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
+	}
 	
 	@PutMapping
 	public ResponseEntity<String> update(@RequestBody AdvanceToFarmerRequestDto advanceRequestDto){

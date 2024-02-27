@@ -49,12 +49,12 @@ public class MilkRateServiceImpl implements MilkRateService{
 
 	@Override
 	public boolean saveMilkRate(MilkRateRequestDto milkRateDto) {
-		
+		System.out.println("MILK RATES:"+milkRateDto);
 		MilkRate milkRate = milkRateMapper.toEntity(milkRateDto);
 		Optional<Branch> opt = branchRepository.findById(milkRateDto.getBranchId());
 		if (opt.isPresent()) {
 			milkRate.setBranch(opt.get());
-		
+			
         milkRateRepository.save(milkRate);
 		return true;
 		}

@@ -164,6 +164,7 @@ CREATE TABLE `dairy`.`farmers` (
   `total_amount` FLOAT NULL,
   `farmer` BIGINT,
     `branch` INT,
+`payment_status` VARCHAR(32),
   `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

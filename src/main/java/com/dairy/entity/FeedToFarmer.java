@@ -42,8 +42,7 @@ public class FeedToFarmer {
 	@Column(name = "remaining_amount")
 	private Float remainingAmount;
 
-	@Column(name = "payment_status")
-	private String paymentStatus;
+	
 
 	private String remark;
 

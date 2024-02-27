@@ -11,6 +11,7 @@ import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
+import com.dairy.entity.FeedToFarmer;
 import com.dairy.mapper.advanceToFarmer.AdvanceToFarmerMapper;
 import com.dairy.repository.AdvanceToFarmerRepository;
 import com.dairy.repository.BranchRepository;
@@ -109,5 +110,20 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 		
 		return advanceToFarmerRepository.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId,branchId);
 	}
+
+
+	@Override
+	public AdvanceToFarmer getAdvanceToFarmerByFarmerId(Long farmerId) {
+		
+		
+		  // Use your repository to find the record by farmerId
+        Optional<AdvanceToFarmer> advanceToFarmerOptional = advanceToFarmerRepository.findByFarmerId(farmerId);
+
+        // Check if the record exists and return it, otherwise return null
+        return advanceToFarmerOptional.orElse(null);
+	}
+
+
+	
 
 }
