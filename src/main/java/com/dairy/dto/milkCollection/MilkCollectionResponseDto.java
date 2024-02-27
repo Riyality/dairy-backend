@@ -1,7 +1,6 @@
 package com.dairy.dto.milkCollection;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +26,5 @@ public class MilkCollectionResponseDto {
 	private String branchName;
 	private Double TotalFeedRemainingAmount;
 	private Double TotalAdvanceAmount;
-
+	private String payment_status;
 }

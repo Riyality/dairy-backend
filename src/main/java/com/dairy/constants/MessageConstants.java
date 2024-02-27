@@ -78,6 +78,8 @@ public class MessageConstants {
 	
 
 	public static final String ADD_PAYMENT_SUCCESS_MESSAGE = "Payment added successfully";
+	public static final String UPDATE_PAYMENT_STATUS__SUCCESS_MESSAGE = "Payment Status Updated";
+	public static final String UPDATE_PAYMENT_STATUS__ERROR_MESSAGE = "Unable to Update status";
 	public static final String ADD_PAYMENT_ERROR_MSG = "Failed To Payment";
 
 	public static final String ADD_BONUS_SUCCESS_MESSAGE = "Bonus Added Successfully";

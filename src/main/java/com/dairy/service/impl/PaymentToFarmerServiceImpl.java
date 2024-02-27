@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dairy.dto.paymentToFarmer.PaymentToFarmerRequestDto;
+
+import com.dairy.entity.AdvanceToFarmer;
+
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
 import com.dairy.entity.FeedToFarmer;
@@ -17,6 +20,9 @@ import com.dairy.repository.BranchRepository;
 import com.dairy.repository.FarmerRepository;
 import com.dairy.repository.FeedToFarmerRepository;
 import com.dairy.repository.PaymentToFarmerRepository;
+
+import com.dairy.service.AdvanceToFarmerService;
+
 import com.dairy.service.FeedToFarmerService;
 import com.dairy.service.PaymentToFarmerService;
 
@@ -41,83 +47,63 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 	FeedToFarmerService feedToFarmerService;
 	
 
+	@Autowired 
+	AdvanceToFarmerService advanceToFarmerService;
+
+
 	@Autowired
 	private PaymentToFarmerMapper paymentToFarmerMapper;
 	
 	
 	@Override
 	public boolean addPayment(PaymentToFarmerRequestDto paymentToFarmerRequestDto) {
-		
-		PaymentToFarmer paymentToFarmer = paymentToFarmerMapper.toEntity(paymentToFarmerRequestDto);
-	
-		Optional<Branch> opt = branchRepository.findById(paymentToFarmerRequestDto.getBranch());
-		Optional<Farmer> opt2 = farmerRepository.findById(paymentToFarmerRequestDto.getFarmer());
-		if (opt.isPresent() && opt2.isPresent()) {
-			paymentToFarmer.setBranch(opt.get());
-			paymentToFarmer.setFarmer(opt2.get());
-			
-			//System.out.println("FEED "+paymentToFarmer.getFeed_deduction());
-			//update remaining Amount in FeedToFarmer table
-			 updateRemainingAmount(paymentToFarmer);
-			
-			paymentToFarmerRepository.save(paymentToFarmer);
-		return true;
+
+	    try {
+	        PaymentToFarmer paymentToFarmer = paymentToFarmerMapper.toEntity(paymentToFarmerRequestDto);
+	        Optional<Branch> opt = branchRepository.findById(paymentToFarmerRequestDto.getBranch());
+	        Optional<Farmer> opt2 = farmerRepository.findById(paymentToFarmerRequestDto.getFarmer());	       
+	        if (opt.isPresent() && opt2.isPresent()) {
+	            paymentToFarmer.setBranch(opt.get());
+	            paymentToFarmer.setFarmer(opt2.get());      
+	            updateFeedRemainingAmount(paymentToFarmer);  // Update remaining Amount in FeedToFarmer table	            
+	            updateAdvanceAmount(paymentToFarmer);// Update advance amount       
+	            paymentToFarmerRepository.save(paymentToFarmer);// Save the payment
+	            return true;
+	        }
+	    } catch (Exception e) {       
+	        e.printStackTrace(); 
+	    }
+	    return false;
+	}	
+	private void updateAdvanceAmount(PaymentToFarmer paymentToFarmer) {		
+		Long farmerId = paymentToFarmer.getFarmer().getId();
+		AdvanceToFarmer advanceToFarmer=advanceToFarmerService.getAdvanceToFarmerByFarmerId(farmerId);		
+		if (advanceToFarmer != null && advanceToFarmer.getRemainingAmount() != null) {
+		advanceToFarmer.setRemainingAmount(advanceToFarmer.getRemainingAmount()-paymentToFarmer.getAdvance_deduction());
+		paymentToFarmer.setAdvance_deduction(paymentToFarmer.getAdvance_deduction());
 		}
-	
-		
-		return false;
 	}
-	
-	
-	
-	private void updateRemainingAmount(PaymentToFarmer paymentToFarmer) {
+	private void updateFeedRemainingAmount(PaymentToFarmer paymentToFarmer) {
 	    Long farmerId = paymentToFarmer.getFarmer().getId();
-
 	    List<FeedToFarmer> feedToFarmerList = feedToFarmerRepository.findAllByFarmerId(farmerId);
-
-	    
-	 
 	    if (!feedToFarmerList.isEmpty()) {
 	        for (FeedToFarmer feedToFarmer : feedToFarmerList) {
-	        	System.out.println("REMAIN:"+feedToFarmer.getRemainingAmount());
-	            double remainingAmount = feedToFarmer.getRemainingAmount() - paymentToFarmer.getFeed_deduction();
-	            feedToFarmer.setRemainingAmount((float) remainingAmount);
-	            
+	    	if(feedToFarmer.getRemainingAmount() > paymentToFarmer.getFeed_deduction()) {
+	        		AdvanceToFarmer advanceToFarmer=advanceToFarmerService.getAdvanceToFarmerByFarmerId(farmerId);	        		
+	        		if (advanceToFarmer != null && advanceToFarmer.getRemainingAmount() != null) {
+	        			advanceToFarmer.setRemainingAmount(advanceToFarmer.getRemainingAmount()+(feedToFarmer.getRemainingAmount() - paymentToFarmer.getFeed_deduction()));
+	        			feedToFarmer.setRemainingAmount(0.0f);
+	        			feedToFarmerRepository.save(feedToFarmer);
+	        			return ;
+	        		}     			
+		          }
+	        	float a = (feedToFarmer.getRemainingAmount() - paymentToFarmer.getFeed_deduction());
+	            feedToFarmer.setRemainingAmount( a);	  
 	            feedToFarmerRepository.save(feedToFarmer);// Save the updated FeedToFarmer entity
 	        }
 	    } else {
-	        // Handle the case where no FeedToFarmer entity is found for the given farmerId
-	        // You might want to log a warning or take appropriate action
-	    }
-	    
+	        
+	    }    
 	}
-	
-	
-//	private void updateRemainingAmount(PaymentToFarmer paymentToFarmer) {
-//	    Long farmerId = paymentToFarmer.getFarmer().getId();
-//
-//	    List<FeedToFarmer> feedToFarmerList = feedToFarmerRepository.findAllByFarmerId(farmerId);
-//
-//	    if (!feedToFarmerList.isEmpty()) {
-//	        for (FeedToFarmer feedToFarmer : feedToFarmerList) {
-//	            System.out.println("FarmerList:" + feedToFarmer);
-//	            if (feedToFarmer.getRemainingAmount() < 0) {
-//	                System.out.println("Less Than Zero");
-//	            }
-//	            double remainingAmount = feedToFarmer.getRemainingAmount() - paymentToFarmer.getFeed_deduction();
-//	            feedToFarmer.setRemainingAmount((float) remainingAmount);
-//
-//	            // Save the updated FeedToFarmer entity
-//	            feedToFarmerRepository.save(feedToFarmer);
-//	        }
-//	    } else {
-//	        // Handle the case where no FeedToFarmer entity is found for the given farmerId
-//	        // You might want to log a warning or take appropriate action
-//	    }
-//	}
-	
-	
-	
-	
-	
+
 	}

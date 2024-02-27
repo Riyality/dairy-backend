@@ -1,3 +1,4 @@
+
 package com.dairy.entity;
 
 import java.util.Date;
@@ -27,7 +28,7 @@ public class PaymentToFarmer {
 	
 	private Date from_date;
 	private Date to_date;
-	private Long amount;
+	private Float amount;
 	
 	@ManyToOne
 	@JoinColumn(name = "farmer")
@@ -40,12 +41,12 @@ public class PaymentToFarmer {
 	private Long total_collected_milk;
 	private String milktype;
 	
-	private Long feed_deduction;
-	private Long advance_deduction;
+	private Float feed_deduction;
+	private Float advance_deduction;
 	private String payment_method;
 	private String payment_note;
 	
 	
 	
-
 }
+

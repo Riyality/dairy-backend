@@ -29,7 +29,7 @@ public class MilkCollection {
 	private Float snf;
 	private Float rate;
 	private Float total_amount;
-	
+	private String  payment_status;	
 	@ManyToOne
 	@JoinColumn(name = "farmer")
 	private Farmer farmer;
