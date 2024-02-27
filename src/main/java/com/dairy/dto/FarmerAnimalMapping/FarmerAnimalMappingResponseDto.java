@@ -13,4 +13,5 @@ public class FarmerAnimalMappingResponseDto {
 	    private int branchId;
 	    private Long farmerId;
 	    private String farmerName;
+	    private String remark;
 }

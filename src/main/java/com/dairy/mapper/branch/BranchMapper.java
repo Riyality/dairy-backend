@@ -24,7 +24,7 @@ public class BranchMapper {
 		branch.setOwner( branchRequestDto.getOwner() );
 		branch.setOwnerContact( branchRequestDto.getOwnerContact() );
 		branch.setStartDate( branchRequestDto.getStartDate() );
-
+		branch.setRemark(branchRequestDto.getRemark());
 		return branch;
 	}
 
@@ -40,7 +40,7 @@ public class BranchMapper {
 		responseDto.setOwner( branch.getOwner() );
 		responseDto.setOwnerContact( branch.getOwnerContact() );
 		responseDto.setStartDate( branch.getStartDate() );
-
+		responseDto.setRemark(branch.getRemark());
 		return responseDto;
 	}
 

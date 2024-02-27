@@ -12,19 +12,15 @@ import lombok.NoArgsConstructor;
 public class PaymentToFarmerRequestDto {
 	
 	
-
 	private Date invoice_date;
 	private Date from_date;
 	private Date to_date;
 	private Float amount;
-
 	private Long farmer;
 
 	private int branch;
-	
 	private Long total_collected_milk;
-	private String milktype;
-	
+	private String milktype;	
 	private Float feed_deduction;
 	private Float advance_deduction;
 	private String payment_method;

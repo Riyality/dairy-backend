@@ -1,3 +1,4 @@
+
 DROP SCHEMA IF EXISTS `dairy`;
 CREATE DATABASE `dairy` ;
 use `dairy`;
@@ -278,3 +279,50 @@ CREATE TABLE `bonus_of_farmer` (
 
 
   
+
+
+CREATE TABLE `dairy`.`main_branch` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+   `name` VARCHAR(32) NULL,
+  `date_of_collection` TIMESTAMP NULL,
+  `shift` VARCHAR(45) NULL,
+  `type` VARCHAR(45) NULL,
+  `quantity` FLOAT NULL,
+  `fat` FLOAT NULL,
+  `snf` FLOAT NULL,
+  `protein` FLOAT NULL,
+  `rate` FLOAT NULL,
+  `total_amount` FLOAT NULL,
+  `remark` TEXT,
+  `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dairy_manger` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) ,
+  `person_id` int ,
+  `date_transaction` timestamp NULL ,
+  `transaction_type` varchar(20) NULL ,
+  `contact` varchar(20) NULL,
+  `amount` bigint ,
+  `remark` varchar(255)  NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `contact_UNIQUE` (`contact`)
+);
+  
+  CREATE TABLE  `dairy_manger_update`(
+   `id` BIGINT  NOT NULL AUTO_INCREMENT ,
+    `date_transaction` TIMESTAMP NULL,
+    `transaction_type` VARCHAR(20)  NULL,
+     `balance` bigint,
+    `remark` VARCHAR(255),
+    `dairy_manger` BIGINT NULL,
+    `created_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   `updated_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`dairy_manger`) REFERENCES `dairy_manger`(`id`),
+    PRIMARY KEY (`id`)
+   
+);
+  
+

@@ -27,6 +27,7 @@ public class FeedCompany {
 	private Long id;
 	
 	private String name;
+	private String remark;
 	
 	@ManyToOne
 	@JoinColumn(name="branch")

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dairy.constants.MessageConstants;
+import com.dairy.dto.bankdetails.BankRequestDto;
 import com.dairy.dto.employee.EmployeeRequestDto;
 import com.dairy.dto.employee.EmployeeResponseDto;
 import com.dairy.entity.Bank;
@@ -43,20 +44,19 @@ public class EmployeeController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_EMPLOYEE_ERROR_MSG);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<EmployeeResponseDto>> getAllEmplyoee() {
-
-		return new ResponseEntity<>(employeeService.getAllEmplyoee(), HttpStatus.OK);
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<EmployeeResponseDto>> getAllEmplyoee(@PathVariable int branchId ) {
+		return new ResponseEntity<>(employeeService.getAllEmplyoee(branchId), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeResponseDto> findById(@PathVariable long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(employeeService.findById(id));
+	@GetMapping("{id}/{branchId}")
+	public ResponseEntity<EmployeeResponseDto> findById(@PathVariable long id ,@PathVariable int branchId) {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeService.findById(id ,branchId));
 	}
 
 	@PutMapping
 	public ResponseEntity<String> updateEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
-
+		employeeRequestDto.getBankRequestDto().setBranchId(employeeRequestDto.getBranchId());
 		boolean isUpdated = employeeService.updateEmployee(employeeRequestDto);
 
 		if (isUpdated)

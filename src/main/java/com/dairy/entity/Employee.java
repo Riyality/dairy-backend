@@ -39,6 +39,10 @@ public class Employee {
 	//@NotBlank(message = "date Of Joining cannot be blank")
 	private LocalDateTime dateOfJoining;
 	
+	private String remark;
+	
+	private String role;
+	
 	//@NotBlank(message = "branch cannot be blank")
 	@ManyToOne
 	@JoinColumn( name = "branch" )

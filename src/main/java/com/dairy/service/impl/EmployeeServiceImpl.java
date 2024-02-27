@@ -63,10 +63,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<EmployeeResponseDto> getAllEmplyoee() {
-
-		List<Employee> employee = employeeRepository.findAll();
-		return employeeMapper.toList(employee);
+	public List<EmployeeResponseDto> getAllEmplyoee(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+				List<Employee> employee = employeeRepository.findByBranch( branchOptional.get() );
+				return employeeMapper.toList(employee);
+		}
+		return null;
 	}
 
 	@Override
@@ -76,14 +79,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 			
 
 			Bank bank = bankMapper.toEntity(employeeRequestDto.getBankRequestDto());
-			Bank addedBank = bankRepository.save(bank);
-			
-			Employee employee = employeeMapper.toEntity(employeeRequestDto);
-			employee.setBank(addedBank);
 			Optional<Branch> opt = branchRepository.findById(employeeRequestDto.getBranchId());
 			if (opt.isPresent())
+				bank.setBranch(opt.get());
+			
+				Bank addedBank = bankRepository.save(bank);
+			
+				Employee employee = employeeMapper.toEntity(employeeRequestDto);
+				employee.setBank(addedBank);
+			
+			if (opt.isPresent())
 				employee.setBranch(opt.get());
-			employeeRepository.save(employee);
+				employeeRepository.save(employee);
+				
 			return true;
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -92,10 +100,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeResponseDto findById(Long id) {
-		Optional<Employee> opt = employeeRepository.findById(id);
-		if (opt.isPresent())
+	public EmployeeResponseDto findById(Long id ,int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if(branchOptional.isPresent()) {
+			Optional<Employee> opt = employeeRepository.findByIdAndBranch(id ,branchOptional.get());
 			return employeeMapper.toEmployeeResponseDto(opt.get());
+		}
 		return null;
 	}
 }

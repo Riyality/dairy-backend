@@ -31,9 +31,11 @@ public class EmployeeRequestDto {
 	
 	@NotBlank(message = "date Of Joining cannot be blank")
 	private LocalDateTime dateOfJoining;
+	private String remark;
+	private String role;
+	
 	
 	private int branchId;
-	
 	private BankRequestDto bankRequestDto;
 	
 }

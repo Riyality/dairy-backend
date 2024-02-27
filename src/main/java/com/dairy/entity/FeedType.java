@@ -29,6 +29,7 @@ public class FeedType {
 
 	@NotBlank(message = "feed type cannot be blank")
 	private String type;
+	private String remark;
 
 	@ManyToOne
 	@JoinColumn(name = "feed_company")

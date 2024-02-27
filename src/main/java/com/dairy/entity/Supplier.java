@@ -2,7 +2,6 @@ package com.dairy.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +28,7 @@ public class Supplier {
 	private String contact;
 	private LocalDateTime dateOfRegistration;
 	private String address;
+	private String remark;
 	
     @ManyToOne
     @JoinColumn(name="branch")

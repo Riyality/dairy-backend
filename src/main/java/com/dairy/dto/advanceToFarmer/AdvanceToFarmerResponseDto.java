@@ -1,7 +1,6 @@
 package com.dairy.dto.advanceToFarmer;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +18,6 @@ public class AdvanceToFarmerResponseDto {
 	private Long farmerId;
 	private String farmerName;
 	private int branchId;
+	private String remark;
 
 }

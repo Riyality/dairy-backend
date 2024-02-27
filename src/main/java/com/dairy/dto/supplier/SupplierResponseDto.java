@@ -2,9 +2,6 @@ package com.dairy.dto.supplier;
 
 import java.time.LocalDateTime;
 
-import com.dairy.dto.bankdetails.BankResponseDto;
-import com.dairy.dto.employee.EmployeeResponseDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ public class SupplierResponseDto {
 	private LocalDateTime dateOfRegistration;
 	private String address;
 	private int branchId;
+	private String remark;
 	
 	private long bankId;
 

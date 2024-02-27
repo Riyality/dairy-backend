@@ -22,6 +22,7 @@ public class FeedCompanyMapper {
 		FeedCompany feedCompany = new FeedCompany();
 		feedCompany.setId(feedCompanyRequestDto.getId());
 		feedCompany.setName(feedCompanyRequestDto.getName());
+		feedCompany.setRemark(feedCompanyRequestDto.getRemark());
 		return feedCompany;
 
 	}
@@ -31,6 +32,7 @@ public class FeedCompanyMapper {
 		FeedCompanyResponseDto feedCompanyResponseDto = new FeedCompanyResponseDto();
 		feedCompanyResponseDto.setId(feedcompany.getId());
 		feedCompanyResponseDto.setName(feedcompany.getName());
+		feedCompanyResponseDto.setRemark(feedcompany.getRemark());
 
 		if (feedcompany.getBranch() != null) {
 			feedCompanyResponseDto.setBranchId(feedcompany.getBranch().getId());

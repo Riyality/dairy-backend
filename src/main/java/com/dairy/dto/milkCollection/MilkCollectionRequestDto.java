@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MilkCollectionRequestDto {
-	private int farmerId;
+	
+	private Long farmerId;
 	private String farmerName;
 	private String animalType;
 	private String milkCollectionShift;

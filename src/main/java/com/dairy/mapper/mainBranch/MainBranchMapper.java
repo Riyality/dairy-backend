@@ -28,6 +28,7 @@ public class MainBranchMapper {
 		mainBranch.setProtein(mainBranchRequestDto.getProtein());
 		mainBranch.setRate(mainBranchRequestDto.getRate());
 		mainBranch.setTotalAmount(mainBranchRequestDto.getTotalAmount());
+		mainBranch.setRemark(mainBranchRequestDto.getRemark());
 
 		return mainBranch;
 
@@ -49,6 +50,7 @@ public class MainBranchMapper {
 		mainBranchResponseDto.setProtein(mainBranch.getProtein());
 		mainBranchResponseDto.setRate(mainBranch.getRate());
 		mainBranchResponseDto.setTotalAmount(mainBranch.getTotalAmount());
+		mainBranchResponseDto.setRemark(mainBranch.getRemark());
 
 		return mainBranchResponseDto;
 

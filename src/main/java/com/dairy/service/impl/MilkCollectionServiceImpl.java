@@ -36,6 +36,9 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 
 	@Autowired
 	private BranchRepository branchRepository;
+	
+	@Autowired
+	private FarmerRepository farmerRepository;
 
 	@Autowired
 	FarmerRepository farmerRepository;
@@ -53,6 +56,9 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 			Optional<Branch> opt = branchRepository.findById(milkCollectionRequestDto.getBranchId());
 			if (opt.isPresent())
 				milkCollection.setBranch(opt.get());
+						Optional<Farmer> farmer = farmerRepository.findById( milkCollectionRequestDto.getFarmerId());
+			if (farmer.isPresent())
+				milkCollection.setFarmer(farmer.get());
 			
 			MilkCollection addedMilkCollection = milkCollectionRepository.save(milkCollection);
 

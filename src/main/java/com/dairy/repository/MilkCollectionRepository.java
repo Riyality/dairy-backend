@@ -60,8 +60,6 @@ public interface MilkCollectionRepository extends JpaRepository<MilkCollection, 
 	List<MilkCollection> findByFarmerId(@Param("farmerId") Long farmerId);
 
 	List<MilkCollectionResponseDto> findByFarmer(int farmerId);
-
-
 	@Query("SELECT m FROM MilkCollection m WHERE m.farmer.id = :farmerId AND m.dateOfCollection BETWEEN :fromDate AND :toDate AND m.type = :animalType")
 	List<MilkCollection> findByFarmerDateOfCollectionAndType(@Param("farmerId") Long farmerId,
 	                                                        @Param("fromDate") LocalDate fromDate,

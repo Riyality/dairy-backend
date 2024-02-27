@@ -38,10 +38,9 @@ public class RouteController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_ROUTE_ERROR_MSG);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<RouteResponseDto>> getAllRoutes() {
-
-		return new ResponseEntity<>(routeService.getAllRoutes(), HttpStatus.OK);
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<RouteResponseDto>> getAllRoutes(@PathVariable int branchId) {
+		return new ResponseEntity<>(routeService.getAllRoutes(branchId), HttpStatus.OK);
 	}
 	
 

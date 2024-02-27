@@ -28,6 +28,7 @@ public interface MilkCollectionService {
 	List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
 			LocalDate fromDate, LocalDate toDate, String animalType);
 
+
 	boolean updatePaymentStatusbyFarmerIdBranchIdAndMilktype(MilkCollectionRequestDto dto);
 
 	
