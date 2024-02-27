@@ -35,7 +35,7 @@ public class PaymentToFarmerController {
 	        boolean added = paymentToFarmerService.addPayment(dto);
 	        if (added) {       
 	        	MilkCollectionRequestDto milkCollection=new MilkCollectionRequestDto();	        
-	        	milkCollection.setFarmerId(dto.getFarmer().intValue());
+	        	milkCollection.setFarmerId((long) dto.getFarmer().intValue());
 	        	milkCollection.setBranchId(dto.getBranch());
 	        	milkCollection.setAnimalType(dto.getMilktype());
 	        	milkCollectionService.updatePaymentStatusbyFarmerIdBranchIdAndMilktype(milkCollection );      

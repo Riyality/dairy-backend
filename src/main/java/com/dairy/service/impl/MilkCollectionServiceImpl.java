@@ -40,8 +40,7 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	@Autowired
 	private FarmerRepository farmerRepository;
 
-	@Autowired
-	FarmerRepository farmerRepository;
+	
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
 		return null;
