@@ -42,15 +42,14 @@ public class SupplierController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_SUPPLIER_ERROR_MSG);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<SupplierResponseDto>> allSupplier() {
-		return new ResponseEntity<>(supplierService.getAllSupplier(), HttpStatus.OK);
-
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<SupplierResponseDto>> allSupplier(@PathVariable int branchId) {
+		return new ResponseEntity<>(supplierService.getAllSupplier(branchId), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<SupplierResponseDto> findById(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(supplierService.findById(id));
+	@GetMapping("/{id}/{branchId}")
+	public ResponseEntity<SupplierResponseDto> findById(@PathVariable Long id ,@PathVariable int branchId) {
+		return ResponseEntity.status(HttpStatus.OK).body(supplierService.findById(id ,branchId));
 	}
 
 	@PutMapping

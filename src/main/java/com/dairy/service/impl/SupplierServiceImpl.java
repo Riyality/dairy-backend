@@ -55,17 +55,23 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public List<SupplierResponseDto> getAllSupplier() {
-		List<Supplier> supplier = supplierRepository.findAll();
-		return supplierMapper.toList(supplier);
-
+	public List<SupplierResponseDto> getAllSupplier(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			List<Supplier> supplier = supplierRepository.findByBranch( branchOptional.get() );
+			return supplierMapper.toList(supplier);
+		}
+		return null;
 	}
 
 	@Override
-	public SupplierResponseDto findById(Long id) {
-		Optional<Supplier> opt = supplierRepository.findById(id);
-		if (opt.isPresent())
+	public SupplierResponseDto findById(Long id ,int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		
+		if (branchOptional.isPresent()) {
+			Optional<Supplier> opt = supplierRepository.findByIdAndBranch(id ,branchOptional.get());
 			return supplierMapper.toSupplierResponseDto(opt.get());
+		}			
 		return null;
 	}
 
