@@ -10,9 +10,9 @@ public interface SupplierService {
 
 	boolean addSupplier(SupplierRequestDto supplierRequestDto, Bank bank);
 
-	List<SupplierResponseDto> getAllSupplier();
+	List<SupplierResponseDto> getAllSupplier(int branchId);
 
-	SupplierResponseDto findById(Long id);
+	SupplierResponseDto findById(Long id ,int branchId);
 
 	boolean updateSupplier(SupplierRequestDto supplierRequestDto, Bank bank);
 
