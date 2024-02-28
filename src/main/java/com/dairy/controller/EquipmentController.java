@@ -24,9 +24,9 @@ public class EquipmentController {
 	@Autowired
 	private EquipmentService equipmentService;
 
-	@GetMapping
-	public ResponseEntity<List<EquipmentResponseDto>> getAllEquipments() {
-		return new ResponseEntity<>(equipmentService.getAllEquipments(), HttpStatus.OK);
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<EquipmentResponseDto>> getAllEquipments(@PathVariable int branchId) {
+		return new ResponseEntity<>(equipmentService.getAllEquipments(branchId), HttpStatus.OK);
 
 	}
 
@@ -40,9 +40,9 @@ public class EquipmentController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_EQIPMENT_ERROR_MSG);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<EquipmentResponseDto> findById(@PathVariable long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(equipmentService.findById(id));
+	@GetMapping("/{id}/{branchId}")
+	public ResponseEntity<EquipmentResponseDto> findById(@PathVariable long id ,@PathVariable int branchId) {
+		return ResponseEntity.status(HttpStatus.OK).body(equipmentService.findById(id ,branchId));
 	}
 
 	@PutMapping
