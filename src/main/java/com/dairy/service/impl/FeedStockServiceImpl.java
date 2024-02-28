@@ -75,16 +75,22 @@ public class FeedStockServiceImpl implements FeedStockService {
 	}
 
 	@Override
-	public List<FeedStockResponseDto> getAllFeed() {
-		List<FeedStock> feedStock = feedStockRepository.findAll();
-		return feedStockMapper.toList(feedStock);
+	public List<FeedStockResponseDto> getAllFeed(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			List<FeedStock> feedStock = feedStockRepository.findByBranch( branchOptional.get() );
+			return feedStockMapper.toList(feedStock);
+		}
+		return null;
 	}
 
 	@Override
-	public FeedStockResponseDto findById(int id) {
-		Optional<FeedStock> opt = feedStockRepository.findById(id);
-		if (opt.isPresent())
+	public FeedStockResponseDto findById(int id ,int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if(branchOptional.isPresent()) {
+			Optional<FeedStock> opt = feedStockRepository.findByIdAndBranch(id ,branchOptional.get());
 			return feedStockMapper.toFeedStockResponseDto(opt.get());
+		}
 		return null;
 	}
 
