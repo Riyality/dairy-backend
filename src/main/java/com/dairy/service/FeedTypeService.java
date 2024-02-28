@@ -10,9 +10,9 @@ public interface FeedTypeService {
 
 	boolean addFeed(FeedTypeRequestDto dto);
 
-	public List<FeedTypeResponseDto> getAllFeedTypes();
+	public List<FeedTypeResponseDto> getAllFeedTypes(int branchId);
 
-	public FeedTypeResponseDto findById(Long id);
+	public FeedTypeResponseDto findById(Long id ,int branchId);
 
 	public List<FeedTypeResponseDto> getFeedTypeByFeedCompanyId(long id, int branchId);
 
