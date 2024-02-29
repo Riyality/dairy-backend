@@ -32,31 +32,24 @@ public class AdvanceToFarmerController {
 		boolean added = advanceToFarmerService.addAdvance(advanceRequestDto);
 		if (added)
 			return ResponseEntity.status(HttpStatus.CREATED).body(MessageConstants.ADD_ADVANCETOFARMER_SUCCESS_MESSAGE);
-
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_ADVANCETOFARMER_ERROR_MSG);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<AdvanceToFarmerResponseDto>> getAllAdvance() {
-		return new ResponseEntity<>(advanceToFarmerService.getAllAdvanceToFarmer(), HttpStatus.OK);
-
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<AdvanceToFarmerResponseDto>> getAllAdvance(@PathVariable int branchId) {
+		return new ResponseEntity<>(advanceToFarmerService.getAllAdvanceToFarmer(branchId), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<AdvanceToFarmerResponseDto> findById(@PathVariable long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(advanceToFarmerService.findById(id));
+	@GetMapping("/{id}/branchId/{branchId}")
+	public ResponseEntity<AdvanceToFarmerResponseDto> findById(@PathVariable long id ,@PathVariable int branchId) {
+		return ResponseEntity.status(HttpStatus.OK).body(advanceToFarmerService.findById(id ,branchId));
 	}
 
 	
 	@GetMapping("/{farmerId}/{branchId}")
-	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(
-	        @PathVariable("farmerId") Long farmerId,
-	        @PathVariable("branchId") int branchId
-	        ) {
-		
+	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(@PathVariable Long farmerId, @PathVariable int branchId) {
 	    Double result = advanceToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId, branchId);
-	   
 	    return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
