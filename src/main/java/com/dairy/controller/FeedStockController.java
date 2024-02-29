@@ -35,16 +35,15 @@ public class FeedStockController {
 	
 	}
 
-	@GetMapping
-	public ResponseEntity<List<FeedStockResponseDto>> getAllFeed() {
-
-		return new ResponseEntity<>(feedStockService.getAllFeed(), HttpStatus.OK);
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<FeedStockResponseDto>> getAllFeed(@PathVariable int branchId) {
+		return new ResponseEntity<>(feedStockService.getAllFeed(branchId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<FeedStockResponseDto> findById(@PathVariable int id)
+	@GetMapping("/{id}/{branchId}")
+	public ResponseEntity<FeedStockResponseDto> findById(@PathVariable int id ,@PathVariable int branchId)
 	{
-		return ResponseEntity.status(HttpStatus.OK).body(feedStockService.findById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(feedStockService.findById(id ,branchId));
 		
 	}
 	

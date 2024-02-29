@@ -9,9 +9,9 @@ public interface FeedStockService {
 
 	boolean addFeedStock(FeedStockRequestDto feedStockRequestDto);
 
-	List<FeedStockResponseDto> getAllFeed();
+	List<FeedStockResponseDto> getAllFeed(int branchId);
 
-	FeedStockResponseDto findById(int id);
+	FeedStockResponseDto findById(int id ,int branchId);
 
 	boolean updateFeedStock(FeedStockRequestDto feedStockRequestDto);
 }
