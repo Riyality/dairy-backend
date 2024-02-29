@@ -14,4 +14,6 @@ public interface FeedStockService {
 	FeedStockResponseDto findById(int id);
 
 	boolean updateFeedStock(FeedStockRequestDto feedStockRequestDto);
+
+	int getTotalQuantityByBranch(int branchId);
 }

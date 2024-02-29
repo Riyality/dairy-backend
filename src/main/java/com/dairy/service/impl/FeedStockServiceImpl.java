@@ -74,6 +74,7 @@ public class FeedStockServiceImpl implements FeedStockService {
 		return false;
 	}
 
+	
 	@Override
 	public List<FeedStockResponseDto> getAllFeed() {
 		List<FeedStock> feedStock = feedStockRepository.findAll();
@@ -116,6 +117,11 @@ public class FeedStockServiceImpl implements FeedStockService {
 			log.error(e.getMessage(), e);
 		}
 		return false;
+	}
+
+	@Override
+	public int getTotalQuantityByBranch(int branchId) {
+		return feedStockRepository.getTotalQuantityByBranch(branchId);
 	}
 
 }

@@ -1,14 +1,13 @@
 package com.dairy.repository;
 
-import java.util.Date;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
 import com.dairy.entity.Branch;
@@ -51,7 +50,13 @@ public interface MilkCollectionRepository extends JpaRepository<MilkCollection, 
 	                                                        @Param("toDate") LocalDate toDate,
 	                                                        @Param("animalType") String animalType);
 
-
+	 
+	 @Query("SELECT SUM(m.quantity) FROM MilkCollection m WHERE m.dateOfCollection = :today AND m.type= :animalType AND m.shift = :shift AND m.branch.id = :branchId")
+	    Float findSumOfMilkCollectionByTypeAndShiftForToday(
+	            @Param("today") LocalDate today,
+	            @Param("animalType") String animalType,
+	            @Param("shift") String shift,
+	            @Param("branchId") int branchId);
 	
-}
+   }
  

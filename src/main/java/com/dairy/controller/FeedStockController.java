@@ -57,5 +57,21 @@ public class FeedStockController {
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_FEEDSTOCK_ERROR_MSG);
 	}
+	
+	/* @GetMapping("/count")
+	    public ResponseEntity<Integer> getTotalFeedStockCount() {
+	        int count = feedStockService.getTotalFeedStockCount();
+	        return ResponseEntity.ok(count);
+	    }*/
+	
+/*	@GetMapping("/totalQuantity/branch/{branchId}")
+    public ResponseEntity<Integer> getTotalQuantityByBranch(@PathVariable int branchId) {
+        int totalQuantity = feedStockService.getTotalQuantityByBranch(branchId);
+        return ResponseEntity.ok(totalQuantity);
+    }*/
+	@GetMapping("/totalQuantity/branch/{branchId}")
+	public long getTotalQuantityByBranch(@PathVariable int branchId) {
+	    return feedStockService.getTotalQuantityByBranch(branchId);
+	}
 
 }

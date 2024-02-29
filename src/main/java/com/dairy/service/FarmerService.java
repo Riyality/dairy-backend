@@ -19,4 +19,8 @@ public interface FarmerService {
 
 	List<FarmerResponseDto> findAllInActiveFarmers(int id);
 
+	long countActiveFarmersByBranchId(int branchId);
+
+	long countInActiveFarmersByBranchId(int branchId);
+
 }

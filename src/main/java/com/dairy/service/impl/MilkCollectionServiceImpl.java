@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
@@ -114,5 +113,13 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 		
 		return milkCollectionMapper.toList(milkCollection);
 	}
+
+	@Override
+	public Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift,int branchId) {
+        LocalDate today = LocalDate.now();
+        return milkCollectionRepository.findSumOfMilkCollectionByTypeAndShiftForToday(today, animalType, shift,branchId);
+    }
+
+	
 
 }

@@ -3,10 +3,6 @@ package com.dairy.service;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.milkCollection.MilkCollectionResponseDto;
@@ -29,6 +25,10 @@ public interface MilkCollectionService {
 
 	List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
 			LocalDate fromDate, LocalDate toDate, String animalType);
+	
 
+	Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift, int branchId);
+
+		
 
 }

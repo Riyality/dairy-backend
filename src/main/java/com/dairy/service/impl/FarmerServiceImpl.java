@@ -149,4 +149,14 @@ public class FarmerServiceImpl implements FarmerService {
 		}
 		return null;
 	}
+
+	@Override
+	public long countActiveFarmersByBranchId(int branchId) {
+		 return farmerRepository.countActiveFarmersByBranchId(branchId);
+	}
+
+	@Override
+	public long countInActiveFarmersByBranchId(int branchId) {
+		 return farmerRepository.countInActiveFarmersByBranchId(branchId);
+	}
 }
