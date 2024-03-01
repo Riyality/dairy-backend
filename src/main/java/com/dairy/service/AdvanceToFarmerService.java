@@ -11,9 +11,9 @@ public interface AdvanceToFarmerService {
 
 	boolean addAdvance(AdvanceToFarmerRequestDto advanceRequestDto);
 	
-	List<AdvanceToFarmerResponseDto> getAllAdvanceToFarmer();
+	List<AdvanceToFarmerResponseDto> getAllAdvanceToFarmer(int branchId);
 
-	AdvanceToFarmerResponseDto findById(long id);
+	AdvanceToFarmerResponseDto findById(long id, int branchId);
 
 	boolean updateAdvance(AdvanceToFarmerRequestDto advanceRequestDto);
 

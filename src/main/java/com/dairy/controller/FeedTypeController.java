@@ -35,17 +35,17 @@ public class FeedTypeController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_FEEDTYPE_ERROR_MSG);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<FeedTypeResponseDto> getFeedType(@PathVariable Long id) {
-		FeedTypeResponseDto feedTypeResponseDto = feedTypeService.findById(id);
+	@GetMapping("/{id}/branchId/{branchId}")
+	public ResponseEntity<FeedTypeResponseDto> getFeedType(@PathVariable Long id ,@PathVariable int branchId) {
+		FeedTypeResponseDto feedTypeResponseDto = feedTypeService.findById(id ,branchId);
 
 		return ResponseEntity.status(HttpStatus.OK).body(feedTypeResponseDto);
 
 	}
 
-	@GetMapping()
-	public ResponseEntity<List<FeedTypeResponseDto>> getAllFeedTypes() {
-		return new ResponseEntity<>(feedTypeService.getAllFeedTypes(), HttpStatus.OK);
+	@GetMapping("/all/{branchId}")
+	public ResponseEntity<List<FeedTypeResponseDto>> getAllFeedTypes(@PathVariable int branchId) {
+		return new ResponseEntity<>(feedTypeService.getAllFeedTypes(branchId), HttpStatus.OK);
 	}
 
 	@GetMapping("/id/{id}/branchId/{branchId}")

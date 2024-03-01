@@ -1,3 +1,4 @@
+
 package com.dairy.service;
 
 import java.util.List;
@@ -9,9 +10,12 @@ public interface FeedStockService {
 
 	boolean addFeedStock(FeedStockRequestDto feedStockRequestDto);
 
-	List<FeedStockResponseDto> getAllFeed();
+	List<FeedStockResponseDto> getAllFeed(int branchId);
 
-	FeedStockResponseDto findById(int id);
+	FeedStockResponseDto findById(int id ,int branchId);
 
 	boolean updateFeedStock(FeedStockRequestDto feedStockRequestDto);
+  
+  	int getTotalQuantityByBranch(int branchId);
+
 }

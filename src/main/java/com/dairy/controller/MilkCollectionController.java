@@ -128,8 +128,18 @@ public class MilkCollectionController {
 	        List<MilkCollectionResponseDto> responseDtos = milkCollectionService.getRecordsByFarmerIdFromDateAndToDateAndAnimalType(farmerId,fromDate,toDate,animalType);
 	        return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
 	    }
-
 	  
+
+	  @GetMapping("todayTodaysMilk/{animalType}/{shift}/{branchId}")
+	    public ResponseEntity<Float> findSumOfMilkCollectionByTypeAndShiftForToday(
+	            @PathVariable String animalType,
+	            @PathVariable String shift,
+	            @PathVariable int branchId) {
+	        Float sumOfMilkCollection = milkCollectionService.findSumOfMilkCollectionByTypeAndShiftForToday(animalType, shift,branchId);
+	        System.out.println("sumOfMilkCollection"+sumOfMilkCollection);
+	        return new ResponseEntity<>(sumOfMilkCollection, HttpStatus.OK);
+	    }
+
 	  @PutMapping
 		public ResponseEntity<String> updatePaymentStatusbyFarmerIdBranchIdAndMilktype(@RequestBody MilkCollectionRequestDto dto){
 			boolean update=milkCollectionService.updatePaymentStatusbyFarmerIdBranchIdAndMilktype(dto);
@@ -147,5 +157,5 @@ public class MilkCollectionController {
 	  
 	 
 
-	
+
 }
