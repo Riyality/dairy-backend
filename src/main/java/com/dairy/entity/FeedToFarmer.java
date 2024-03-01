@@ -1,6 +1,7 @@
 package com.dairy.entity;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -27,7 +28,7 @@ public class FeedToFarmer {
 	private Long id;
 
 	@Column(name = "date_of_purchase")
-	private LocalDateTime dateOfPurchase;
+	private LocalDate dateOfPurchase;
 
 	private int quantity;
 

@@ -1,5 +1,6 @@
 package com.dairy.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dairy.dto.paymentToFarmer.PaymentToFarmerRequestDto;
-
+import com.dairy.dto.paymentToFarmer.PaymentToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
 
 import com.dairy.entity.Branch;
@@ -38,6 +39,8 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 	@Autowired
 	private FarmerRepository farmerRepository;
 	
+	@Autowired
+	private PaymentToFarmerMapper paymentTofarmerMapper;
 	
 	@Autowired
 	private FeedToFarmerRepository feedToFarmerRepository;
@@ -104,6 +107,30 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 	    } else {
 	        
 	    }    
+	}
+	@Override
+	public List<PaymentToFarmerResponseDto> getAllPaymentList(int branchId) {
+		
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if (branchOptional.isPresent()) {
+			
+			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranch(branchOptional.get());
+			return paymentTofarmerMapper.toList(list);
+		}
+		return null;
+	}
+	@Override
+	public List<PaymentToFarmerResponseDto> getPaymentListBetweenFromDateAndToDate(LocalDate fromDate, LocalDate toDate,
+			String milkType, int branchId) {
+		
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if (branchOptional.isPresent()) {
+			
+			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndDateBetweenFromDateAndToDate(branchOptional.get(),fromDate,toDate);
+			return paymentTofarmerMapper.toList(list);
+		}
+		
+		return null;
 	}
 
 	}

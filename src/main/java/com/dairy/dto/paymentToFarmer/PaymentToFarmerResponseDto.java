@@ -1,5 +1,6 @@
 package com.dairy.dto.paymentToFarmer;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -23,25 +24,24 @@ public class PaymentToFarmerResponseDto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Date invoice_date;
+	private LocalDate invoice_date;
 	
-	private Date from_date;
-	private Date to_date;
-	private Long amount;
+	private LocalDate from_date;
+	private LocalDate to_date;
+	private float amount;
 	
-	@ManyToOne
-	@JoinColumn(name = "farmer")
-	private Farmer farmer;
+
+	private Long farmer;
 	
-	@ManyToOne
-	@JoinColumn(name = "branch")
-	private Branch branch;
+	private String farmerName;
+
+	private int branch;
 	
 	private Long total_collected_milk;
 	private String milktype;
 	
-	private Long feed_deduction;
-	private Long advance_deduction;
+	private float feed_deduction;
+	private float advance_deduction;
 	private String payment_method;
 	private String payment_note;
 
