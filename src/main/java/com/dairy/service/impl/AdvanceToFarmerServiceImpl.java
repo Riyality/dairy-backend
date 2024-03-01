@@ -11,6 +11,7 @@ import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
+import com.dairy.entity.FeedToFarmer;
 import com.dairy.mapper.advanceToFarmer.AdvanceToFarmerMapper;
 import com.dairy.repository.AdvanceToFarmerRepository;
 import com.dairy.repository.BranchRepository;
@@ -70,16 +71,22 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 
 
 	@Override
-	public List<AdvanceToFarmerResponseDto> getAllAdvanceToFarmer() {
-		List<AdvanceToFarmer> advanceToFarmer = advanceToFarmerRepository.findAll();
-		return advanceToFarmerMapper.toList(advanceToFarmer);
+	public List<AdvanceToFarmerResponseDto> getAllAdvanceToFarmer(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			List<AdvanceToFarmer> advanceToFarmer = advanceToFarmerRepository.findByBranch( branchOptional.get() );
+			return advanceToFarmerMapper.toList(advanceToFarmer);
+		}
+		return null;
 	}
 
 	@Override
-	public AdvanceToFarmerResponseDto findById(long id) {
-		Optional<AdvanceToFarmer> opt = advanceToFarmerRepository.findById(id);
-		if (opt.isPresent())
+	public AdvanceToFarmerResponseDto findById(long id ,int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if(branchOptional.isPresent()) {
+			Optional<AdvanceToFarmer> opt = advanceToFarmerRepository.findByIdAndBranch(id ,branchOptional.get());
 			return advanceToFarmerMapper.toAdvanceToFarmerResponseDto(opt.get());
+		}
 		return null;
 	}
 
@@ -106,8 +113,14 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
 
 	@Override
 	public Double findTotalOfRemainingAmountByFarmerIdAndBranchId(Long farmerId, int branchId) {
-		
 		return advanceToFarmerRepository.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId,branchId);
 	}
 
+	@Override
+	public AdvanceToFarmer getAdvanceToFarmerByFarmerId(Long farmerId) {		
+		  // Use your repository to find the record by farmerId
+        Optional<AdvanceToFarmer> advanceToFarmerOptional = advanceToFarmerRepository.findByFarmerId(farmerId);
+        // Check if the record exists and return it, otherwise return null
+        return advanceToFarmerOptional.orElse(null);
+	}
 }

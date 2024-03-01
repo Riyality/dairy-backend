@@ -1,3 +1,4 @@
+
 package com.dairy.controller;
 
 import java.util.List;
@@ -35,16 +36,15 @@ public class FeedStockController {
 	
 	}
 
-	@GetMapping
-	public ResponseEntity<List<FeedStockResponseDto>> getAllFeed() {
-
-		return new ResponseEntity<>(feedStockService.getAllFeed(), HttpStatus.OK);
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<FeedStockResponseDto>> getAllFeed(@PathVariable int branchId) {
+		return new ResponseEntity<>(feedStockService.getAllFeed(branchId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<FeedStockResponseDto> findById(@PathVariable int id)
+	@GetMapping("/{id}/{branchId}")
+	public ResponseEntity<FeedStockResponseDto> findById(@PathVariable int id ,@PathVariable int branchId)
 	{
-		return ResponseEntity.status(HttpStatus.OK).body(feedStockService.findById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(feedStockService.findById(id ,branchId));
 		
 	}
 	
@@ -57,21 +57,10 @@ public class FeedStockController {
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_FEEDSTOCK_ERROR_MSG);
 	}
-	
-	/* @GetMapping("/count")
-	    public ResponseEntity<Integer> getTotalFeedStockCount() {
-	        int count = feedStockService.getTotalFeedStockCount();
-	        return ResponseEntity.ok(count);
-	    }*/
-	
-/*	@GetMapping("/totalQuantity/branch/{branchId}")
-    public ResponseEntity<Integer> getTotalQuantityByBranch(@PathVariable int branchId) {
-        int totalQuantity = feedStockService.getTotalQuantityByBranch(branchId);
-        return ResponseEntity.ok(totalQuantity);
-    }*/
-	@GetMapping("/totalQuantity/branch/{branchId}")
+  	@GetMapping("/totalQuantity/branch/{branchId}")
 	public long getTotalQuantityByBranch(@PathVariable int branchId) {
 	    return feedStockService.getTotalQuantityByBranch(branchId);
 	}
 
 }
+

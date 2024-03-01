@@ -31,7 +31,7 @@ public class MilkRateController {
 	@PostMapping("/saveMilkRates")
     public ResponseEntity<String> saveMilkRates(@RequestBody List<MilkRateRequestDto> milkRates) {
         try {
-        	boolean allRatesSaved = true;
+        	 boolean allRatesSaved = true;
             for (MilkRateRequestDto milkRate : milkRates) {
                 boolean rateSaved = milkRateService.saveMilkRate(milkRate);
 

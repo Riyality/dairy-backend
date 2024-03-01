@@ -1,10 +1,8 @@
 package com.dairy.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dairy.constants.MessageConstants;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerRequestDto;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
+import com.dairy.entity.AdvanceToFarmer;
+import com.dairy.entity.FeedToFarmer;
 import com.dairy.service.AdvanceToFarmerService;
 
 @RestController
@@ -32,35 +32,38 @@ public class AdvanceToFarmerController {
 		boolean added = advanceToFarmerService.addAdvance(advanceRequestDto);
 		if (added)
 			return ResponseEntity.status(HttpStatus.CREATED).body(MessageConstants.ADD_ADVANCETOFARMER_SUCCESS_MESSAGE);
-
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_ADVANCETOFARMER_ERROR_MSG);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<AdvanceToFarmerResponseDto>> getAllAdvance() {
-		return new ResponseEntity<>(advanceToFarmerService.getAllAdvanceToFarmer(), HttpStatus.OK);
-
+	@GetMapping("all/{branchId}")
+	public ResponseEntity<List<AdvanceToFarmerResponseDto>> getAllAdvance(@PathVariable int branchId) {
+		return new ResponseEntity<>(advanceToFarmerService.getAllAdvanceToFarmer(branchId), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<AdvanceToFarmerResponseDto> findById(@PathVariable long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(advanceToFarmerService.findById(id));
+	@GetMapping("/{id}/branchId/{branchId}")
+	public ResponseEntity<AdvanceToFarmerResponseDto> findById(@PathVariable long id ,@PathVariable int branchId) {
+		return ResponseEntity.status(HttpStatus.OK).body(advanceToFarmerService.findById(id ,branchId));
 	}
 
 	
 	@GetMapping("/{farmerId}/{branchId}")
-	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(
-	        @PathVariable("farmerId") Long farmerId,
-	        @PathVariable("branchId") int branchId
-	        ) {
-		
+	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(@PathVariable Long farmerId, @PathVariable int branchId) {
 	    Double result = advanceToFarmerService.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId, branchId);
-	   
 	    return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
-	
-	
+
+	@GetMapping("/farmerId/{farmerId}")
+	public ResponseEntity<AdvanceToFarmer> getFarmersByFarmerId(
+	        @PathVariable("farmerId") Long farmerId) {
+	    AdvanceToFarmer result = advanceToFarmerService.getAdvanceToFarmerByFarmerId(farmerId);
+	    
+	    if (result != null) {
+	        return ResponseEntity.status(HttpStatus.OK).body(result);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
+	}
 	
 	@PutMapping
 	public ResponseEntity<String> update(@RequestBody AdvanceToFarmerRequestDto advanceRequestDto){

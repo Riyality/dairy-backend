@@ -67,11 +67,6 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
 			if(feedCompanyOpt.isPresent())
 				feedToFarmer.setFeedCompany(feedCompanyOpt.get());
 			
-			
-			
-			
-			
-			
 			feedToFarmerRepository.save(feedToFarmer);
 			return true;
 		} catch (Exception e) {
@@ -131,9 +126,7 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
 
 	@Override
 	public Double findTotalOfRemainingAmountByFarmerIdAndBranchId(long farmerId, int branchId,LocalDate fromDate, LocalDate toDate) {
-	
-		
-		
+
 		return feedToFarmerRepository.findTotalOfRemainingAmountByFarmerIdAndBranchId(farmerId,branchId,fromDate,toDate);
 	}
 
@@ -150,10 +143,5 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
     }
 
 
-//	@Override
-//	public FeedToFarmer findByFarmerId(Long farmerId) {
-//		
-//		return feedToFarmerRepository.findLatestByFarmerId(farmerId);
-//	}
 
 }

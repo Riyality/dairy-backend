@@ -17,9 +17,7 @@ public interface MilkCollectionService {
 			String animalType);
 	List<MilkCollectionResponseDto> findAllByBranchIdAndDateOfCollection(int branchId, LocalDate dateOfCollection);
 
-	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType);
-
-	//List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId);
+	List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType, String flag);
 
 	List<MilkCollectionResponseDto> getAllMilkCollectionDataByFarmerId(int farmerId);
 
@@ -30,5 +28,10 @@ public interface MilkCollectionService {
 	Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift, int branchId);
 
 		
+
+	boolean updatePaymentStatusbyFarmerIdBranchIdAndMilktype(MilkCollectionRequestDto dto);
+
+	
+
 
 }

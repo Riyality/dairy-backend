@@ -1,3 +1,4 @@
+
 package com.dairy.service.impl;
 
 import java.time.LocalDate;
@@ -40,6 +41,7 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	@Autowired
 	private FarmerRepository farmerRepository;
 
+	
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
 		return null;
@@ -76,8 +78,13 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	}
 
 	@Override
-	public List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType) {
-		return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmer( fromDate, toDate, animalType);
+	public List<Object[]> findByDateAndTypeAndSumTotalAmountByFarmer(LocalDate fromDate, LocalDate toDate, String animalType,String Flag) {
+		if ("Payment".equals(Flag)) {
+	        return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmerForPayment(fromDate, toDate, animalType);
+	    } else {
+	      
+	        return milkCollectionRepository.findByDateAndTypeAndSumTotalAmountAndQuantityByFarmerForBonus(fromDate, toDate, animalType);
+	    }
 	}
 
 	@Override
@@ -99,13 +106,6 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 
 		return milkCollectionMapper.toList(milkCollection);
 	}
-    
-//	@Override
-//	public List<MilkCollectionResponseDto> getRecordsByFarmerId(Long farmerId) {		
-//	    List<MilkCollection> milkCollection = milkCollectionRepository.findByFarmerId(farmerId);
-//	     return milkCollectionMapper.toList(milkCollection);
-//	}
-
 	@Override
 	public List<MilkCollectionResponseDto> getRecordsByFarmerIdFromDateAndToDateAndAnimalType(Long farmerId,
 			LocalDate fromDate, LocalDate toDate, String animalType) {		
@@ -115,11 +115,42 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	}
 
 	@Override
+	public boolean updatePaymentStatusbyFarmerIdBranchIdAndMilktype(MilkCollectionRequestDto dto) {
+	    // Convert farmerId and branchId to Farmer and Branch entities
+	    Farmer farmer = farmerRepository.findById((long) dto.getFarmerId()).orElse(null);
+	    Branch branch = branchRepository.findById(dto.getBranchId()).orElse(null);
+
+	    if (farmer != null && branch != null) {
+	        // Fetch records with matching criteria
+	        List<MilkCollection> matchingRecords = milkCollectionRepository.findByFarmerAndBranchAndType(farmer, branch, dto.getAnimalType());
+
+	        if (!matchingRecords.isEmpty()) {
+	            // Update payment status for matching records
+	            for (MilkCollection record : matchingRecords) {
+	                record.setPayment_status("Paid");
+	            }
+
+	            // Save the updated entities back to the repository
+	            milkCollectionRepository.saveAll(matchingRecords);
+
+	            return true;  // Update successful
+	        } else {
+	            return false; // No matching records found
+	        }
+	    } else {
+	        return false; // Farmer or Branch not found, update failed
+	    }
+	}
+
+@Override
 	public Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift,int branchId) {
         LocalDate today = LocalDate.now();
         return milkCollectionRepository.findSumOfMilkCollectionByTypeAndShiftForToday(today, animalType, shift,branchId);
     }
 
+
+
 	
 
 }
+
