@@ -1,5 +1,6 @@
 package com.dairy.dto.paymentToFarmer;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -12,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class PaymentToFarmerRequestDto {
 	
 	
-	private Date invoice_date;
-	private Date from_date;
-	private Date to_date;
+	private LocalDate invoice_date;
+	private LocalDate from_date;
+	private LocalDate to_date;
 	private Float amount;
 	private Long farmer;
 

@@ -75,10 +75,11 @@ public class MilkCollectionController {
 	
 	 @GetMapping("/{fromDate}/{toDate}/{animalType}/{flag}")
 	    public ResponseEntity<List<MilkCollectionResponseDto>> findByFromDateAndToDateAndAnimalType(
-	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
-	            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
+	    		@PathVariable("fromDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	    		@PathVariable("toDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
 	            @PathVariable String animalType,@PathVariable String flag) {
 		 		
+		 System.out.println("FROM:"+fromDate+"to DATE:"+ toDate);
 		
 		 List<Object[]> totalAmountResults = milkCollectionService.findByDateAndTypeAndSumTotalAmountByFarmer(fromDate, toDate, animalType,flag);		
 		 // Create a map to easily access the total amount and total quantity by farmer ID

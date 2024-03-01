@@ -1,6 +1,7 @@
 
 package com.dairy.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -24,10 +25,10 @@ public class PaymentToFarmer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Date invoice_date;
+	private LocalDate invoice_date;
 	
-	private Date from_date;
-	private Date to_date;
+	private LocalDate from_date;
+	private LocalDate to_date;
 	private Float amount;
 	
 	@ManyToOne
