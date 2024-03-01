@@ -69,5 +69,14 @@ public class FarmerController {
 	}
 
 	
+	 @GetMapping("/countActiveFarmers/branch/{branchId}")
+	    public long countActiveFarmersByBranchId(@PathVariable int branchId) {
+	        return farmerService.countActiveFarmersByBranchId(branchId);
+	    }
+	 
+	 @GetMapping("/countInActiveFarmers/branch/{branchId}")
+	    public long countInActiveFarmersByBranchId(@PathVariable int branchId) {
+	        return farmerService.countInActiveFarmersByBranchId(branchId);
+	    }
 
 }

@@ -1,3 +1,4 @@
+
 package com.dairy.controller;
 
 import java.util.List;
@@ -56,5 +57,10 @@ public class FeedStockController {
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_FEEDSTOCK_ERROR_MSG);
 	}
+  	@GetMapping("/totalQuantity/branch/{branchId}")
+	public long getTotalQuantityByBranch(@PathVariable int branchId) {
+	    return feedStockService.getTotalQuantityByBranch(branchId);
+	}
 
 }
+

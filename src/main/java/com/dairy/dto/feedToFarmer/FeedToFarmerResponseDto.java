@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 public class FeedToFarmerResponseDto {
 	private Long id;
-	private LocalDateTime dateOfPurchase;
+	private LocalDate dateOfPurchase;
 	private Integer quantity;
 	private Float feedRate;
 	private Float totalAmount;

@@ -1,3 +1,4 @@
+
 package com.dairy.service.impl;
 
 import java.time.LocalDate;
@@ -141,9 +142,15 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	    }
 	}
 
+@Override
+	public Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift,int branchId) {
+        LocalDate today = LocalDate.now();
+        return milkCollectionRepository.findSumOfMilkCollectionByTypeAndShiftForToday(today, animalType, shift,branchId);
+    }
 
 
 
 	
 
 }
+

@@ -1,3 +1,4 @@
+
 package com.dairy.service;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface FeedStockService {
 	FeedStockResponseDto findById(int id ,int branchId);
 
 	boolean updateFeedStock(FeedStockRequestDto feedStockRequestDto);
+  
+  	int getTotalQuantityByBranch(int branchId);
+
 }

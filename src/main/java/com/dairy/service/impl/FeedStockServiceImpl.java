@@ -1,3 +1,4 @@
+
 package com.dairy.service.impl;
 
 import java.util.List;
@@ -123,5 +124,12 @@ public class FeedStockServiceImpl implements FeedStockService {
 		}
 		return false;
 	}
+  
+  
+	@Override
+	public int getTotalQuantityByBranch(int branchId) {
+		return feedStockRepository.getTotalQuantityByBranch(branchId);
+	}
 
 }
+
