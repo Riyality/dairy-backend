@@ -41,7 +41,6 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	@Autowired
 	private FarmerRepository farmerRepository;
 
-
 	@Override
 	public List<MilkCollectionResponseDto> getAllMilkCollectionData() {
 		return null;
@@ -103,7 +102,6 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 			milkCollection = milkCollectionRepository.findByBranchAndDateOfCollection(branchOptional.get(),
 					dateOfCollection);
 		}
-
 		return milkCollectionMapper.toList(milkCollection);
 	}
 	@Override
@@ -116,23 +114,17 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 
 	@Override
 	public boolean updatePaymentStatusbyFarmerIdBranchIdAndMilktype(MilkCollectionRequestDto dto) {
-	    // Convert farmerId and branchId to Farmer and Branch entities
 	    Farmer farmer = farmerRepository.findById((long) dto.getFarmerId()).orElse(null);
 	    Branch branch = branchRepository.findById(dto.getBranchId()).orElse(null);
 
 	    if (farmer != null && branch != null) {
-	        // Fetch records with matching criteria
 	        List<MilkCollection> matchingRecords = milkCollectionRepository.findByFarmerAndBranchAndType(farmer, branch, dto.getAnimalType());
-
 	        if (!matchingRecords.isEmpty()) {
-	            // Update payment status for matching records
-	            for (MilkCollection record : matchingRecords) {
+	           
+	            for (MilkCollection record : matchingRecords) { // Update payment status for matching records
 	                record.setPayment_status("Paid");
 	            }
-
-	            // Save the updated entities back to the repository
-	            milkCollectionRepository.saveAll(matchingRecords);
-
+            milkCollectionRepository.saveAll(matchingRecords);
 	            return true;  // Update successful
 	        } else {
 	            return false; // No matching records found
@@ -146,9 +138,61 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	public Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift,int branchId) {
         LocalDate today = LocalDate.now();
         return milkCollectionRepository.findSumOfMilkCollectionByTypeAndShiftForToday(today, animalType, shift,branchId);
+    }@Override
+	public List<MilkCollectionResponseDto> getMilkCollectionDataByFromDateTodateMilktypeShiftAndBranchId(
+	        LocalDate fromDate, LocalDate toDate, String milkType, String shift, int branchId, String flagValue) {
+	    if ("both".equals(milkType) && isNumeric(flagValue) && "morningEvening".equals(shift)) {
+	        long farmerId = Long.parseLong(flagValue);
+	        Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+	        List<MilkCollection> milkCollections = milkCollectionRepository
+	                .findByDateOfCollectionBetweenAndBranchIdAndFarmer(fromDate, toDate, branchId,farmer);
+	        return milkCollectionMapper.toList(milkCollections);
+	    }
+	    if ("both".equals(milkType) && isNumeric(flagValue)) {
+	        long farmerId = Long.parseLong(flagValue);
+	        Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+	        List<MilkCollection> milkCollections = milkCollectionRepository
+	                .findByDateOfCollectionBetweenAndShiftAndBranchIdAndFarmer(fromDate, toDate, shift, branchId, farmer);
+	        return milkCollectionMapper.toList(milkCollections);
+	    }
+	    if ("both".equals(milkType) && "all".equals(flagValue) && "morningEvening".equals(shift)) {
+	    	List<MilkCollection> milkCollections = milkCollectionRepository
+	                .findByDateOfCollectionBetweenAndBranchId(fromDate, toDate, branchId);
+	        return milkCollectionMapper.toList(milkCollections);
+	    }
+	    if ("both".equals(milkType)) {
+	        System.out.println("both");
+	        List<MilkCollection> milkCollections = milkCollectionRepository
+	                .findByDateOfCollectionBetweenAndShiftAndBranchId(fromDate, toDate, shift, branchId);
+	        return milkCollectionMapper.toList(milkCollections);
+	    }
+	    if ("all".equals(flagValue)&& "morningEvening".equals(shift)) {
+        System.out.println("all And morningEvening");
+        List<MilkCollection> milkCollections = milkCollectionRepository
+                .findByDateOfCollectionBetweenAndTypeAndBranchId(fromDate, toDate, milkType,  branchId);
+        return milkCollectionMapper.toList(milkCollections);
+	    }
+	    if ("all".equals(flagValue)) {
+	        List<MilkCollection> milkCollections = milkCollectionRepository
+	                .findByDateOfCollectionBetweenAndTypeAndShiftAndBranchId(fromDate, toDate, milkType, shift, branchId);
+	        return milkCollectionMapper.toList(milkCollections);
+	    }
+	    // Handle the case when milkType is not both and farmerwise is selected
+	    long farmerId = Long.parseLong(flagValue);
+	    Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+	    List<MilkCollection> milkCollections = milkCollectionRepository
+	            .findByDateOfCollectionBetweenAndTypeAndShiftAndBranchIdAndFarmer(fromDate, toDate, milkType, shift, branchId, farmer);
+	    	return milkCollectionMapper.toList(milkCollections);
+	}
+
+    private boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
-
-
 
 	
 

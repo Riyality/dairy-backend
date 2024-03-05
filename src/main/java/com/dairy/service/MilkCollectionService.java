@@ -27,9 +27,11 @@ public interface MilkCollectionService {
 
 	Float findSumOfMilkCollectionByTypeAndShiftForToday(String animalType, String shift, int branchId);
 
-		
 
 	boolean updatePaymentStatusbyFarmerIdBranchIdAndMilktype(MilkCollectionRequestDto dto);
+
+	List<MilkCollectionResponseDto> getMilkCollectionDataByFromDateTodateMilktypeShiftAndBranchId(LocalDate fromDate, LocalDate toDate,
+			String milkType, String shift, int branchId, String flagValue);
 
 	
 

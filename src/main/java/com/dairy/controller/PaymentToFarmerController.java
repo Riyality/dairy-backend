@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dairy.constants.MessageConstants;
-import com.dairy.dto.employee.EmployeeResponseDto;
 import com.dairy.dto.milkCollection.MilkCollectionRequestDto;
 import com.dairy.dto.paymentToFarmer.PaymentToFarmerRequestDto;
 import com.dairy.dto.paymentToFarmer.PaymentToFarmerResponseDto;
@@ -35,7 +34,6 @@ public class PaymentToFarmerController {
 	PaymentToFarmerService paymentToFarmerService;
 	@Autowired
 	private MilkCollectionService milkCollectionService;
-	
 	@PostMapping
 	public ResponseEntity<String> addPayment(@RequestBody PaymentToFarmerRequestDto dto, HttpSession session) {
 	
@@ -52,23 +50,23 @@ public class PaymentToFarmerController {
 
 	}
 
-
 	@GetMapping("all/{branchId}")
 	public ResponseEntity<List<PaymentToFarmerResponseDto>> getAllPaymentList(@PathVariable int branchId ) {
 		return new ResponseEntity<>(paymentToFarmerService.getAllPaymentList(branchId), HttpStatus.OK);
 	}
 	
-	@GetMapping("datewise/{fromDate}/{toDate}/{milkType}/{branchId}")
+	@GetMapping("datewise/{fromDate}/{toDate}/{milkType}/{branchId}/{flag}")
 	public ResponseEntity<List<PaymentToFarmerResponseDto>> getPaymentListBetweenFromDateAndToDate(
 			@PathVariable("fromDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
     		@PathVariable("toDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
     		@PathVariable String milkType,
-    		@PathVariable int branchId) {
-		return new ResponseEntity<>(paymentToFarmerService.getPaymentListBetweenFromDateAndToDate(fromDate,toDate,milkType,branchId), HttpStatus.OK);
+    		@PathVariable int branchId,@PathVariable String flag) {
+		return new ResponseEntity<>(paymentToFarmerService.getPaymentListBetweenFromDateAndToDate(fromDate,toDate,milkType,branchId,flag), HttpStatus.OK);
 	}
 	
 	
-
+	
+	  
 }
 
 
