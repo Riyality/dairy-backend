@@ -87,7 +87,37 @@ public interface MilkCollectionRepository extends JpaRepository<MilkCollection, 
 
 	List<MilkCollection> findAllByFarmer(Farmer farmer);
 
+	List<MilkCollection> findByDateOfCollectionBetweenAndTypeAndShiftAndBranchId(LocalDate fromDate, LocalDate toDate,
+			String milkType, String shift, int branchId);
 
+	List<MilkCollection> findByDateOfCollectionBetweenAndTypeAndShiftAndBranchIdAndFarmer(LocalDate fromDate,
+			LocalDate toDate, String milkType, String shift, int branchId, Optional<Farmer> farmer);
+
+
+	List<MilkCollection> findByDateOfCollectionBetweenAndShiftAndBranchId(LocalDate fromDate, LocalDate toDate,
+			String shift, int branchId);
+
+
+
+	List<MilkCollection> findByDateOfCollectionBetweenAndShiftAndBranchIdAndFarmer(LocalDate fromDate, LocalDate toDate,
+			String shift, int branchId, Optional<Farmer> farmer);
+
+
+
+
+
+	List<MilkCollection> findByDateOfCollectionBetweenAndBranchId(LocalDate fromDate, LocalDate toDate, int branchId);
+
+
+	List<MilkCollection> findByDateOfCollectionBetweenAndBranchIdAndFarmer(LocalDate fromDate, LocalDate toDate,
+			int branchId, Optional<Farmer> farmer);
+
+
+	List<MilkCollection> findByDateOfCollectionBetweenAndTypeAndBranchId(LocalDate fromDate, LocalDate toDate,
+			String milkType, int branchId);
+
+
+	
 
 	
    }

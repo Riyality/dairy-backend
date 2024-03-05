@@ -45,10 +45,8 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 	@Autowired
 	private FeedToFarmerRepository feedToFarmerRepository;
 	
-	
 	@Autowired
 	FeedToFarmerService feedToFarmerService;
-	
 
 	@Autowired 
 	AdvanceToFarmerService advanceToFarmerService;
@@ -60,8 +58,7 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 	
 	@Override
 	public boolean addPayment(PaymentToFarmerRequestDto paymentToFarmerRequestDto) {
-
-	    try {
+		try {
 	        PaymentToFarmer paymentToFarmer = paymentToFarmerMapper.toEntity(paymentToFarmerRequestDto);
 	        Optional<Branch> opt = branchRepository.findById(paymentToFarmerRequestDto.getBranch());
 	        Optional<Farmer> opt2 = farmerRepository.findById(paymentToFarmerRequestDto.getFarmer());	       
@@ -113,7 +110,6 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 		
 		Optional<Branch> branchOptional = branchRepository.findById(branchId);
 		if (branchOptional.isPresent()) {
-			
 			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranch(branchOptional.get());
 			return paymentTofarmerMapper.toList(list);
 		}
@@ -121,16 +117,36 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 	}
 	@Override
 	public List<PaymentToFarmerResponseDto> getPaymentListBetweenFromDateAndToDate(LocalDate fromDate, LocalDate toDate,
-			String milkType, int branchId) {
-		
-		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+			String milkType, int branchId,String flag) {
+			Optional<Branch> branchOptional = branchRepository.findById(branchId);
 		if (branchOptional.isPresent()) {
+			if ("both".equals(milkType) && isNumeric(flag)) {
+				long farmerId = Long.parseLong(flag);
+				    Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+				    List<PaymentToFarmer> list = paymentToFarmerRepository.findAllByBranchAndInvoice_DateBetweenAndFarmer(
+				            branchOptional.get(), fromDate, toDate, farmer.orElse(null));
+				    return paymentTofarmerMapper.toList(list);
+			}
 			
-			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndDateBetweenFromDateAndToDate(branchOptional.get(),fromDate,toDate);
+			if ("both".equals(milkType)) {
+		        List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndDateBetweenFromDateAndToDate(branchOptional.get(),fromDate,toDate);
+				return paymentTofarmerMapper.toList(list);
+		       }
+			
+			//For Payment Invoice
+			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndInvoice_DateBetweenAndMilkType(branchOptional.get(),fromDate,toDate,milkType);
 			return paymentTofarmerMapper.toList(list);
 		}
 		
 		return null;
 	}
+	private boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 	}

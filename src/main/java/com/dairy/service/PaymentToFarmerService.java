@@ -14,6 +14,6 @@ public interface PaymentToFarmerService {
 
 	List<PaymentToFarmerResponseDto> getAllPaymentList(int branchId);
 
-	List<PaymentToFarmerResponseDto> getPaymentListBetweenFromDateAndToDate(LocalDate fromDate, LocalDate toDate, String milkType, int branchId);
+	List<PaymentToFarmerResponseDto> getPaymentListBetweenFromDateAndToDate(LocalDate fromDate, LocalDate toDate, String milkType, int branchId, String flag);
 
 }

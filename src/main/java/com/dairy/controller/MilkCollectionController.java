@@ -154,7 +154,19 @@ public class MilkCollectionController {
 	  
 	  
 	  
-	  
+	  @GetMapping("getMilkCollectionDataBy/{fromDate}/{toDate}/{milkType}/{shift}/{branchId}/{flagValue}")
+	    public ResponseEntity<List<MilkCollectionResponseDto>> getMilkCollectionDataByFromDateTodateMilktypeShiftAndBranchId(
+	    		@PathVariable("fromDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	    		@PathVariable("toDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
+	    		@PathVariable String milkType,
+	            @PathVariable String shift,
+	            @PathVariable int branchId, @PathVariable String flagValue) {
+		 
+		  List<MilkCollectionResponseDto> dtos = milkCollectionService.getMilkCollectionDataByFromDateTodateMilktypeShiftAndBranchId(
+		            fromDate, toDate, milkType, shift, branchId,flagValue);
+
+		    return new ResponseEntity<>(dtos, HttpStatus.OK);
+	    }
 	 
 
 
