@@ -1,6 +1,6 @@
 package com.dairy.dto.feedStock;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FeedStockResponseDto {
 	private int id;
-	private LocalDateTime dateOfPurchase;
+	private LocalDate dateOfPurchase;
 	private Float feedCostPerUnit;
 	private int quantity;
 	private Float totalAmount;

@@ -18,4 +18,6 @@ public interface FeedStockService {
   
   	int getTotalQuantityByBranch(int branchId);
 
+	boolean addFeedStock(List<FeedStockRequestDto> feedStockRequestDtoList);
+
 }
