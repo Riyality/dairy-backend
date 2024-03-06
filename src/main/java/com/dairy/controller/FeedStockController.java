@@ -26,8 +26,12 @@ public class FeedStockController {
 	FeedStockService feedStockService;
 
 	@PostMapping
-	public ResponseEntity<String> addFeedStock(@RequestBody FeedStockRequestDto feedStockRequestDto) {
-		boolean add = feedStockService.addFeedStock(feedStockRequestDto);
+	public ResponseEntity<String> addFeedStock(@RequestBody List<FeedStockRequestDto> feedStockRequestDtoList) {
+		
+		System.out.println("Feed :"+feedStockRequestDtoList);
+		
+		
+		boolean add = feedStockService.addFeedStock(feedStockRequestDtoList);
 		if (add)
 			return ResponseEntity.status(HttpStatus.CREATED).body(MessageConstants.ADD_FEEDSTOCK_SUCCESS_MESSAGE);
 
@@ -35,6 +39,8 @@ public class FeedStockController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_FEEDSTOCK_ERROR_MSG);
 	
 	}
+	
+	
 
 	@GetMapping("all/{branchId}")
 	public ResponseEntity<List<FeedStockResponseDto>> getAllFeed(@PathVariable int branchId) {

@@ -1,6 +1,6 @@
 package com.dairy.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class FeedStock {
 	@Column(name = "id")
 	private int id;
 	
-	private LocalDateTime dateOfPurchase;
+	private LocalDate dateOfPurchase;
 	
 	private Float feedCostPerUnit;
 	

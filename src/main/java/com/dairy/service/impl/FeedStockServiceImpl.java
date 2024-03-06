@@ -131,5 +131,34 @@ public class FeedStockServiceImpl implements FeedStockService {
 		return feedStockRepository.getTotalQuantityByBranch(branchId);
 	}
 
+
+	@Override
+	public boolean addFeedStock(List<FeedStockRequestDto> feedStockRequestDtoList) {
+		 try {
+		        for (FeedStockRequestDto feedStockRequestDto : feedStockRequestDtoList) {
+		            FeedStock feedStock = feedStockMapper.toEntity(feedStockRequestDto);
+
+		            Optional<Branch> branchopt = branchRepository.findById(feedStockRequestDto.getBranchId());
+		            branchopt.ifPresent(feedStock::setBranch);
+
+		            Optional<Supplier> suppopt = supplierRepository.findById(feedStockRequestDto.getSupplierId());
+		            suppopt.ifPresent(feedStock::setSupplier);
+
+		            Optional<FeedCompany> feedcompopt = feedcompanyRepository.findById(feedStockRequestDto.getFeedCompanyId());
+		            feedcompopt.ifPresent(feedStock::setFeedCompany);
+
+		            Optional<FeedType> feedtypeopt = feedTypeRepository.findById(feedStockRequestDto.getFeedTypeId());
+		            feedtypeopt.ifPresent(feedStock::setFeedType);
+
+		            feedStockRepository.save(feedStock);
+		        }
+		        return true;
+		    } catch (Exception e) {
+		        log.error(e.getMessage(), e);
+		        return false;
+		    }
+	}
+
+
 }
 
