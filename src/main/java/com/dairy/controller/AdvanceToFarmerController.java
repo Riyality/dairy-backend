@@ -1,8 +1,10 @@
 package com.dairy.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,6 @@ import com.dairy.constants.MessageConstants;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerRequestDto;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
-import com.dairy.entity.FeedToFarmer;
 import com.dairy.service.AdvanceToFarmerService;
 
 @RestController
@@ -73,5 +74,11 @@ public class AdvanceToFarmerController {
 
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_ADVANCETOFARMER_ERROR_MSG);
+	}
+	
+	@GetMapping("datewise/{fromDate}/{toDate}/{branchId}/{flag}")
+	public ResponseEntity<List<AdvanceToFarmerResponseDto>> getAdvanceRecordsDatewise(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,@PathVariable int branchId,@PathVariable String flag) {
+		return new ResponseEntity<>(advanceToFarmerService.getAdvanceRecordsDatewise(fromDate,toDate,branchId,flag), HttpStatus.OK);
 	}
 }

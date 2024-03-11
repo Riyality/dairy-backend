@@ -95,5 +95,18 @@ public class FeedToFarmerController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.UPDATE_FEEDTOFARMER_ERROR_MSG);
 		
 	}
+	
+	@GetMapping("/datewiseFeed/{fromDate}/{toDate}/{branchId}/{flag}")
+	public ResponseEntity<List<FeedToFarmerResponseDto>> getRecordsDatewise( @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+	        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,@PathVariable int branchId,@PathVariable String flag) {
+		
+	    List<FeedToFarmerResponseDto> result = feedToFarmerService.getRecordsDatewise(fromDate,toDate,branchId,flag);
+	    return ResponseEntity.status(HttpStatus.OK).body(result);
+	}
+	
 
+	
+	
+	
+	
 }

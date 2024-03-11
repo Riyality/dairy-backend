@@ -63,7 +63,7 @@ public class MilkCollectionController {
 
 	@PostMapping("/branchId/{branchId}")
 	public ResponseEntity<String> addMilkCollectionData( @RequestBody MilkCollectionRequestDto milkCollectionRequestDto,@PathVariable int branchId ) {
-	System.out.println("BRANCH ID:"+branchId);
+	
 		boolean isAdded = milkCollectionService.addMilkCollectionData( milkCollectionRequestDto,branchId );
 		if ( isAdded )
 			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.ADD_BRANCH_SUCCESS_MESSAGE );

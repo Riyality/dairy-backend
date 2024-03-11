@@ -1,5 +1,6 @@
 package com.dairy.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.Branch;
+import com.dairy.entity.Farmer;
 
 @Repository
 public interface AdvanceToFarmerRepository extends JpaRepository<AdvanceToFarmer, Long> {
@@ -26,4 +28,9 @@ public interface AdvanceToFarmerRepository extends JpaRepository<AdvanceToFarmer
 	List<AdvanceToFarmer> findByBranch(Branch branch);
 
 	Optional<AdvanceToFarmer> findByIdAndBranch(long id, Branch branch);
+
+	List<AdvanceToFarmer> findByDateOfAdvanceBetweenAndBranch(LocalDate fromDate, LocalDate toDate, Branch branch);
+
+	List<AdvanceToFarmer> findByDateOfAdvanceBetweenAndBranchAndFarmer(LocalDate fromDate, LocalDate toDate,
+			Branch branch, Optional<Farmer> farmer);
 }

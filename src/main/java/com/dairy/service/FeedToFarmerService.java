@@ -23,6 +23,8 @@ public interface FeedToFarmerService {
 
 	List<FeedToFarmer> getFarmersByFarmerId(Long farmerId);
 
+	List<FeedToFarmerResponseDto> getRecordsDatewise(LocalDate fromDate, LocalDate toDate, int branchId, String flag);
+
 	
 
 }

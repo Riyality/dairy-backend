@@ -1,6 +1,7 @@
 package com.dairy.service.impl;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -142,6 +143,41 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
         return feedToFarmerRepository.findAllByFarmerId(farmerId);
     }
 
+
+	@Override
+	public List<FeedToFarmerResponseDto> getRecordsDatewise(LocalDate fromDate, LocalDate toDate,int branchId,String flag) {
+       System.out.println(flag);
+       if ("all".equals(flag)) {
+		List<FeedToFarmer> list=feedToFarmerRepository.findByDateOfPurchaseBetweenAndBranchId(fromDate,toDate,branchId);
+		return feedToFarmerMapper.toList(list);
+       }
+       if( ! isNumeric(flag)) {
+    	   Long feedCompanyId = (long) Integer.parseInt(flag.substring(0, 1));
+    	   System.out.println(feedCompanyId);
+    	   Optional<FeedCompany> feedCompanyOpt = feedcompanyRepository.findById(feedCompanyId);
+    	    if (feedCompanyOpt.isPresent()) {
+    	        List<FeedToFarmer> list = feedToFarmerRepository.findByDateOfPurchaseBetweenAndBranchIdAndFeedCompany(
+    	            fromDate, toDate, branchId, feedCompanyOpt);
+    	        System.out.println(list);
+    	        return feedToFarmerMapper.toList(list);
+    	    } else {
+    	        return Collections.emptyList(); // or throw an exception or handle accordingly
+    	    }
+    	    
+  }
+       long farmerId = Long.parseLong(flag);
+       Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+       List<FeedToFarmer> list=feedToFarmerRepository.findByDateOfPurchaseBetweenAndBranchIdAndFarmer(fromDate,toDate,branchId,farmer);
+		return feedToFarmerMapper.toList(list);
+	}
+	 private boolean isNumeric(String str) {
+	        try {
+	            Long.parseLong(str);
+	            return true;
+	        } catch (NumberFormatException e) {
+	            return false;
+	        }
+	    }
 
 
 }

@@ -120,6 +120,12 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 			String milkType, int branchId,String flag) {
 			Optional<Branch> branchOptional = branchRepository.findById(branchId);
 		if (branchOptional.isPresent()) {
+			//invoice
+			if ("invoice".equals(flag)) {
+			//For Payment Invoice
+			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndInvoice_DateBetweenAndMilkType(branchOptional.get(),fromDate,toDate,milkType);
+			return paymentTofarmerMapper.toList(list);
+			}
 			if ("both".equals(milkType) && isNumeric(flag)) {
 				long farmerId = Long.parseLong(flag);
 				    Optional<Farmer> farmer = farmerRepository.findById(farmerId);
@@ -133,9 +139,6 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 				return paymentTofarmerMapper.toList(list);
 		       }
 			
-			//For Payment Invoice
-			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndInvoice_DateBetweenAndMilkType(branchOptional.get(),fromDate,toDate,milkType);
-			return paymentTofarmerMapper.toList(list);
 		}
 		
 		return null;

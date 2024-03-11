@@ -1,5 +1,6 @@
 package com.dairy.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,6 @@ import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
-import com.dairy.entity.FeedToFarmer;
 import com.dairy.mapper.advanceToFarmer.AdvanceToFarmerMapper;
 import com.dairy.repository.AdvanceToFarmerRepository;
 import com.dairy.repository.BranchRepository;
@@ -123,4 +123,31 @@ public class AdvanceToFarmerServiceImpl implements AdvanceToFarmerService {
         // Check if the record exists and return it, otherwise return null
         return advanceToFarmerOptional.orElse(null);
 	}
+
+
+	@Override
+	public List<AdvanceToFarmerResponseDto> getAdvanceRecordsDatewise(LocalDate fromDate, LocalDate toDate,
+			int branchId,String flag) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			if (isNumeric(flag)) {
+				 long farmerId = Long.parseLong(flag);
+			        Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+			        List<AdvanceToFarmer> advanceToFarmer = advanceToFarmerRepository.findByDateOfAdvanceBetweenAndBranchAndFarmer(fromDate,toDate, branchOptional.get(),farmer );
+					return advanceToFarmerMapper.toList(advanceToFarmer); 
+			 }
+			List<AdvanceToFarmer> advanceToFarmer = advanceToFarmerRepository.findByDateOfAdvanceBetweenAndBranch(fromDate,toDate, branchOptional.get() );
+			return advanceToFarmerMapper.toList(advanceToFarmer);
+		}
+		return null;
+	}
+	 private boolean isNumeric(String str) {
+	        try {
+	            Long.parseLong(str);
+	            return true;
+	        } catch (NumberFormatException e) {
+	            return false;
+	        }
+	    }
+
 }
