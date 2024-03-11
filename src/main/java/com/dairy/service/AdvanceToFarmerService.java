@@ -1,11 +1,11 @@
 package com.dairy.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerRequestDto;
 import com.dairy.dto.advanceToFarmer.AdvanceToFarmerResponseDto;
 import com.dairy.entity.AdvanceToFarmer;
-import com.dairy.entity.FeedToFarmer;
 
 public interface AdvanceToFarmerService {
 
@@ -20,6 +20,8 @@ public interface AdvanceToFarmerService {
 	Double findTotalOfRemainingAmountByFarmerIdAndBranchId(Long farmerId, int branchId);
 
 	AdvanceToFarmer getAdvanceToFarmerByFarmerId(Long farmerId);
+
+	List<AdvanceToFarmerResponseDto> getAdvanceRecordsDatewise(LocalDate fromDate, LocalDate toDate, int branchId, String flag);
 
 
 

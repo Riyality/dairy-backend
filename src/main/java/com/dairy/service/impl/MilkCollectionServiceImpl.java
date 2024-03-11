@@ -141,6 +141,8 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
     }@Override
 	public List<MilkCollectionResponseDto> getMilkCollectionDataByFromDateTodateMilktypeShiftAndBranchId(
 	        LocalDate fromDate, LocalDate toDate, String milkType, String shift, int branchId, String flagValue) {
+    	
+    	System.out.println(milkType+"  "+shift+" "+flagValue);
 	    if ("both".equals(milkType) && isNumeric(flagValue) && "morningEvening".equals(shift)) {
 	        long farmerId = Long.parseLong(flagValue);
 	        Optional<Farmer> farmer = farmerRepository.findById(farmerId);
@@ -166,7 +168,7 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
 	                .findByDateOfCollectionBetweenAndShiftAndBranchId(fromDate, toDate, shift, branchId);
 	        return milkCollectionMapper.toList(milkCollections);
 	    }
-	    if ("all".equals(flagValue)&& "morningEvening".equals(shift)) {
+	    if ("all".equals(flagValue) && "morningEvening".equals(shift)) {
         System.out.println("all And morningEvening");
         List<MilkCollection> milkCollections = milkCollectionRepository
                 .findByDateOfCollectionBetweenAndTypeAndBranchId(fromDate, toDate, milkType,  branchId);
