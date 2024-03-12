@@ -195,8 +195,37 @@ public class MilkCollectionServiceImpl implements MilkCollectionService {
             return false;
         }
     }
+    
+    @Override
+	public List<MilkCollectionResponseDto> getMilkCollectionDataBydateMilktypeShiftAndBranchId(LocalDate date,
+			String milkType, String shift, int branchId) {
+		List<MilkCollection> milkCollection = null;
+		System.out.println(milkType+"  "+shift);
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
 
-	
+		if (branchOptional.isPresent()) { 
+			
+			if ("both".equals(milkType) && "morningEvening".equals(shift)) {
+               
+                milkCollection = milkCollectionRepository.findByDateOfCollectionAndBranchId(
+                        date, branchId);
+            }else if ("both".equals(milkType)) {
+	               
+                milkCollection = milkCollectionRepository.findByDateOfCollectionAndShiftAndBranchId(
+                        date,shift, branchId);
+			} else if ("morningEvening".equals(shift)) {
+	               
+                milkCollection = milkCollectionRepository.findByDateOfCollectionAndTypeAndBranchId(
+                        date,milkType, branchId);
+			}else {
+			milkCollection = milkCollectionRepository.findByDateOfCollectionAndTypeAndShiftAndBranchId(date,
+				 milkType,  shift,  branchId);
+		}
+			
+		}
+		
+		return milkCollectionMapper.toList(milkCollection);
+    }	
 
 }
 
