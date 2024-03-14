@@ -1,5 +1,4 @@
 
-
 package com.dairy.controller;
 
 
@@ -63,8 +62,6 @@ public class PaymentToFarmerController {
     		@PathVariable int branchId,@PathVariable String flag) {
 		return new ResponseEntity<>(paymentToFarmerService.getPaymentListBetweenFromDateAndToDate(fromDate,toDate,milkType,branchId,flag), HttpStatus.OK);
 	}
-	
-	
 	
 	  
 }

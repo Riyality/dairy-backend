@@ -2,8 +2,6 @@
 package com.dairy.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +37,7 @@ public class PaymentToFarmer {
 	@JoinColumn(name = "branch")
 	private Branch branch;
 	
-	private Long total_collected_milk;
+	private Float total_collected_milk;
 	private String milktype;
 	
 	private Float feed_deduction;

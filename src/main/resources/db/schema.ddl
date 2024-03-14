@@ -138,6 +138,22 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`id`));
 
 
+CREATE TABLE `feed_details` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `feed_type` bigint DEFAULT NULL,
+  `feed_company` bigint DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  `branch` int DEFAULT NULL,
+  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `feed_details_ibfk_3_idx` (`branch`),
+  CONSTRAINT `feed_details_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`),
+  CONSTRAINT `feedDetails1` FOREIGN KEY (`id`) REFERENCES `feed_types` (`id`),
+  CONSTRAINT `feedDetails2` FOREIGN KEY (`id`) REFERENCES `feed_company` (`id`)
+); 
+
+
 CREATE TABLE `dairy`.`route` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,

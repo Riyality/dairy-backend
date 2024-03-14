@@ -18,9 +18,8 @@ public class PaymentToFarmerRequestDto {
 	private LocalDate to_date;
 	private Float amount;
 	private Long farmer;
-
 	private int branch;
-	private Long total_collected_milk;
+	private Float total_collected_milk;
 	private String milktype;	
 	private Float feed_deduction;
 	private Float advance_deduction;

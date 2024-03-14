@@ -4,18 +4,25 @@ package com.dairy.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dairy.dto.feedDetails.FeedDetailsRequestDto;
+import com.dairy.dto.feedDetails.FeedDetailsResponseDto;
 import com.dairy.dto.feedStock.FeedStockRequestDto;
 import com.dairy.dto.feedStock.FeedStockResponseDto;
 import com.dairy.entity.Branch;
 import com.dairy.entity.FeedCompany;
+import com.dairy.entity.FeedDetails;
 import com.dairy.entity.FeedStock;
 import com.dairy.entity.FeedType;
 import com.dairy.entity.Supplier;
+import com.dairy.mapper.feedDetails.FeedDetailsMapper;
 import com.dairy.mapper.feedStock.FeedStockMapper;
 import com.dairy.repository.BranchRepository;
+import com.dairy.repository.FeedDetailsRepository;
 import com.dairy.repository.FeedStockRepository;
 import com.dairy.repository.FeedTypeRepository;
 import com.dairy.repository.FeedcompanyRepository;
@@ -33,6 +40,8 @@ public class FeedStockServiceImpl implements FeedStockService {
 
 	@Autowired
 	FeedStockRepository feedStockRepository;
+	@Autowired
+	FeedDetailsRepository feeddetailsRepository;
 
 	@Autowired
 	FeedcompanyRepository feedcompanyRepository;
@@ -40,6 +49,9 @@ public class FeedStockServiceImpl implements FeedStockService {
 	@Autowired
 	FeedTypeRepository feedTypeRepository;
 
+	@Autowired
+	FeedDetailsMapper feedDetailsMapper;
+	
 	@Autowired
 	SupplierRepository supplierRepository;
 
@@ -128,36 +140,77 @@ public class FeedStockServiceImpl implements FeedStockService {
   
 	@Override
 	public int getTotalQuantityByBranch(int branchId) {
-		return feedStockRepository.getTotalQuantityByBranch(branchId);
+		return feeddetailsRepository.getTotalQuantityByBranch(branchId);
 	}
 
-
+	@Transactional
 	@Override
 	public boolean addFeedStock(List<FeedStockRequestDto> feedStockRequestDtoList) {
-		 try {
-		        for (FeedStockRequestDto feedStockRequestDto : feedStockRequestDtoList) {
-		            FeedStock feedStock = feedStockMapper.toEntity(feedStockRequestDto);
+	    try {
+	    	
+	    	for (FeedStockRequestDto feedStockRequestDto : feedStockRequestDtoList) {
+	            FeedStock feedStock = feedStockMapper.toEntity(feedStockRequestDto);
 
-		            Optional<Branch> branchopt = branchRepository.findById(feedStockRequestDto.getBranchId());
-		            branchopt.ifPresent(feedStock::setBranch);
+	            Optional<Branch> branchopt = branchRepository.findById(feedStockRequestDto.getBranchId());
+	            branchopt.ifPresent(feedStock::setBranch);
 
-		            Optional<Supplier> suppopt = supplierRepository.findById(feedStockRequestDto.getSupplierId());
-		            suppopt.ifPresent(feedStock::setSupplier);
+	            Optional<Supplier> suppopt = supplierRepository.findById(feedStockRequestDto.getSupplierId());
+	            suppopt.ifPresent(feedStock::setSupplier);
 
-		            Optional<FeedCompany> feedcompopt = feedcompanyRepository.findById(feedStockRequestDto.getFeedCompanyId());
-		            feedcompopt.ifPresent(feedStock::setFeedCompany);
+	            Optional<FeedCompany> feedcompopt = feedcompanyRepository.findById(feedStockRequestDto.getFeedCompanyId());
+	            feedcompopt.ifPresent(feedStock::setFeedCompany);
 
-		            Optional<FeedType> feedtypeopt = feedTypeRepository.findById(feedStockRequestDto.getFeedTypeId());
-		            feedtypeopt.ifPresent(feedStock::setFeedType);
+	            Optional<FeedType> feedtypeopt = feedTypeRepository.findById(feedStockRequestDto.getFeedTypeId());
+	            feedtypeopt.ifPresent(feedStock::setFeedType);
+	            
+	            // Check if FeedTypeId and FeedCompanyId already exist in FeedDetails
+	            Optional<FeedDetails> existingFeedDetailsOpt = feeddetailsRepository.findByFeedCompanyIdAndFeedTypeId(
+	                feedStockRequestDto.getFeedCompanyId(), feedStockRequestDto.getFeedTypeId());
 
-		            feedStockRepository.save(feedStock);
-		        }
-		        return true;
-		    } catch (Exception e) {
-		        log.error(e.getMessage(), e);
-		        return false;
-		    }
+	            FeedDetails feedDetails;
+	            if (existingFeedDetailsOpt.isPresent()) {
+	                // If exists, update the quantity
+	                feedDetails = existingFeedDetailsOpt.get();
+	                feedDetails.setQuantity(feedDetails.getQuantity() + feedStockRequestDto.getQuantity());
+	            } else {
+	                // If not exists, create a new record
+	            	FeedDetailsRequestDto dto = new FeedDetailsRequestDto();
+	                dto.setFeedCompanyId(feedStockRequestDto.getFeedCompanyId());
+	                dto.setFeedTypeId(feedStockRequestDto.getFeedTypeId());
+	                dto.setQuantity(feedStockRequestDto.getQuantity());
+	                dto.setBranchId(feedStockRequestDto.getBranchId());
+	                feedDetails = feedDetailsMapper.toEntity(dto);
+	            }
+
+	            feeddetailsRepository.save(feedDetails);
+	            feedStockRepository.save(feedStock);
+	        }
+	        return true;
+	    } catch (Exception e) {
+	        log.error(e.getMessage(), e);
+	        return false;
+	    }
 	}
+
+	@Override
+	public long getFeedQuantityByFeedTypeFeedCompanyAndBranch(long feedTypeId, long feedCompanyId, int branchId) {
+		
+		
+		return feeddetailsRepository.getFeedQuantityByFeedTypeFeedCompanyAndBranch(feedTypeId,feedCompanyId,branchId);
+	}
+
+	@Override
+	public List<FeedDetailsResponseDto> getAllFeedDetails(int branchId) {
+		
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			List<FeedDetails> feedDetails = feeddetailsRepository.findByBranch( branchOptional.get() );
+			return feedDetailsMapper.toList(feedDetails);
+		}
+		
+		return null;
+	}
+
 
 
 }

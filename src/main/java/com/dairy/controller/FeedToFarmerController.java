@@ -49,8 +49,6 @@ public class FeedToFarmerController {
 		return  ResponseEntity.status( HttpStatus.OK ).body( feedToFarmerService.findByIdFeedTOFarmer( id ) );
 		
 	}
-	
-	
 
 	@GetMapping("/{farmerId}/{branchId}/{fromDate}/{toDate}")
 	public ResponseEntity<Double> findTotalOfRemainingAmountByFarmerIdAndBranchId(
@@ -63,9 +61,6 @@ public class FeedToFarmerController {
 	    return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
-
-	
-	
 	@GetMapping("/farmerId/{farmerId}")
 	public ResponseEntity<FeedToFarmer> findByFarmerId(
 	        @PathVariable("farmerId") Long farmerId) {

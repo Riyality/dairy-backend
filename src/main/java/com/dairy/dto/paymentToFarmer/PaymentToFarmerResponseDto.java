@@ -23,23 +23,15 @@ public class PaymentToFarmerResponseDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 	private LocalDate invoice_date;
-	
 	private LocalDate from_date;
 	private LocalDate to_date;
 	private float amount;
-	
-
 	private Long farmer;
-	
 	private String farmerName;
-
 	private int branch;
-	
-	private Long total_collected_milk;
+	private Float total_collected_milk;
 	private String milktype;
-	
 	private float feed_deduction;
 	private float advance_deduction;
 	private String payment_method;

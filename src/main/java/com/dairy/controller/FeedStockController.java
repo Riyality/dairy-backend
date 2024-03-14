@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dairy.constants.MessageConstants;
+import com.dairy.dto.feedDetails.FeedDetailsResponseDto;
 import com.dairy.dto.feedStock.FeedStockRequestDto;
 import com.dairy.dto.feedStock.FeedStockResponseDto;
 import com.dairy.service.FeedStockService;
@@ -28,8 +29,6 @@ public class FeedStockController {
 	@PostMapping
 	public ResponseEntity<String> addFeedStock(@RequestBody List<FeedStockRequestDto> feedStockRequestDtoList) {
 		
-		System.out.println("Feed :"+feedStockRequestDtoList);
-		
 		
 		boolean add = feedStockService.addFeedStock(feedStockRequestDtoList);
 		if (add)
@@ -39,12 +38,15 @@ public class FeedStockController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstants.ADD_FEEDSTOCK_ERROR_MSG);
 	
 	}
-	
-	
 
 	@GetMapping("all/{branchId}")
 	public ResponseEntity<List<FeedStockResponseDto>> getAllFeed(@PathVariable int branchId) {
 		return new ResponseEntity<>(feedStockService.getAllFeed(branchId), HttpStatus.OK);
+	}
+	
+	@GetMapping("/allFeedDetails/{branchId}")
+	public ResponseEntity<List<FeedDetailsResponseDto>> getAllFeedDetails(@PathVariable int branchId) {
+		return new ResponseEntity<>(feedStockService.getAllFeedDetails(branchId), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}/{branchId}")
@@ -52,6 +54,13 @@ public class FeedStockController {
 	{
 		return ResponseEntity.status(HttpStatus.OK).body(feedStockService.findById(id ,branchId));
 		
+	}
+	
+
+	@GetMapping("feedTypeId/{feedTypeId}/feedCompanyId/{feedCompanyId}/Branch/{branchId}")
+	public long getFeedQuantityByFeedTypeFeedCompanyAndBranch(@PathVariable long feedTypeId,
+			@PathVariable long feedCompanyId,@PathVariable int branchId) {
+		return feedStockService.getFeedQuantityByFeedTypeFeedCompanyAndBranch(feedTypeId,feedCompanyId,branchId);
 	}
 	
 	@PutMapping()

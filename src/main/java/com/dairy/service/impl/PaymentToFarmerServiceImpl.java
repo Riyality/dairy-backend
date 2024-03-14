@@ -126,6 +126,7 @@ public class PaymentToFarmerServiceImpl implements PaymentToFarmerService{
 			List<PaymentToFarmer> list=paymentToFarmerRepository.findAllByBranchAndInvoice_DateBetweenAndMilkType(branchOptional.get(),fromDate,toDate,milkType);
 			return paymentTofarmerMapper.toList(list);
 			}
+			//For Payment Report
 			if ("both".equals(milkType) && isNumeric(flag)) {
 				long farmerId = Long.parseLong(flag);
 				    Optional<Farmer> farmer = farmerRepository.findById(farmerId);
