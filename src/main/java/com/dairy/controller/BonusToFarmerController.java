@@ -1,10 +1,10 @@
 package com.dairy.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +35,7 @@ public class BonusToFarmerController {
 		else
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_BONUS_ERROR_MSG );
 	}
-	
+
 	
 	
 	 @GetMapping("/branch/{id}")
@@ -43,6 +43,12 @@ public class BonusToFarmerController {
 		 	
 		 return new ResponseEntity<>( bonusToFarmerService.findAllBonusStatus( id ), HttpStatus.OK );
     }
+	 
+	 @GetMapping("/datewise/{fromDate}/{toDate}/{branchId}/{flag}")
+		public ResponseEntity<List<BonusToFarmerResponseDto>> getBonusRecordsDatewise(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+		        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,@PathVariable int branchId,@PathVariable String flag) {
+			return new ResponseEntity<>(bonusToFarmerService.getBonusRecordsDatewise(fromDate,toDate,branchId,flag), HttpStatus.OK);
+		}
 	 
 	
 

@@ -21,6 +21,7 @@ public class BonusToFarmerMapper {
 		BonusToFarmer bonusToFarmer = new BonusToFarmer();
 		bonusToFarmer.setId(bonusToFarmerRequestDto.getId());
 		bonusToFarmer.setFromDate(bonusToFarmerRequestDto.getFromDate());
+		bonusToFarmer.setBonusDate(bonusToFarmerRequestDto.getBonusDate());
 		bonusToFarmer.setToDate(bonusToFarmerRequestDto.getToDate());
 		bonusToFarmer.setBonusAmountPerLiter(bonusToFarmerRequestDto.getBonusAmountPerLiter());
 		bonusToFarmer.setTotalQuantity(bonusToFarmerRequestDto.getTotalQuantity());
@@ -34,6 +35,7 @@ public class BonusToFarmerMapper {
 		BonusToFarmerResponseDto responseDto = new BonusToFarmerResponseDto();
 		responseDto.setId(bonusToFarmer.getId());
 		responseDto.setFromDate(bonusToFarmer.getFromDate());
+		responseDto.setBonusDate(bonusToFarmer.getBonusDate());
 		responseDto.setToDate(bonusToFarmer.getToDate());
 		responseDto.setTotalQuantity(bonusToFarmer.getTotalQuantity());
 		responseDto.setBonusAmountPerLiter(bonusToFarmer.getBonusAmountPerLiter());
