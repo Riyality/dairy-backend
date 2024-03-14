@@ -25,8 +25,7 @@ public class PaymentToFarmerMapper {
 		paymentToFarmer.setFrom_date(requestdto.getFrom_date());
 		paymentToFarmer.setTo_date(requestdto.getTo_date());	
 		paymentToFarmer.setAmount(requestdto.getAmount());
-		//paymentToFarmer.setFarmer(requestdto.getFarmer());
-		//paymentToFarmer.setBranch(requestdto.getBranch().getId());
+		
 		
 		paymentToFarmer.setTotal_collected_milk(requestdto.getTotal_collected_milk());
 		paymentToFarmer.setMilktype(requestdto.getMilktype());
