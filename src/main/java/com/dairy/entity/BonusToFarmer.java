@@ -1,6 +1,6 @@
 package com.dairy.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,10 +25,13 @@ public class BonusToFarmer {
     private int id;
 
     @Column(name = "from_date")
-    private Date fromDate;
+    private LocalDate fromDate;
 
     @Column(name = "to_date")
-    private Date toDate;
+    private LocalDate toDate;
+    
+    @Column(name = "bonus_date")
+    private LocalDate bonusDate;
 
     @Column(name = "total_quntity")
     private float totalQuantity;

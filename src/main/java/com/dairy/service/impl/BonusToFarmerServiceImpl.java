@@ -1,5 +1,6 @@
 package com.dairy.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dairy.dto.bonusToFarmer.BonusToFarmerRequestDto;
 import com.dairy.dto.bonusToFarmer.BonusToFarmerResponseDto;
+import com.dairy.entity.AdvanceToFarmer;
 import com.dairy.entity.BonusToFarmer;
 import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
@@ -63,4 +65,29 @@ public class BonusToFarmerServiceImpl implements BonusToFarmerService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<BonusToFarmerResponseDto> getBonusRecordsDatewise(LocalDate fromDate, LocalDate toDate, int branchId,
+			String flag) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+			if (isNumeric(flag)) {
+				 long farmerId = Long.parseLong(flag);
+			        Optional<Farmer> farmer = farmerRepository.findById(farmerId);
+			        List<BonusToFarmer> advanceToFarmer = bonusToFarmerRepository.findByBonusDateBetweenAndBranchAndFarmer(fromDate,toDate, branchOptional.get(),farmer );
+					return bonusToFarmerMapper.toList(advanceToFarmer); 
+			 }
+			List<BonusToFarmer> bonusToFarmer = bonusToFarmerRepository.findByBonusDateBetweenAndBranch(fromDate,toDate, branchOptional.get() );
+			return bonusToFarmerMapper.toList(bonusToFarmer);
+		}
+		return null;	}
+	
+	private boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

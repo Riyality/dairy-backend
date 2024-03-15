@@ -305,8 +305,9 @@ CREATE TABLE `payment_to_farmer` (
 
 CREATE TABLE `bonus_of_farmer` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `from_date` date NULL  NULL,
-  `to_date` date NULL  NULL,
+  `bonus_date`timestamp NULL DEFAULT NULL,
+   `from_date` timestamp NULL DEFAULT NULL,
+  `to_date` timestamp NULL DEFAULT NULL,
  `total_quntity` float Null,
  `bonus_amount_per_liter` float  NULL,
  `total_bonus_amount` float  NULL,

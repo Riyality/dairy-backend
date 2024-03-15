@@ -1,6 +1,6 @@
 package com.dairy.dto.bonusToFarmer;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +10,9 @@ import lombok.Setter;
 public class BonusToFarmerRequestDto {
 	private int id;
 
-	private Date fromDate;
-	private Date toDate;
+	private LocalDate fromDate;
+	private LocalDate toDate;
+	private LocalDate bonusDate;
 	private float totalQuantity;
 	private float bonusAmountPerLiter;
 	private float totalBonusAmount;
