@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.dairy.dto.branch.BranchResponseDto;
 import com.dairy.dto.equipment.EquipmentResponseDto;
+import com.dairy.dto.farmers.FarmerRequestDto;
 import com.dairy.dto.route.RouteRequestDto;
 import com.dairy.dto.route.RouteResponseDto;
 import com.dairy.entity.Branch;
@@ -40,6 +41,7 @@ public class RouteMapper {
 		responseDto.setId( route.getId() );
 		responseDto.setName( route.getName() );
 		responseDto.setRemark( route.getRemark() );
+		responseDto.setBranchId(route.getBranch().getId());
 
 		return responseDto;
 	}
@@ -52,5 +54,29 @@ public class RouteMapper {
 		return dtos;
 
 	}
+
+	public List<Route> listToentity(List<RouteRequestDto> dtoList) {
+		List <Route> route = new ArrayList<>();
+		for(RouteRequestDto dto : dtoList) {
+			route.add(toEntitylist(dto));
+		}
+		return route;
+	}
+
+	private Route toEntitylist(RouteRequestDto dto) {
+		Route r = new Route();
+		
+		Branch b = new Branch();
+		
+		r.setId(dto.getId());
+		r.setName(dto.getName());
+		r.setRemark(dto.getRemark());
+		
+		b.setId(dto.getBranchId());
+		r.setBranch(b);
+		return r;
+	}
+
+	
 	
 }

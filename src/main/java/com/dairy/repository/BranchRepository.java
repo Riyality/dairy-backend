@@ -10,5 +10,11 @@ import com.dairy.entity.Branch;
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, Integer> {
 	List<Branch> findAll();
+
+	Branch findBranchById(int id);
+
+	
+
+	
 }
 

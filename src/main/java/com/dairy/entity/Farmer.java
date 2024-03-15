@@ -54,4 +54,6 @@ public class Farmer {
 	@JoinColumn( name = "branch" )
 	private Branch branch;
 
+	
+
 }

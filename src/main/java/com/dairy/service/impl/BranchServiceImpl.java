@@ -109,4 +109,14 @@ public class BranchServiceImpl implements BranchService {
 		}
 		return false;
 	}
+
+	@Override
+	public BranchRequestDto saveAllbranch(List<BranchRequestDto> dto) {
+		try {
+			branchRepository.saveAll( branchMapper.listToentity(dto));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

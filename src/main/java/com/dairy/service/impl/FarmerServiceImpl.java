@@ -1,7 +1,11 @@
 package com.dairy.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -158,5 +162,16 @@ public class FarmerServiceImpl implements FarmerService {
 	@Override
 	public long countInActiveFarmersByBranchId(int branchId) {
 		 return farmerRepository.countInActiveFarmersByBranchId(branchId);
+	}
+
+	@Override
+	public FarmerRequestDto saveAllfarmer(List<FarmerRequestDto> dtoList) {
+		try {
+			farmerRepository.saveAll( farmerMapper.listToentity(dtoList));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 }

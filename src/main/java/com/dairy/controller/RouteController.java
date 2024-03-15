@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dairy.constants.MessageConstants;
 import com.dairy.dto.branch.BranchRequestDto;
 import com.dairy.dto.branch.BranchResponseDto;
+import com.dairy.dto.farmers.FarmerRequestDto;
 import com.dairy.dto.route.RouteRequestDto;
 import com.dairy.dto.route.RouteResponseDto;
 import com.dairy.service.RouteService;
@@ -59,5 +60,16 @@ public class RouteController {
 		else
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.UPDATE_ROUTE_ERROR_MSG );
 	}
+	
+	 @PostMapping("/saveAllRoutes")
+		public ResponseEntity<RouteRequestDto> saveAllRouteList(@RequestBody List<RouteRequestDto> dto) {
+		 RouteRequestDto RouteRequestDto = routeService.saveAllRoute(dto);
+		   
+		    if (RouteRequestDto != null) {
+		        return ResponseEntity.status(HttpStatus.CREATED).body(RouteRequestDto);
+		    } else {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+		}
 
 }

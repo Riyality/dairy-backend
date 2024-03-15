@@ -13,4 +13,6 @@ public interface BranchService {
 	BranchResponseDto findById( int id );
 
 	boolean updateBranch( BranchRequestDto dto );
+
+	BranchRequestDto saveAllbranch(List<BranchRequestDto> dto);
 }

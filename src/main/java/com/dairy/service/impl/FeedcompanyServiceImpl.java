@@ -92,4 +92,14 @@ public class FeedcompanyServiceImpl implements FeedCompanyService {
 	return false;
 	}
 
+	@Override
+	public FeedCompanyRequestDto saveAllFeedCompanyList(List<FeedCompanyRequestDto> dtoList) {
+		try {
+			feedComponyRepository.saveAll(feedCompanyMapper.listToentity(dtoList));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

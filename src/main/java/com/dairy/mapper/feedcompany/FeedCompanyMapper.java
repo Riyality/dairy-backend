@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 
 import com.dairy.dto.feedcompany.FeedCompanyRequestDto;
 import com.dairy.dto.feedcompany.FeedCompanyResponseDto;
+import com.dairy.dto.route.RouteRequestDto;
+import com.dairy.entity.Branch;
 import com.dairy.entity.FeedCompany;
+import com.dairy.entity.Route;
 
 @Component
 public class FeedCompanyMapper {
@@ -47,6 +50,27 @@ public class FeedCompanyMapper {
 		}
 		return dtos;
 
+	}
+
+	public List<FeedCompany> listToentity(List<FeedCompanyRequestDto> dtoList) {
+		List<FeedCompany> Feedcompany = new ArrayList<>();
+		for(FeedCompanyRequestDto dto : dtoList) {
+			Feedcompany.add(toEntitylist(dto));
+		}
+		return Feedcompany;
+	}
+
+	private FeedCompany toEntitylist(FeedCompanyRequestDto dto) {
+		FeedCompany feedcompany = new FeedCompany();
+		Branch branch = new Branch();
+		
+		feedcompany.setId(dto.getId());
+		feedcompany.setName(dto.getName());
+		feedcompany.setRemark(dto.getRemark());
+		branch.setId(dto.getBranchId());
+		feedcompany.setBranch(branch);
+		
+		return feedcompany;
 	}
 
 }

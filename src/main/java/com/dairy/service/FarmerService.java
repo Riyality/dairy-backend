@@ -23,4 +23,6 @@ public interface FarmerService {
 
 	long countInActiveFarmersByBranchId(int branchId);
 
+	FarmerRequestDto saveAllfarmer(List<FarmerRequestDto> dto);
+
 }
