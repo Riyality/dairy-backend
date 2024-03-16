@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dairy.constants.MessageConstants;
 import com.dairy.dto.branch.BranchRequestDto;
 import com.dairy.dto.branch.BranchResponseDto;
+import com.dairy.dto.farmers.FarmerRequestDto;
 import com.dairy.service.BranchService;
 
 @RestController
@@ -54,4 +55,16 @@ public class BranchController {
 		else
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.UPDATE_BRANCH_ERROR_MSG );
 	}
+	
+	 @PostMapping("/saveAllbranch")
+		public ResponseEntity<BranchRequestDto> saveAllbranchList(@RequestBody List<BranchRequestDto> dto) {
+		 BranchRequestDto BranchRequestDto = branchService.saveAllbranch(dto);
+		   
+		    if (BranchRequestDto != null) {
+		        return ResponseEntity.status(HttpStatus.CREATED).body(BranchRequestDto);
+		    } else {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+		}
+
 }

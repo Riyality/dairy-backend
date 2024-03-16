@@ -78,5 +78,16 @@ public class FarmerController {
 	    public long countInActiveFarmersByBranchId(@PathVariable int branchId) {
 	        return farmerService.countInActiveFarmersByBranchId(branchId);
 	    }
+	 
+	 @PostMapping("/saveAllFarmer")
+		public ResponseEntity<FarmerRequestDto> saveAllfarmerList(@RequestBody List<FarmerRequestDto> dto) {
+		 FarmerRequestDto FarmerRequestDto = farmerService.saveAllfarmer(dto);
+		   
+		    if (FarmerRequestDto != null) {
+		        return ResponseEntity.status(HttpStatus.CREATED).body(FarmerRequestDto);
+		    } else {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+		}
 
 }

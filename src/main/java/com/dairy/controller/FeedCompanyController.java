@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dairy.constants.MessageConstants;
+import com.dairy.dto.farmers.FarmerRequestDto;
 import com.dairy.dto.feedcompany.FeedCompanyRequestDto;
 import com.dairy.dto.feedcompany.FeedCompanyResponseDto;
 import com.dairy.service.FeedCompanyService;
@@ -58,8 +59,19 @@ public class FeedCompanyController {
 		else
 			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.UPDATE_FEEDCOMPANY_ERROR_MESSAGE );
 	}
+	
+	 @PostMapping("/saveAll")
+		public ResponseEntity<FeedCompanyRequestDto> saveAllFeedCompanyList(@RequestBody List<FeedCompanyRequestDto> dto) {
+		 FeedCompanyRequestDto FeedCompanyRequestDto = feedCompanyService.saveAllFeedCompanyList(dto);
+		   
+		    if (FeedCompanyRequestDto != null) {
+		        return ResponseEntity.status(HttpStatus.CREATED).body(FeedCompanyRequestDto);
+		    } else {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+		}
 		
-	}
+}
 	
 
 	

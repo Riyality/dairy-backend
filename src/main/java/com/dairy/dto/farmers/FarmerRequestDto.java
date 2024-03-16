@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.dairy.dto.bankdetails.BankRequestDto;
+import com.dairy.dto.route.RouteRequestDto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,4 +37,6 @@ public class FarmerRequestDto {
 	
 	private int branchId;
 	private BankRequestDto bankRequestDto;
+	
+	private RouteRequestDto RouteRequestDto;
 }

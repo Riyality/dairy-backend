@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.dairy.dto.branch.BranchRequestDto;
 import com.dairy.dto.branch.BranchResponseDto;
 import com.dairy.entity.Branch;
+import com.dairy.entity.Farmer;
 
 @Component
 public class BranchMapper {
@@ -51,5 +52,27 @@ public class BranchMapper {
 		}
 		return dtos;
 
+	}
+
+	public Iterable listToentity(List<BranchRequestDto> dto) {
+		List<Branch> branch = new ArrayList<>();
+		for(BranchRequestDto entity: dto) {
+			branch.add(toEntitySave(entity));			
+		}
+		return branch;
+	}
+
+	private Branch toEntitySave(BranchRequestDto entity) {
+		Branch branch = new Branch();
+		
+		branch.setId(entity.getId());
+		branch.setName(entity.getName());
+		branch.setAddress(entity.getAddress());
+		branch.setOwner(entity.getOwner());
+		branch.setOwnerContact(entity.getOwnerContact());
+		branch.setStartDate(entity.getStartDate());
+		branch.setOwnerContact(entity.getOwnerContact());
+		branch.setRemark(entity.getRemark());
+		return branch;
 	}
 }

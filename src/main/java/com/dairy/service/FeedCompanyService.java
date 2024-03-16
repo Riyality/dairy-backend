@@ -15,4 +15,6 @@ public interface FeedCompanyService {
 
 	boolean updateFeedCompany(FeedCompanyRequestDto requestDto);
 
+	FeedCompanyRequestDto saveAllFeedCompanyList(List<FeedCompanyRequestDto> dto);
+
 }

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dairy.dto.farmers.FarmerRequestDto;
 import com.dairy.dto.route.RouteRequestDto;
 import com.dairy.dto.route.RouteResponseDto;
 import com.dairy.entity.Branch;
@@ -82,5 +83,17 @@ public class RouteServiceImpl implements RouteService {
 		}
 		return false;
 	}
+
+	@Override
+	public RouteRequestDto saveAllRoute(List<RouteRequestDto> dtoList) {
+		try {
+			routeRepository.saveAll( routeMapper.listToentity(dtoList));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 
 }
