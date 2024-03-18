@@ -66,10 +66,10 @@ public class MilkCollectionController {
 	
 		boolean isAdded = milkCollectionService.addMilkCollectionData( milkCollectionRequestDto,branchId );
 		if ( isAdded )
-			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.ADD_BRANCH_SUCCESS_MESSAGE );
+			return ResponseEntity.status( HttpStatus.CREATED ).body( MessageConstants.ADD_MILK_COLLECTION_SUCCESS_MESSAGE );
 
 		else
-			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_BRANCH_ERROR_MSG );
+			return ResponseEntity.status( HttpStatus.BAD_REQUEST ).body( MessageConstants.ADD_MILK_COLLECTION_ERROR_MSG );
 	}
 	
 	

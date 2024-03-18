@@ -22,11 +22,13 @@ public interface FeedDetailsRepository extends JpaRepository<FeedDetails, Intege
 	Optional<FeedDetails> findByFeedTypeAndFeedCompanyAndBranch(Optional<FeedType> feedTypeOpt,
 			Optional<FeedCompany> feedCompanyOpt, Optional<Branch> branchOpt);
 
-	 @Query("SELECT SUM(f.quantity) FROM FeedStock f WHERE f.branch.id = :branchId")
+	 @Query("SELECT SUM(f.quantity) FROM FeedDetails f WHERE f.branch.id = :branchId")
 	  int getTotalQuantityByBranch( @Param("branchId")int branchId);
 
 	 @Query("SELECT fd.quantity FROM FeedDetails fd WHERE fd.feedType.id = :feedTypeId AND fd.feedCompany.id = :feedCompanyId AND fd.branch.id = :branchId")
-	 long getFeedQuantityByFeedTypeFeedCompanyAndBranch(long feedTypeId, long feedCompanyId, int branchId);
+	    long getFeedQuantityByFeedTypeFeedCompanyAndBranch(@Param("feedTypeId") long feedTypeId,
+	                                                       @Param("feedCompanyId") long feedCompanyId,
+	                                                       @Param("branchId") int branchId);
 
 	List<FeedDetails> findByBranch(Branch branch);
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dairy.constants.MessageConstants;
 import com.dairy.dto.milkRate.MilkRateRequestDto;
 import com.dairy.service.MilkRateService;
 
@@ -40,9 +41,9 @@ public class MilkRateController {
                     allRatesSaved = false;
                 }
             }
-            return new ResponseEntity<>("Milk rates saved successfully", HttpStatus.OK);
+            return new ResponseEntity<>(MessageConstants.ADD_MILK_RATE_SUCCESS_MESSAGE, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error saving milk rates", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(MessageConstants.ADD_MILK_RATE_ERROR_MESSAGE, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 	
 }
