@@ -84,5 +84,11 @@ public class MessageConstants {
 
 	public static final String ADD_BONUS_SUCCESS_MESSAGE = "Bonus Added Successfully";
 	public static final String ADD_BONUS_ERROR_MSG = "Unable to add Bonus Record";
+	
+	public static final String ADD_MILK_COLLECTION_SUCCESS_MESSAGE = "Milk Collection added Successfully";
+	public static final String ADD_MILK_COLLECTION_ERROR_MSG = "Unable to add Milk Collection";
+	
+	public static final String ADD_MILK_RATE_SUCCESS_MESSAGE = "Milk rates saved successfully";
+	public static final String ADD_MILK_RATE_ERROR_MESSAGE = "Unable to add milk rates ";
 
 }
