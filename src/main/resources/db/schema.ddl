@@ -364,4 +364,9 @@ CREATE TABLE `dairy_manger` (
     PRIMARY KEY (`id`)
    
 );
+CREATE TABLE `default_language` (
+  `id` int NOT NULL,
+  `language` varchar(4) NOT NULL,
+  PRIMARY KEY (`id`)
+);
   
