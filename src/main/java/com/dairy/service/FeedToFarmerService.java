@@ -11,7 +11,7 @@ public interface FeedToFarmerService {
 
 	boolean addFeedToFarmer(FeedToFarmerRequestDto feedToFarmerReqDto);
 
-	List<FeedToFarmerResponseDto> getAllFeedToFarmer();
+	List<FeedToFarmerResponseDto> getAllFeedToFarmer(int branchId);
 
 	FeedToFarmerResponseDto findByIdFeedTOFarmer(Long id);
 
@@ -24,6 +24,8 @@ public interface FeedToFarmerService {
 	List<FeedToFarmer> getFarmersByFarmerId(Long farmerId);
 
 	List<FeedToFarmerResponseDto> getRecordsDatewise(LocalDate fromDate, LocalDate toDate, int branchId, String flag);
+
+	
 
 	
 

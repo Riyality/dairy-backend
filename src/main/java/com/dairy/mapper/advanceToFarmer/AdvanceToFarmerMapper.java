@@ -23,7 +23,7 @@ public class AdvanceToFarmerMapper {
 		advanceToFarmer.setDateOfAdvance(requestdto.getDateOfAdvance());
 		advanceToFarmer.setAmount(requestdto.getAmount());
 		advanceToFarmer.setRemark(requestdto.getRemark());
-		//advanceToFarmer.setRemainingAmount(requestdto.getRemainingAmount());
+		advanceToFarmer.setRemainingAmount(requestdto.getRemainingAmount());
 		return advanceToFarmer;
 
 	}
