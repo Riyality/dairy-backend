@@ -27,12 +27,13 @@ public class FeedToFarmerController {
 	@Autowired
 	FeedToFarmerService feedToFarmerService;
 
-	@GetMapping
-	public ResponseEntity<List<FeedToFarmerResponseDto>> getAllFeedToFarmer() {
-		return new ResponseEntity<>(feedToFarmerService.getAllFeedToFarmer(), HttpStatus.OK);
+	@GetMapping("/branch/{branchId}")
+	public ResponseEntity<List<FeedToFarmerResponseDto>> getAllFeedToFarmer(@PathVariable int branchId) {
+		return new ResponseEntity<>(feedToFarmerService.getAllFeedToFarmer(branchId), HttpStatus.OK);
 
 	}
-
+	
+	
 	@PostMapping
 	public ResponseEntity<String> addFeedToFarmer(@RequestBody FeedToFarmerRequestDto feedToFarmerReqDto) {
 		boolean add = feedToFarmerService.addFeedToFarmer(feedToFarmerReqDto);

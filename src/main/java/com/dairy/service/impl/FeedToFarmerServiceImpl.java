@@ -14,6 +14,7 @@ import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
 import com.dairy.entity.FeedCompany;
 import com.dairy.entity.FeedDetails;
+import com.dairy.entity.FeedStock;
 import com.dairy.entity.FeedToFarmer;
 import com.dairy.entity.FeedType;
 import com.dairy.mapper.feedToFarmer.FeedToFarmerMapper;
@@ -128,11 +129,17 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
 
 
 	@Override
-	public List<FeedToFarmerResponseDto> getAllFeedToFarmer() {
-		List<FeedToFarmer> feedToFarmer = feedToFarmerRepository.findAll();
+	public List<FeedToFarmerResponseDto> getAllFeedToFarmer(int branchId) {
+		
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+		List<FeedToFarmer> feedToFarmer = feedToFarmerRepository.findByBranch(branchOptional.get());
 		return feedToFarmerMapper.toList(feedToFarmer);
-
+		
+		}
+		return null;
 	}
+	
 
 
 	@Override
@@ -228,6 +235,9 @@ public class FeedToFarmerServiceImpl implements FeedToFarmerService {
 	            return false;
 	        }
 	    }
+
+
+	
 
 
 }

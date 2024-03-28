@@ -24,9 +24,9 @@ public class FarmerAnimalMappingController {
 	@Autowired
 	private FarmerAnimalMappingService farmerAnimalMappingService;
 
-	@GetMapping
-	public ResponseEntity<List<FarmerAnimalMappingResponseDto>> getAllAnimal() {
-		return new ResponseEntity<>(farmerAnimalMappingService.getAllAnimal(), HttpStatus.OK);
+	@GetMapping("/branch/{branchId}")
+	public ResponseEntity<List<FarmerAnimalMappingResponseDto>> getAllAnimal(@PathVariable int branchId) {
+		return new ResponseEntity<>(farmerAnimalMappingService.getAllAnimal(branchId), HttpStatus.OK);
 	}
 
 	@PostMapping

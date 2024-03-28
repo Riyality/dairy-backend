@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.dairy.entity.Branch;
 import com.dairy.entity.Farmer;
 import com.dairy.entity.FeedCompany;
 import com.dairy.entity.FeedToFarmer;
@@ -43,6 +44,8 @@ public interface FeedToFarmerRepository extends JpaRepository<FeedToFarmer, Long
 
 	List<FeedToFarmer> findByDateOfPurchaseBetweenAndBranchIdAndFeedCompany(LocalDate fromDate, LocalDate toDate,
 			int branchId, Optional<FeedCompany> feedCompanyOpt);
+
+	List<FeedToFarmer> findByBranch(Branch branch);
 	  
 	  
 }

@@ -36,11 +36,16 @@ public class FarmerAnimalMappingServiceImpl implements FarmerAnimalMappingServic
 	private FarmerRepository farmerRepository;
 
 	@Override
-	public List<FarmerAnimalMappingResponseDto> getAllAnimal() {
-		List<FarmerAnimalMapping> farmerAnimalMapping = farmerAnimalMappingRepository.findAll();
+	public List<FarmerAnimalMappingResponseDto> getAllAnimal(int branchId) {
+		Optional<Branch> branchOptional = branchRepository.findById(branchId);
+		if ( branchOptional.isPresent() ) {
+		List<FarmerAnimalMapping> farmerAnimalMapping = farmerAnimalMappingRepository.findByBranch(branchOptional.get());
 		return farmerAnimalMappingMapper.toList(farmerAnimalMapping);
-
+		}
+		return null;
 	}
+	
+	
 
 	@Override
 	public boolean createAnimal(FarmerAnimalMappingRequestDto reqDto) {

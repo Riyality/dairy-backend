@@ -7,7 +7,7 @@ import com.dairy.dto.FarmerAnimalMapping.FarmerAnimalMappingResponseDto;
 
 public interface FarmerAnimalMappingService {
 
-	List<FarmerAnimalMappingResponseDto> getAllAnimal();
+	List<FarmerAnimalMappingResponseDto> getAllAnimal(int branchId);
 
 	boolean createAnimal(FarmerAnimalMappingRequestDto reqDto);
 
